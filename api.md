@@ -3,5 +3,5 @@
 |:-------|:------:|
 |  Cell  |  Cell  | 
 |  Cell  |  Cell  | 
-| ====== | ====== |
-| Footer | Footer |
+
+
