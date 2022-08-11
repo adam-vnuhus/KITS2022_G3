@@ -1,6 +1,5 @@
 package com.example.Project_eMarket_G3.entity;
 
-import com.example.Project_eMarket_G3.Order;
 import lombok.*;
 import org.hibernate.Hibernate;
 
