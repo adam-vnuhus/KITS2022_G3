@@ -14,8 +14,8 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-@Table(name = "oder_detail")
-public class OderDetail {
+@Table(name = "order_detail")
+public class OrderDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
@@ -25,11 +25,11 @@ public class OderDetail {
     @Column(name = "quantity")
     private Integer quantity;
 
-    @OneToMany(mappedBy = "oder", orphanRemoval = true)
+    @OneToMany(mappedBy = "order", orphanRemoval = true)
     private Set<Product> products = new LinkedHashSet<>();
     @ManyToOne
-    @JoinColumn(name = "oder_id")
-    private Oder oder;
+    @JoinColumn(name = "order_id")
+    private Order order;
 
     @Column(name = "total")
     private Long total;
@@ -38,7 +38,7 @@ public class OderDetail {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        OderDetail that = (OderDetail) o;
+        OrderDetail that = (OrderDetail) o;
         return id != null && Objects.equals(id, that.id);
     }
 

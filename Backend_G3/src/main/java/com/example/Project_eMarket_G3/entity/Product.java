@@ -61,8 +61,8 @@ public class Product {
     private Category category;
 
     @ManyToOne
-    @JoinColumn(name = "oder_id")
-    private Oder oder;
+    @JoinColumn(name = "order_id")
+    private Order order;
 
     @OneToMany(mappedBy = "product", orphanRemoval = true)
     private Set<InOutput> inOutputs = new LinkedHashSet<>();
