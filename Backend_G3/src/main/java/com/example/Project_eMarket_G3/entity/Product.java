@@ -4,7 +4,6 @@ import lombok.*;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
-import java.sql.Date;
 import java.util.Objects;
 
 @Builder
@@ -50,6 +49,9 @@ public class Product {
     @Column(name = "slug")
     private String slug;
 
+    @Column(name = "avg_rating")
+    private Double avgRating;
+
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
@@ -57,11 +59,6 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "supplier_id")
     private Supplier supplier;
-
-    @OneToOne
-    @JoinColumn(name = "orderdetail_id")
-    private OrderDetail orderDetail;
-
 
     @Override
     public boolean equals(Object o) {
