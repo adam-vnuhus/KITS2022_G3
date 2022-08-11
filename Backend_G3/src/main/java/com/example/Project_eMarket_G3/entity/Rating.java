@@ -1,11 +1,9 @@
 package com.example.Project_eMarket_G3.entity;
 
 import lombok.*;
-import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.sql.Date;
-import java.util.Objects;
 
 @Builder
 @AllArgsConstructor
@@ -33,8 +31,8 @@ public class Rating {
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
-    @OneToOne
-    @JoinColumn(name="product_id")
+    @ManyToOne
+    @JoinColumn(name = "product_id")
     private Product product;
 
 }
