@@ -48,9 +48,6 @@ public class Admin {
     @Column(name = "role")
     private Integer role;
 
-    @ManyToOne
-    @JoinColumn(name = "orders_id")
-    private Orders orders;
 
 
 }

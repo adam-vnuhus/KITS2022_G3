@@ -33,4 +33,8 @@ public class Rating {
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
+    @OneToOne
+    @JoinColumn(name="product_id")
+    private Product product;
+
 }

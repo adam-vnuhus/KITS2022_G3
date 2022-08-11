@@ -44,6 +44,10 @@ public class Orders {
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
+    @ManyToOne
+    @JoinColumn(name = "admin_id")
+    private Admin admin;
+
     @PreRemove
     public void preRemove() {
         orderDetails.forEach(s -> s.setOrders(null));
