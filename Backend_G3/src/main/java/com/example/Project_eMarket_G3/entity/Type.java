@@ -10,14 +10,14 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-@Table(name = "rank")
-public class Rank {
+@Table(name = "type")
+public class Type {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "rank")
-    private String rank;
+    @Column(name = "name")
+    private String name;
 
 }

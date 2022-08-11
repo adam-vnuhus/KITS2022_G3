@@ -3,6 +3,7 @@ package com.example.Project_eMarket_G3.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.sql.Date;
 
 @Builder
 @AllArgsConstructor
@@ -36,12 +37,15 @@ public class User {
     private String address;
 
     @Column(name = "dob")
-    private String dob;
+    private Date dob;
 
     @Column(name = "image")
     private String image;
 
     @Column(name = "point")
     private String point;
+
+    @Column(name = "rank_point")
+    private Integer rank_point;
 
 }

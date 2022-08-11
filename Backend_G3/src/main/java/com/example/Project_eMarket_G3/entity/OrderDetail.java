@@ -21,18 +21,18 @@ public class OrderDetail {
     @Column(name = "id", nullable = false)
     private Long id;
 
-
     @Column(name = "quantity")
     private Integer quantity;
 
-    @OneToMany(mappedBy = "order", orphanRemoval = true)
-    private Set<Product> products = new LinkedHashSet<>();
-    @ManyToOne
-    @JoinColumn(name = "order_id")
-    private Order order;
-
     @Column(name = "total")
     private Long total;
+
+    @OneToMany(mappedBy = "orderDetail", orphanRemoval = true)
+    private Set<Product> products = new LinkedHashSet<>();
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "orders_id")
+    private Orders orders;
 
     @Override
     public boolean equals(Object o) {

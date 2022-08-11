@@ -5,9 +5,7 @@ import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.sql.Date;
-import java.util.LinkedHashSet;
 import java.util.Objects;
-import java.util.Set;
 
 @Builder
 @AllArgsConstructor
@@ -52,23 +50,22 @@ public class Product {
     @Column(name = "origin")
     private String origin;
 
-    @OneToOne(orphanRemoval = true)
-    @JoinColumn(name = "supplier_id")
-    private Supplier supplier;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "order_detail_id")
+    private OrderDetail orderDetail;
+
     @ManyToOne
-    @JoinColumn(name = "order_id")
-    private Order order;
+    @JoinColumn(name = "supplier_id")
+    private Supplier supplier;
 
-    @OneToMany(mappedBy = "product", orphanRemoval = true)
-    private Set<InOutput> inOutputs = new LinkedHashSet<>();
-
-    @OneToMany(mappedBy = "product", orphanRemoval = true)
-    private Set<Rating> ratings = new LinkedHashSet<>();
+    @ManyToOne
+    @JoinColumn(name = "rating_id")
+    private Rating rating;
 
     @Override
     public boolean equals(Object o) {

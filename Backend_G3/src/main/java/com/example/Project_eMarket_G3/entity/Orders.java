@@ -13,16 +13,13 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-@Table(name = "cart")
-public class Cart {
+@Table
+public class Orders {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
+    @Column(name = "id")
     private Long id;
-
-
-    @OneToMany(mappedBy = "cart", orphanRemoval = true)
-    private Set<CartDetail> cartDetails = new LinkedHashSet<>();
 
     @Column(name = "create_at")
     private Date createAt;
@@ -30,14 +27,14 @@ public class Cart {
     @Column(name = "note")
     private String note;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
-
     @Column(name = "total_price")
     private String totalPrice;
 
-    @Column(name = "type")
-    private String type;
+    @OneToMany(mappedBy = "orders", orphanRemoval = true)
+    private Set<OrderDetail> orderDetails = new LinkedHashSet<>();
+
+    @ManyToOne
+    @JoinColumn(name = "type_id")
+    private Type type;
 
 }
