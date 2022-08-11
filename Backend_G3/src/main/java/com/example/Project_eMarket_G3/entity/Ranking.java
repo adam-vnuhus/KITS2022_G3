@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-@Table(name = "point_rank")
+@Table
 public class Ranking {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
