@@ -8,6 +8,7 @@ import java.sql.Date;
 import java.util.Objects;
 
 @Builder
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -26,38 +27,32 @@ public class Product {
     @Column(name = "quantity")
     private Integer quantity;
 
-    @Column(name = "price_out")
-    private Long priceOut;
+    @Column(name = "buy_price")
+    private Long buyPrice;
 
-    @Column(name = "price_in")
-    private Long priceIn;
+    @Column(name = "sell_price")
+    private Long sellPrice;
 
     @Column(name = "image")
     private String image;
 
-    @Column(name = "purchases")
-    private String purchases;
 
     @Column(name = "sold")
     private Integer sold;
 
-    @Column(name = "create_at")
-    private Date createAt;
-
-    @Column(name = "update_at")
-    private Date updateAt;
 
     @Column(name = "origin")
     private String origin;
 
+    @Column(name = "description", length = 1000)
+    private String description;
+
+    @Column(name = "slug")
+    private String slug;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "order_detail_id")
-    private OrderDetail orderDetail;
 
     @ManyToOne
     @JoinColumn(name = "supplier_id")
@@ -66,6 +61,7 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "rating_id")
     private Rating rating;
+
 
     @Override
     public boolean equals(Object o) {

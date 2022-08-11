@@ -11,12 +11,16 @@ import java.sql.Date;
 @Getter
 @Setter
 @Entity
-@Table(name = "user")
-public class User {
+@ToString
+@Table(name = "customer")
+public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private Long id;
+
+    @Column(name = "id_c")
+    private String idC;
 
     @Column(name = "name")
     private String name;
@@ -45,7 +49,10 @@ public class User {
     @Column(name = "point")
     private String point;
 
-    @Column(name = "rank_point")
-    private Integer rank_point;
+    @ManyToOne
+    @JoinColumn(name = "ranking_id")
+    private Ranking ranking;
+
+
 
 }

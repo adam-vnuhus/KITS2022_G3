@@ -1,5 +1,6 @@
 package com.example.Project_eMarket_G3.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -14,6 +15,7 @@ import java.util.Set;
 @Setter
 @Entity
 @Table
+@ToString
 public class Orders {
 
     @Id
@@ -30,11 +32,21 @@ public class Orders {
     @Column(name = "total_price")
     private String totalPrice;
 
-    @OneToMany(mappedBy = "orders", orphanRemoval = true)
+    @OneToMany(mappedBy = "orders", orphanRemoval = false, cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @JsonIgnore
     private Set<OrderDetail> orderDetails = new LinkedHashSet<>();
 
     @ManyToOne
-    @JoinColumn(name = "type_id")
-    private Type type;
+    @JoinColumn(name = "status_id")
+    private Status status;
 
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
+
+    @PreRemove
+    public void preRemove() {
+        orderDetails.forEach(s -> s.setOrders(null));
+        orderDetails.clear();
+    }
 }

@@ -18,6 +18,9 @@ public class Admin {
     @Column(name = "id", nullable = false)
     private Long id;
 
+    @Column(name = "id_a")
+    private String idA;
+
     @Column(name = "name")
     private String name;
 
@@ -41,5 +44,13 @@ public class Admin {
 
     @Column(name = "password")
     private String password;
+
+    @Column(name = "role")
+    private Integer role;
+
+    @ManyToOne
+    @JoinColumn(name = "orders_id")
+    private Orders orders;
+
 
 }

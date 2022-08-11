@@ -29,4 +29,8 @@ public class Rating {
     @Column(name = "image")
     private String image;
 
+    @OneToOne(orphanRemoval = true)
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
+
 }

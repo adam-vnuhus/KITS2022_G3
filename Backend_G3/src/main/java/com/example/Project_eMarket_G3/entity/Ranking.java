@@ -10,8 +10,8 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-@Table(name = "type")
-public class Type {
+@Table(name = "point_rank")
+public class Ranking {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
@@ -19,5 +19,8 @@ public class Type {
 
     @Column(name = "name")
     private String name;
+
+    @Column(name = "discount")
+    private Integer discount;
 
 }

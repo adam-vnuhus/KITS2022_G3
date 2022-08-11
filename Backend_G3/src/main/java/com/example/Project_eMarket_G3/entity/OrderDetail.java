@@ -4,9 +4,7 @@ import lombok.*;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
-import java.util.LinkedHashSet;
 import java.util.Objects;
-import java.util.Set;
 
 @Builder
 @AllArgsConstructor
@@ -14,6 +12,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
+@ToString
 @Table(name = "order_detail")
 public class OrderDetail {
     @Id
@@ -27,12 +26,13 @@ public class OrderDetail {
     @Column(name = "total")
     private Long total;
 
-    @OneToMany(mappedBy = "orderDetail", orphanRemoval = true)
-    private Set<Product> products = new LinkedHashSet<>();
-
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "orders_id")
     private Orders orders;
+
+    @OneToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
 
     @Override
     public boolean equals(Object o) {
