@@ -58,7 +58,9 @@ public class Product {
     @JoinColumn(name = "supplier_id")
     private Supplier supplier;
 
-
+    @OneToOne
+    @JoinColumn(name = "orderdetail_id")
+    private OrderDetail orderDetail;
 
 
     @Override
