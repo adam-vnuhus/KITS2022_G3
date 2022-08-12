@@ -16,6 +16,22 @@
 |  /api/rating  |  danh sach rating  | 
 |  /api/rank  |  danh sach rank  |  
 |  /api/supplier  |  danh sach supplier  | 
+|  /purchases/{id}  |  so luong da ban cua san pham theo id  |  
+|  Cell  |  Cell  | 
+|  Cell  |  Cell  |  
+|  Cell  |  Cell  | 
+|  Cell  |  Cell  |  
+|  Cell  |  Cell  | 
+|  Cell  |  Cell  |  
+|  Cell  |  Cell  | 
+|  Cell  |  Cell  |  
+|  Cell  |  Cell  | 
+|  Cell  |  Cell  |  
+|  Cell  |  Cell  | 
+|  Cell  |  Cell  |  
+|  Cell  |  Cell  | 
+|  Cell  |  Cell  |  
+|  Cell  |  Cell  | 
 |  Cell  |  Cell  |  
 |  Cell  |  Cell  | 
 |  Cell  |  Cell  |  
