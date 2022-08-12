@@ -30,7 +30,7 @@ public class Orders {
     private String note;
 
     @Column(name = "total_price")
-    private String totalPrice;
+    private Long totalPrice;
 
     @OneToMany(mappedBy = "orders", orphanRemoval = false, cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JsonIgnore

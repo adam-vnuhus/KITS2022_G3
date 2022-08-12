@@ -32,7 +32,7 @@ public class Customer {
     private String email;
 
     @Column(name = "phone")
-    private Integer phone;
+    private String phone;
 
     @Column(name = "gender")
     private String gender;

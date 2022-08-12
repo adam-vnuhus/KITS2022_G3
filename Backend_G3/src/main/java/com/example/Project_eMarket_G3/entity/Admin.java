@@ -34,7 +34,7 @@ public class Admin {
     private String gender;
 
     @Column(name = "phone")
-    private Integer phone;
+    private String phone;
 
     @Column(name = "address")
     private String address;
