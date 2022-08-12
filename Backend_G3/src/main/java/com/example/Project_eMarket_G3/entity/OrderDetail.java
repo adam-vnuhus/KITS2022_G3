@@ -1,5 +1,6 @@
 package com.example.Project_eMarket_G3.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.Hibernate;
 
@@ -27,6 +28,7 @@ public class OrderDetail {
     private Long total;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "orders_id")
     private Orders orders;
 

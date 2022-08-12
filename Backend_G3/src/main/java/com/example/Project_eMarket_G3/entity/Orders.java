@@ -33,7 +33,6 @@ public class Orders {
     private Long totalPrice;
 
     @OneToMany(mappedBy = "orders", orphanRemoval = false, cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-    @JsonIgnore
     private Set<OrderDetail> orderDetails = new LinkedHashSet<>();
 
     @ManyToOne
