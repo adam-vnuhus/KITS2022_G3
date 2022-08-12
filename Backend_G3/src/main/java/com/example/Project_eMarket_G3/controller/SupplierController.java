@@ -20,4 +20,6 @@ public class SupplierController {
     public List<Supplier> getAllSup(){
         return supplierRepository.findAll();
     }
+
+
 }
