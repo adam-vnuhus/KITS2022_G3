@@ -7,9 +7,17 @@
 
 ------
 # API
-| BE | FE |   
+| BE |  |   
 |:-------|:------:|
+|  /products  |  danh sach san pham   | 
+|  /orders  |  danh sach orders  |  
 |  Cell  |  Cell  | 
+|  Cell  |  Cell  |  
 |  Cell  |  Cell  | 
+|  Cell  |  Cell  |  
+|  Cell  |  Cell  | 
+|  Cell  |  Cell  |  
+|  Cell  |  Cell  | 
+|  Cell  |  Cell  |  
 
 
