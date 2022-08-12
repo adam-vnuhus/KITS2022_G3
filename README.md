@@ -12,10 +12,10 @@
 |  api/products  |  danh sach san pham   | 
 |  api/orders  |  danh sach orders  |  
 |  api/orders/details  |  danh sach order detail  | 
-|  Cell  |  Cell  |  
-|  Cell  |  Cell  | 
-|  Cell  |  Cell  |  
-|  Cell  |  Cell  | 
+|  api/categories  |  danh sach category  |  
+|  /api/rating  |  danh sach rating  | 
+|  /api/rank  |  danh sach rank  |  
+|  /api/supplier  |  danh sach supplier  | 
 |  Cell  |  Cell  |  
 |  Cell  |  Cell  | 
 |  Cell  |  Cell  |  
