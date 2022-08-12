@@ -11,7 +11,7 @@
 |:-------|:------:|
 |  api/products  |  danh sach san pham   | 
 |  api/orders  |  danh sach orders  |  
-|  api/prders/details  |  danh sach order detail  | 
+|  api/orders/details  |  danh sach order detail  | 
 |  Cell  |  Cell  |  
 |  Cell  |  Cell  | 
 |  Cell  |  Cell  |  
