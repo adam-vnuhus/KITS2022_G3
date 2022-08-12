@@ -1,7 +1,7 @@
 package com.example.Project_eMarket_G3.controller;
 
-import com.example.Project_eMarket_G3.entity.Product;
-import com.example.Project_eMarket_G3.repository.ProductRepository;
+import com.example.Project_eMarket_G3.entity.Supplier;
+import com.example.Project_eMarket_G3.repository.SupplierRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,16 +10,14 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/products")
-public class ProductController {
+@RequestMapping("/supplier")
+public class SupplierController {
 
     @Autowired
-    private ProductRepository productRepository;
+    private SupplierRepository supplierRepository;
 
     @GetMapping
-    public List<Product> getAllProduct(){
-        return productRepository.findAll();
+    public List<Supplier> getAllSup(){
+        return supplierRepository.findAll();
     }
-
-
 }
