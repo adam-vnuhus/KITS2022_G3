@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>Project_eMarket_G3</artifactId>
+	<artifactId>projectemarketg3</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Project_eMarket_G3</name>
 	<description>Demo project for Spring Boot</description>
@@ -103,8 +103,10 @@
 			<artifactId>hibernate-types-52</artifactId>
 			<version>2.16.2</version>
 		</dependency>
-
-
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
 
 	</dependencies>
 
