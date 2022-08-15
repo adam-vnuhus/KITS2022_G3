@@ -22,10 +22,10 @@ https://wireframe.cc/pro/pp/9ddde99b3572926
 |  api/auth/register  |  register  |  
 |  api/auth/logout  |  logout  | 
 | /api/v1/products/hot  |  top 6 san pham ban chay nhat  |  
-|  Cell  |  Cell  | 
-|  Cell  |  Cell  |  
-|  Cell  |  Cell  | 
-|  Cell  |  Cell  |  
+|  /api/v1/products/search-price?sellPriceStart=...&sellPriceEnd=...  |  betwee price   | 
+|  /api/v1/products/search-name?name="...."  |  name like  |  
+|  /api/v2/users  |  lay ra tat ca khach hang <=> role USER  | 
+|  /api/v2/name-user?name='a'  |  tim kiem user theo ten   |  
 |  Cell  |  Cell  | 
 |  Cell  |  Cell  |  
 |  Cell  |  Cell  | 
