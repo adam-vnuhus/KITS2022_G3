@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from "react-router-dom";
 
 const Header = () => {
     return (
@@ -19,22 +20,22 @@ const Header = () => {
                             <div className="col-lg-6 col-md-6">
                                 <div className="header__top__right">
                                     <div className="header__top__right__social">
-                                        <a href="/"><i class="fa-brands fa-facebook"></i></a>
-                                        <a href="/"><i class="fa-brands fa-twitter"></i></a>
-                                        <a href="/"><i class="fa-brands fa-linkedin-in"></i></a>
-                                        <a href="/"><i class="fa-brands fa-pinterest-p"></i></a>
+                                        <Link to="/"><i class="fa-brands fa-facebook"></i></Link>
+                                        <Link to="/"><i class="fa-brands fa-twitter"></i></Link>
+                                        <Link to="/"><i class="fa-brands fa-linkedin-in"></i></Link>
+                                        <Link to="/"><i class="fa-brands fa-pinterest-p"></i></Link>
                                     </div>
                                     <div className="header__top__right__language">
                                         <img src={require(`../img/language.png`)} alt="" />
                                         <div>English</div>
                                         <span className="arrow_carrot-down" />
                                         <ul>
-                                            <li><a href="/">Việt Nam</a></li>
-                                            <li><a href="/">English</a></li>
+                                            <li><Link to="/">Việt Nam</Link></li>
+                                            <li><Link to="/">English</Link></li>
                                         </ul>
                                     </div>
                                     <div className="header__top__right__auth">
-                                        <a href="/"><i className="fa fa-user" /> Login</a>
+                                        <Link to="/"><i className="fa fa-user" /> Login</Link>
                                     </div>
                                 </div>
                             </div>
@@ -45,32 +46,32 @@ const Header = () => {
                     <div className="row">
                         <div className="col-lg-3">
                             <div className="header__logo">
-                                <a href="/"><img src={require(`../img/logo.png`)} alt="" /></a>
+                                <Link to="/"><img src={require(`../img/logo.png`)} alt="" /></Link>
                             </div>
                         </div>
                         <div className="col-lg-6">
                             <nav className="header__menu">
                                 <ul>
-                                    <li className="active"><a href="./index.html">Home</a></li>
-                                    <li><a href="/">Shop</a></li>
-                                    <li><a href="/">Pages</a>
+                                    <li className="active"><Link to="./index.html">Home</Link></li>
+                                    <li><Link to="/">Shop</Link></li>
+                                    <li><Link to="/">Pages</Link>
                                         <ul className="header__menu__dropdown">
-                                            <li><a href="/">Shop Details</a></li>
-                                            <li><a href="/">Shoping Cart</a></li>
-                                            <li><a href="/">Check Out</a></li>
-                                            <li><a href="/">Blog Details</a></li>
+                                            <li><Link to="/">Shop Details</Link></li>
+                                            <li><Link to="/">Shoping Cart</Link></li>
+                                            <li><Link to="/">Check Out</Link></li>
+                                            <li><Link to="/">Blog Details</Link></li>
                                         </ul>
                                     </li>
-                                    <li><a href="/">Blog</a></li>
-                                    <li><a href="/">Contact</a></li>
+                                    <li><Link to="/">Blog</Link></li>
+                                    <li><Link to="/">Contact</Link></li>
                                 </ul>
                             </nav>
                         </div>
                         <div className="col-lg-3">
                             <div className="header__cart">
                                 <ul>
-                                    <li><a href="/"><i className="fa fa-heart" /> <span>1</span></a></li>
-                                    <li><a href="/"><i className="fa fa-shopping-bag" /> <span>3</span></a></li>
+                                    <li><Link to="/"><i className="fa fa-heart" /> <span>1</span></Link></li>
+                                    <li><Link to="/"><i className="fa fa-shopping-bag" /> <span>3</span></Link></li>
                                 </ul>
                                 <div className="header__cart__price">item: <span>$150.00</span></div>
                             </div>
@@ -93,17 +94,17 @@ const Header = () => {
                                     <span>All departments</span>
                                 </div>
                                 <ul>
-                                    <li><a href="/">Fresh Meat</a></li>
-                                    <li><a href="/">Vegetables</a></li>
-                                    <li><a href="/">Fruit &amp; Nut Gifts</a></li>
-                                    <li><a href="/">Fresh Berries</a></li>
-                                    <li><a href="/">Ocean Foods</a></li>
-                                    <li><a href="/">Butter &amp; Eggs</a></li>
-                                    <li><a href="/">Fastfood</a></li>
-                                    <li><a href="/">Fresh Onion</a></li>
-                                    <li><a href="/">Papayaya &amp; Crisps</a></li>
-                                    <li><a href="/">Oatmeal</a></li>
-                                    <li><a href="/">Fresh Bananas</a></li>
+                                    <li><Link to="/">Fresh Meat</Link></li>
+                                    <li><Link to="/">Vegetables</Link></li>
+                                    <li><Link to="/">Fruit &amp; Nut Gifts</Link></li>
+                                    <li><Link to="/">Fresh Berries</Link></li>
+                                    <li><Link to="/">Ocean Foods</Link></li>
+                                    <li><Link to="/">Butter &amp; Eggs</Link></li>
+                                    <li><Link to="/">Fastfood</Link></li>
+                                    <li><Link to="/">Fresh Onion</Link></li>
+                                    <li><Link to="/">Papayaya &amp; Crisps</Link></li>
+                                    <li><Link to="/">Oatmeal</Link></li>
+                                    <li><Link to="/">Fresh Bananas</Link></li>
                                 </ul>
                             </div>
                         </div>
@@ -138,7 +139,7 @@ const Header = () => {
                                             <span>FRUIT FRESH</span>
                                             <h2>Vegetable <br />100% Organic</h2>
                                             <p>Free Pickup and Delivery Available</p>
-                                            <a href="/" className="primary-btn">SHOP NOW</a>
+                                            <Link to="/" className="primary-btn">SHOP NOW</Link>
                                         </div>
                                     </div>
                                 </div>
@@ -148,7 +149,7 @@ const Header = () => {
                       <span>FRUIT FRESH</span>
                       <h2>Vegetable <br />100% Organic</h2>
                       <p>Free Pickup and Delivery Available</p>
-                      <a href="/" class="primary-btn">SHOP NOW</a>
+                      <Link to="/" class="primary-btn">SHOP NOW</Link>
                   </div>
               </div> */}
                         </div>
