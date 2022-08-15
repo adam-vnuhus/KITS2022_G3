@@ -23,7 +23,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/admin/" element={<AdminLayout />}>
-          <Route index element={<Admin />} />
+          <Route path="/admin/" element={<Admin />} />
 
         </Route>
 
