@@ -4,22 +4,23 @@
 # Databse 
 ![image](https://raw.githubusercontent.com/ThuHang14/KITS2022_G3/main/ERD_G3.JPG)
 
-
+#designer website
+https://wireframe.cc/pro/pp/9ddde99b3572926
 ------
 # API
 | BE |  |   
 |:-------|:------:|
-|  api/products  |  danh sach san pham   | 
-|  api/orders  |  danh sach orders  |  
-|  api/orders/details  |  danh sach order detail  | 
-|  api/categories  |  danh sach category  |  
-|  /api/rating  |  danh sach rating  | 
-|  /api/rank  |  danh sach rank  |  
-|  /api/supplier  |  danh sach supplier  | 
-|  /purchases/{id}  |  so luong da ban cua san pham theo id  |  
-|  Cell  |  Cell  | 
-|  Cell  |  Cell  |  
-|  Cell  |  Cell  | 
+|  api/v1/products  |  danh sach san pham   | 
+|  api/v1/orders  |  danh sach orders  |  
+|  api/v1/orders/details  |  danh sach order detail  | 
+|  api/v1/categories  |  danh sach category  |  
+|  api/v1/rating  |  danh sach rating  | 
+|  api/v1/rank  |  danh sach rank  |  
+|  api/v1/supplier  |  danh sach supplier  | 
+|  api/v1/purchases/{id}  |  so luong da ban cua san pham theo id  |  
+|  api/auth/login  |  login  | 
+|  api/auth/register  |  register  |  
+|  api/auth/logout  |  logout  | 
 |  Cell  |  Cell  |  
 |  Cell  |  Cell  | 
 |  Cell  |  Cell  |  

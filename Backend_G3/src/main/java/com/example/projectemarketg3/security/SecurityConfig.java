@@ -51,7 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/api/auth/**", "/").permitAll()
+                .antMatchers("/api/auth/**", "/","/api/v1/**").permitAll()
                 .antMatchers("/api/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
@@ -65,7 +65,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessHandler((new HttpStatusReturningLogoutSuccessHandler(HttpStatus.OK)))
                 .permitAll()
                 .and()
-                .addFilterBefore(authorizationFilterCustom, UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(authorizationFilterCustom, UsernamePasswordAuthenticationFilter.class)
+                ;
     }
 
 }
