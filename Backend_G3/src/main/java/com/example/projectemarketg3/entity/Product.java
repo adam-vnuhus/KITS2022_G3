@@ -2,6 +2,7 @@ package com.example.projectemarketg3.entity;
 
 import lombok.*;
 import org.hibernate.Hibernate;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -59,6 +60,9 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "supplier_id")
     private Supplier supplier;
+
+    @Transient
+    private MultipartFile file;
 
     @Override
     public boolean equals(Object o) {

@@ -46,7 +46,10 @@ const Header = () => {
                     <div className="row">
                         <div className="col-lg-3">
                             <div className="header__logo">
-                                <Link to="/"><img src={require(`../img/logo.png`)} alt="" /></Link>
+                                <Link to="/">
+                                    {/* <img src={require(`../img/logo.png`)} alt="" /> */}
+                                    <h1>Logo</h1>
+                                </Link>
                             </div>
                         </div>
                         <div className="col-lg-6">
@@ -68,13 +71,13 @@ const Header = () => {
                             </nav>
                         </div>
                         <div className="col-lg-3">
-                            <div className="header__cart">
+                            {/* <div className="header__cart">
                                 <ul>
                                     <li><Link to="/"><i className="fa fa-heart" /> <span>1</span></Link></li>
                                     <li><Link to="/"><i className="fa fa-shopping-bag" /> <span>3</span></Link></li>
                                 </ul>
                                 <div className="header__cart__price">item: <span>$150.00</span></div>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                     <div className="humberger__open">

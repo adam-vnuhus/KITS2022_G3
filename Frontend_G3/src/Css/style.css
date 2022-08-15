@@ -3604,3 +3604,7 @@ ol {
 
 
 }
+
+a {
+	text-decoration: none !important;
+}
