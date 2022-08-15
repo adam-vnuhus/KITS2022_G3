@@ -1,13 +1,16 @@
 package com.example.projectemarketg3.controller;
 
+
 import com.example.projectemarketg3.entity.Supplier;
+import com.example.projectemarketg3.exception.NotFoundException;
 import com.example.projectemarketg3.repository.SupplierRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/supplier")
@@ -19,6 +22,49 @@ public class SupplierController {
     @GetMapping
     public List<Supplier> getAllSup(){
         return supplierRepository.findAll();
+    }
+
+    // create a new supplier rest api
+    @PostMapping("/")
+    public Supplier createSupplier(@RequestBody Supplier supplier) {
+        return supplierRepository.save(supplier);
+    }
+
+    // get supplier by ID rest api
+    @GetMapping("/{id}")
+    public ResponseEntity<Supplier> getSupplierById(@PathVariable Long id) {
+        Supplier supplier = supplierRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException
+                        ("supplier not exist with id :" + id));
+        return ResponseEntity.ok(supplier);
+    }
+
+    // update supplier rest api
+//    @PutMapping("/supplier/{id}")
+//    public  ResponseEntity <supplier> updatesupplier(@PathVariable Long id, @RequestBody supplier supplierDetails){
+//        supplier supplier = supplierRepository.findById(id)
+//                .orElseThrow (()->new NotFoundException
+//                        ("supplier not exist with id :" + id));
+//
+//        supplier.set(supplierDetails.get());
+//        supplier.set(supplierDetails.get());
+//        supplier.set(supplierDetails.get());
+//
+//        supplier updatedsupplier = supplierRepository.save(supplier);
+//
+//        return  ResponseEntity.ok(updatedsupplier);
+//    }
+
+    // delete supplier rest api
+    @DeleteMapping("/{id}")
+    public ResponseEntity <Map<String, Boolean>> deleteSupplier(@PathVariable Long id){
+        Supplier supplier = supplierRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException
+                        ("supplier not exist with id :" + id));
+        supplierRepository.delete(supplier);
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("deleted",Boolean.TRUE);
+        return ResponseEntity.ok(response);
     }
 
 
