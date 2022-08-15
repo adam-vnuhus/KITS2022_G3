@@ -20,10 +20,10 @@ const Header = () => {
                             <div className="col-lg-6 col-md-6">
                                 <div className="header__top__right">
                                     <div className="header__top__right__social">
-                                        <Link to="/"><i class="fa-brands fa-facebook"></i></Link>
-                                        <Link to="/"><i class="fa-brands fa-twitter"></i></Link>
-                                        <Link to="/"><i class="fa-brands fa-linkedin-in"></i></Link>
-                                        <Link to="/"><i class="fa-brands fa-pinterest-p"></i></Link>
+                                        <Link to="/"><i className="fa-brands fa-facebook"></i></Link>
+                                        <Link to="/"><i className="fa-brands fa-twitter"></i></Link>
+                                        <Link to="/"><i className="fa-brands fa-linkedin-in"></i></Link>
+                                        <Link to="/"><i className="fa-brands fa-pinterest-p"></i></Link>
                                     </div>
                                     <div className="header__top__right__language">
                                         <img src={require(`../img/language.png`)} alt="" />
@@ -144,12 +144,12 @@ const Header = () => {
                                     </div>
                                 </div>
                             </div>
-                            {/* <div class="hero__item set-bg" data-setbg="img/hero/banner.jpg">
-                  <div class="hero__text">
+                            {/* <div className="hero__item set-bg" data-setbg="img/hero/banner.jpg">
+                  <div className="hero__text">
                       <span>FRUIT FRESH</span>
                       <h2>Vegetable <br />100% Organic</h2>
                       <p>Free Pickup and Delivery Available</p>
-                      <Link to="/" class="primary-btn">SHOP NOW</Link>
+                      <Link to="/" className="primary-btn">SHOP NOW</Link>
                   </div>
               </div> */}
                         </div>

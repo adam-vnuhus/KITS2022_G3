@@ -1,4 +1,4 @@
-export function Pagination({ currentItems }) {
+export default function PaginatedItem({ currentItems }) {
     return (
         <>
             {currentItems &&
