@@ -14,6 +14,7 @@ function App() {
       <Home />
       <Footer />
       {/* <Categories /> */}
+      {/* error  library */}
     </>
   );
 }
