@@ -1,3 +1,5 @@
+import AdminSideBar from "../../Components/AdminPageComponents/AdminSideBar";
+
 export default function(){
-    return <div>Hello</div>
+    return <></>
 }
