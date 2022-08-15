@@ -24,7 +24,7 @@ const sliceData = (data, page, rowsPerPage) => {
 }
 
 
-function MainContent ({text,content,columns,fields}) {
+function MainContent ({entity,content,columns,fields}) {
 const all_items= content;
     const [search, setSearch] = useState('');
     const [items, setItems] = useState(all_items);
@@ -58,7 +58,7 @@ const all_items= content;
         setItems(sliceData(all_items, new_page, 5));
     }
 
-    const columnsData = columns.map((column,index) => (<th>{column}</th>))
+    const columnsData = columns.map((column,index) => (<th className="text-center">{column}</th>))
 
     let i = 0;
     const body = (items.length !== 0 ?
@@ -66,27 +66,7 @@ const all_items= content;
 
             {items.map((item, index) => (
                 <tr key={index}>
-                    <td><span>{i<fields.length-1?item[fields[0]]:null}</span></td>
-                    <td><span>{i<fields.length-1?item[fields[1]]:null}</span></td>
-                    <td>
-                        <span>
-                            {i<fields.length-1?item[fields[2]]:null}
-                        </span>
-                    </td>
-                    <td>
-                            <img
-                                src={i<fields.length-1?item[fields[3]]:null}
-                                className='dashboard-content-avatar'
-                                alt={item[fields[3]]} />
-
-                    </td>
-                    <td><span>{i<fields.length-1?item[fields[4]]:null}</span></td>
-                    <td><span>{i<fields.length-1?item[fields[5]]:null}</span></td>
-                    <td><span>{i<fields.length-1?item[fields[6]]:null}</span></td>
-                    <td><span>{i<fields.length-1?item[fields[7]]:null}</span></td>
-                    <td><span>{i<fields.length-1?item[fields[8]]:null}</span></td>
-                    <td><span>{i<fields.length-1?item[fields[9]]:null}</span></td>
-                    <td><span>{i<fields.length-1?item[fields[10]]:null}</span></td>
+                    {fields.map((field,index)=> !item[field].includes('https')?<td className="text-center"><span>{item[field]}</span></td>:<td className="text-center"><img className="rounded-circle" src={item[field]} width="80px" height="80px" alt="{item[field]}"/></td>)}
                 </tr>
             ))}
             </tbody>
@@ -95,15 +75,15 @@ const all_items= content;
     return(
         <div className='dashboard-content'>
             <PageHeader
-                btnText={"New " + text} />
+                btnText={"New " + entity} />
 
 
             <div className='dashboard-content-container'>
                 <div className='dashboard-content-header'>
-                    <h2>{text.toUpperCase()} LIST</h2>
+                    <h2>{entity.toUpperCase()} LIST</h2>
                     <div className='dashboard-content-search'>
                         <input
-                            type='text'
+                            type='entity'
                             value={search}
                             placeholder='Search..'
                             className='dashboard-content-input'
