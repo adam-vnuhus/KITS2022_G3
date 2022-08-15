@@ -125,7 +125,9 @@ public class AuthService {
         tokenService.setConfirmedAt(tokenString);
 //        active user
         userService.enableUser(token.getUser().getEmail());
-        return "confirmed";
+        return "confirm";
     }
+
+    
 
 }
