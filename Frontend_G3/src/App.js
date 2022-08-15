@@ -14,11 +14,19 @@ import Contact from "./Pages/Contact";
 import Checkout from "./Pages/Checkout";
 import Login from "./Pages/Login";
 
+import AdminLayout from "./Components/AdminLayout";
+import Admin from "./Pages/AdminPages/Admin";
+
 function App() {
   return (
 
     <BrowserRouter>
       <Routes>
+        <Route path="/admin/" element={<AdminLayout />}>
+          <Route path="/admin/" element={<Admin />} />
+
+        </Route>
+
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="/shop" element={<ShopMainPage />} />

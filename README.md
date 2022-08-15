@@ -18,15 +18,15 @@ https://wireframe.cc/pro/pp/9ddde99b3572926
 |  api/v1/rank  |  danh sach rank  |  
 |  api/v1/supplier  |  danh sach supplier  | 
 |  api/v1/purchases/{id}  |  so luong da ban cua san pham theo id  |  
+|  /api/v1/products/category/{name _category}  |  lay san pham theo ten   | 
 |  api/auth/login  |  login  | 
 |  api/auth/register  |  register  |  
 |  api/auth/logout  |  logout  | 
-|  Cell  |  Cell  |  
-|  Cell  |  Cell  | 
-|  Cell  |  Cell  |  
-|  Cell  |  Cell  | 
-|  Cell  |  Cell  |  
-|  Cell  |  Cell  | 
+| /api/v1/products/hot  |  top 6 san pham ban chay nhat  |  
+|  /api/v1/products/search-price?sellPriceStart=...&sellPriceEnd=...  |  betwee price   | 
+|  /api/v1/products/search-name?name="...."  |  name like  |  
+|  /api/v2/users  |  lay ra tat ca khach hang <=> role USER  | 
+|  /api/v2/name-user?name='a'  |  tim kiem user theo ten   |  
 |  Cell  |  Cell  |  
 |  Cell  |  Cell  | 
 |  Cell  |  Cell  |  
