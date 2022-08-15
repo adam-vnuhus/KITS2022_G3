@@ -40,6 +40,9 @@ public class initData {
     private Faker faker;
     @Autowired
     private CartItemRepository cartItemRepository;
+    @Autowired
+    private ImageRepository imageRepository;
+
 
     @Test
     void dataCategory() {
@@ -209,6 +212,22 @@ public class initData {
                     .build();
 
             ordersRepository.save(order);
+        }
+    }
+
+    @Test
+    void dataImage() {
+        List<Product> products = productRepository.findAll();
+        for (int i = 0; i < 100; i++) {
+            Product product = products.get(random.nextInt(products.size()));
+
+            Image image = Image.builder()
+                    .product(product)
+                    .url("https://res.cloudinary.com/ddyozlbyd/image/upload/v1660550124/oqnvy0ircdezaehm61ts.jpg")
+                    .note("test product " + i)
+                    .build();
+
+            imageRepository.save(image);
         }
     }
 }
