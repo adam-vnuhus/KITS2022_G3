@@ -12,6 +12,7 @@ import Layout from './Components/Layout';
 import Cart from "./Pages/Cart";
 import Contact from "./Pages/Contact";
 import Checkout from "./Pages/Checkout";
+import Login from "./Pages/Login";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/checkout" element={<Checkout />} />
+          <Route path="/login" element={<Login />} />
           {/* <Route path="blogs" element={<Blogs />} />
           <Route path="contact" element={<Contact />} />
           <Route path="*" element={<NoPage />} /> */}
