@@ -16,6 +16,7 @@ import Login from "./Pages/Login";
 
 import AdminLayout from "./Components/AdminLayout";
 import Admin from "./Pages/AdminPages/Admin";
+import DetailProduct from './Pages/DetailProduct';
 
 function App() {
   return (
@@ -34,7 +35,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/test" element={<Categories />} />
+          <Route path="/test" element={< DetailProduct />} />
           {/* <Route path="blogs" element={<Blogs />} />
           <Route path="contact" element={<Contact />} />
           <Route path="*" element={<NoPage />} /> */}

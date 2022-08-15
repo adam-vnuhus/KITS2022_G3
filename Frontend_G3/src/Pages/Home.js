@@ -181,6 +181,7 @@ const Home = () => {
             {/* top categories */}
 
             <Categories />
+
             {/* end top categories */}
 
 
