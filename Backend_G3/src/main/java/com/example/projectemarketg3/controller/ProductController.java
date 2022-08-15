@@ -2,6 +2,7 @@ package com.example.projectemarketg3.controller;
 
 import com.example.projectemarketg3.entity.Product;
 import com.example.projectemarketg3.exception.NotFoundException;
+import com.example.projectemarketg3.repository.OrderDetailRepository;
 import com.example.projectemarketg3.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,11 +18,13 @@ public class ProductController {
 
     @Autowired
     private ProductRepository productRepository;
+    @Autowired
+    private OrderDetailRepository orderDetailRepository;
 
-    
+
     // Get all products rest api
     @GetMapping
-    public List<Product> getAllProduct(){
+    public List<Product> getAllProduct() {
         return productRepository.findAll();
     }
 
@@ -58,16 +61,37 @@ public class ProductController {
 
     // delete product rest api
     @DeleteMapping("/{id}")
-    public ResponseEntity <Map<String, Boolean>> deleteproduct(@PathVariable Long id){
+    public ResponseEntity<Map<String, Boolean>> deleteproduct(@PathVariable Long id) {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException
                         ("product not exist with id :" + id));
         productRepository.delete(product);
         Map<String, Boolean> response = new HashMap<>();
-        response.put("deleted",Boolean.TRUE);
+        response.put("deleted", Boolean.TRUE);
         return ResponseEntity.ok(response);
     }
 
+    //    HOT PRODUCT
+    @GetMapping("/hot")
+    public List<Product> getProductTopSold() {
+        return productRepository.findTop6AllByOrderBySold();
+    }
 
+    //SEARCH BY NAME -> http://localhost:8080/api/v1/products/search-name?name="Lesley Rohan"
+    @GetMapping("/search-name")
+    public List<Product> finByName(@RequestParam String name) {
+        return productRepository.findByNameStartsWith(name);
+    }
 
+    //    SEARCH BY PRICE
+//    http://localhost:8080/api/v1/products/search-price?sellPriceStart=20&sellPriceEnd=50
+    @GetMapping("/search-price")
+    public List<Product> findByPrice(@RequestParam Long sellPriceStart, @RequestParam Long sellPriceEnd) {
+        return productRepository.findBySellPriceBetweenOrderBySellPriceAsc(sellPriceStart, sellPriceEnd);
+    }
+
+    @GetMapping("/category/{name}")
+    public List<Product> getProductByCategory(@PathVariable String name){
+        return productRepository.findByCategory_Name(name);
+    }
 }

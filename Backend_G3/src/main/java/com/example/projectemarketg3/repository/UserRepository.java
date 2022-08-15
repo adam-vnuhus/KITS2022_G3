@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -17,4 +18,11 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Modifying
     @Query("UPDATE User u SET u.enabled = TRUE WHERE u.email = ?1")
     void enableUser(String email);
+
+    @Query("select u from User u where u.role = 'USER' order by u.name")
+    List<User> findByRoleOrderByNameAsc();
+
+    List<User> findByNameStartsWith(String name);
+
+
 }
