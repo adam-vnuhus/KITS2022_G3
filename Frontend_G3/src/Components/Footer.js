@@ -49,10 +49,10 @@ const Footer = () => {
                                     <button type="submit" className="site-btn">Subscribe</button>
                                 </form>
                                 <div className="footer__widget__social">
-                                    <a href="/"><i class="fa-brands fa-facebook"></i></a>
-                                    <a href="/"><i class="fa-brands fa-twitter"></i></a>
-                                    <a href="/"><i class="fa-brands fa-linkedin-in"></i></a>
-                                    <a href="/"><i class="fa-brands fa-pinterest-p"></i></a>
+                                    <a href="/"><i className="fa-brands fa-facebook"></i></a>
+                                    <a href="/"><i className="fa-brands fa-twitter"></i></a>
+                                    <a href="/"><i className="fa-brands fa-linkedin-in"></i></a>
+                                    <a href="/"><i className="fa-brands fa-pinterest-p"></i></a>
                                 </div>
                             </div>
                         </div>

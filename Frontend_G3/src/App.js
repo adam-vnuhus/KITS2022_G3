@@ -9,6 +9,9 @@ import Categories from './Pages/HomeComponents/Categories';
 import ShopMainPage from "./Pages/ShopMainPage";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from './Components/Layout';
+import Cart from "./Pages/Cart";
+import Contact from "./Pages/Contact";
+import Checkout from "./Pages/Checkout";
 
 function App() {
   return (
@@ -18,6 +21,9 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="/shop" element={<ShopMainPage />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/checkout" element={<Checkout />} />
           {/* <Route path="blogs" element={<Blogs />} />
           <Route path="contact" element={<Contact />} />
           <Route path="*" element={<NoPage />} /> */}
