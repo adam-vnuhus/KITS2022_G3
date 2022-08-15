@@ -173,17 +173,7 @@ const tableColumns = ["id",
   "product",
   "price",]
 
-const all_products = [{
-  id: "#1231",
-  date: "1 Nov, 10:20 AM",
-  email: "rachel.howell@reqres.in",
-  first_name: "Rachel",
-  last_name: "Howell",
-  avatar: "https://reqres.in/img/faces/12-image.jpg",
-  product: "Nike Sport V2",
-  price: "140,20",
-  status: "Paid"
-}]
+
 
 
 function App() {
@@ -195,7 +185,7 @@ function App() {
         <Route path="/admin/" element={<AdminLayout />}>
           <Route path="/admin/" element={<Admin />} />
           <Route path="/admin/orders" element={<MainContent content={all_orders} text={"order"} columns={columns} fields={tableColumns}  />} />
-          <Route path="/admin/orders" element={<MainContent content={all_products} text={"order"} columns={columns} fields={tableColumns}  />} />
+          <Route path="/admin/orders" element={<MainContent content={all_orders} text={"order"} columns={columns} fields={tableColumns}  />} />
 
 
         </Route>
