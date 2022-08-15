@@ -1,9 +1,9 @@
 
 import './App.css';
-import Header from './Components/Header';
+
 import './Css/style.css';
 import './Css/owl-carousel-min.css';
-import Footer from './Components/Footer';
+
 import Home from './Pages/Home';
 import Categories from './Pages/HomeComponents/Categories';
 import ShopMainPage from "./Pages/ShopMainPage";
@@ -26,6 +26,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/test" element={<Categories />} />
           {/* <Route path="blogs" element={<Blogs />} />
           <Route path="contact" element={<Contact />} />
           <Route path="*" element={<NoPage />} /> */}
