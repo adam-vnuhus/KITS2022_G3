@@ -21,7 +21,7 @@ https://wireframe.cc/pro/pp/9ddde99b3572926
 |  api/auth/login  |  login  | 
 |  api/auth/register  |  register  |  
 |  api/auth/logout  |  logout  | 
-|  Cell  |  Cell  |  
+| /api/v1/products/hot  |  top 6 san pham ban chay nhat  |  
 |  Cell  |  Cell  | 
 |  Cell  |  Cell  |  
 |  Cell  |  Cell  | 
