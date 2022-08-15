@@ -10,10 +10,10 @@ import Categories from './Pages/HomeComponents/Categories';
 function App() {
   return (
     <>
-      {/* <Header />
+      <Header />
       <Home />
-      <Footer /> */}
-      <Categories />
+      <Footer />
+      {/* <Categories /> */}
     </>
   );
 }
