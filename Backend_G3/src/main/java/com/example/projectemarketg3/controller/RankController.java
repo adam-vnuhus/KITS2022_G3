@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/rank")
+@RequestMapping("/api/v1/rank")
 public class RankController {
 
     @Autowired

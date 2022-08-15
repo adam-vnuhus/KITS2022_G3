@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 
 @RestController
-@RequestMapping("api/auth")
+@RequestMapping("/api/auth")
 public class AuthController {
 
     @Autowired
@@ -30,7 +30,7 @@ public class AuthController {
         return authService.register(request);
     }
 
-    @GetMapping("confirm")
+    @GetMapping("/confirm")
     public String confirm(@RequestParam("token") String token) {
         return authService.confirmToken(token);
     }
