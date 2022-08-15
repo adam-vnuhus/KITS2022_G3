@@ -5,7 +5,7 @@ const Home = () => {
     return (
         <>
 
-            <div >categories component</div>
+
 
             {/* Featured Section Begin */}
             <section className="featured spad">
