@@ -38,9 +38,9 @@ const SideBarItem = ({ item, active }) => {
     return (
         <Link
             to={item.path}
-            className={active ? 'sidebar-item-active' : 'sidebar-item'} >
+            className={active ? 'admin_sidebar-item-active' : 'admin_sidebar-item'} >
             {item.icon}
-            <span className='sidebar-item-label'>{item.title}</span>
+            <span className='admin_sidebar-item-label'>{item.title}</span>
         </Link>
     )
 }
@@ -63,16 +63,16 @@ export default function AdminSideBar(){
             setActive(id);
         }
 
-        return    <nav className='sidebar'>
-                <div className='sidebar-container'>
+        return    <nav className='admin_sidebar'>
+                <div className='admin_sidebar-container'>
                     <div className="text-center">
                         <img src="https://img.freepik.com/premium-vector/colorful-market-logo-with-gradient_23-2148472540.jpg?w=2000" className="w-75 mt-3 rounded-circle"/>
                         {/*<h3 className="text-white">eMarket</h3>*/}
                         <hr/>
                     </div>
 
-                    <div className='sidebar-container'>
-                        <div className='sidebar-items'>
+                    <div className='admin_sidebar-container'>
+                        <div className='admin_sidebar-items'>
                             {menu.map((item, index) => (
                                 <div key={index} onClick={() => __navigate(item.id)}>
                                     <SideBarItem
@@ -82,8 +82,8 @@ export default function AdminSideBar(){
                             ))}
                         </div>
 
-                        <div className='sidebar-footer'>
-                            <span className='sidebar-item-label'>Logout</span>
+                        <div className='admin_sidebar-footer'>
+                            <span className='admin_sidebar-item-label'>Logout</span>
                             <i className="fa-solid fa-right-from-bracket"/>
                         </div>
                     </div>

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Outlet } from "react-router-dom";
 import AdminFooter from './AdminFooter';
-import AdminHeader from './PageHeader';
 import AdminSideBar from "./AdminSideBar";
 
 

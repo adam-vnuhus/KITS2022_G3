@@ -2,13 +2,8 @@ import React, {useState, useEffect} from 'react';
 
 
 
-import './main.css';
+import './mainContent.css';
 import PageHeader from "./PageHeader";
-
-
-
-
-
 
 const calculateRange = (data, rowsPerPage) => {
     const range = [];
@@ -73,20 +68,20 @@ const all_items= content;
             : null)
 
     return(
-        <div className='dashboard-content'>
+        <div className='mainContent_ mainContent_dashboard-content'>
             <PageHeader
                 btnText={addNew===1?"New " + entity:null} />
 
 
-            <div className='dashboard-content-container'>
-                <div className='dashboard-content-header'>
+            <div className='mainContent_dashboard-content-container'>
+                <div className='mainContent_dashboard-content-header'>
                     <h2>{entity.toUpperCase()} LIST</h2>
-                    <div className='dashboard-content-search'>
+                    <div className='mainContent_dashboard-content-search'>
                         <input
                             type='text'
                             value={search}
                             placeholder='Search..'
-                            className='dashboard-content-input'
+                            className='mainContent_dashboard-content-input'
                             onChange={e => __handleSearch(e)} />
                     </div>
                 </div>
@@ -101,7 +96,7 @@ const all_items= content;
                 </table>
 
                 {items.length !== 0 ?
-                    <div className='dashboard-content-footer'>
+                    <div className='mainContent_dashboard-content-footer'>
                         {pagination.map((item, index) => (
                             <span
                                 key={index}
@@ -112,7 +107,7 @@ const all_items= content;
                         ))}
                     </div>
                     :
-                    <div className='dashboard-content-footer'>
+                    <div className='mainContent_dashboard-content-footer'>
                         <span className='empty-table'>No data</span>
                     </div>
                 }

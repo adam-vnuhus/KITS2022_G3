@@ -1,18 +1,19 @@
 import {Link} from "react-router-dom";
 import React from "react";
+// import "./mainContent.css";
 
 export default function PageHeader ({ btnText, onClick }) {
     return(
-        <div className='dashboard-header-container'>
+        <div className='mainContent_dashboard-header-container'>
             {btnText &&
-                <button className='dashboard-header-btn' onClick={onClick}>{btnText}</button>||<span></span>
+                <button className='mainContent_dashboard-header-btn' onClick={onClick}>{btnText}</button>||<span className=""></span>
             }
 
-            <div className='dashboard-header-right'>
-                <i className="fa-solid fa-bell dashboard-header-icon"/>
-                <i className="fa-solid fa-gear dashboard-header-icon"/>
+            <div className='mainContent_dashboard-header-right'>
+                <i className="fa-solid fa-bell mainContent_dashboard-header-icon"/>
+                <i className="fa-solid fa-gear mainContent_dashboard-header-icon"/>
                 <img
-                    className='dashboard-header-avatar'
+                    className='mainContent_dashboard-header-avatar'
                     src='https://reqres.in/img/faces/9-image.jpg' />
             </div>
         </div>
