@@ -136,3 +136,7 @@ button.btn.btn-primary.pull-right {
 }
 
 /* end comment details */
+
+.hero__categories ul li {
+  margin-bottom: 6px;
+}

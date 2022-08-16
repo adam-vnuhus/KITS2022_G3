@@ -1,7 +1,16 @@
 import React from 'react';
 import { Link } from "react-router-dom";
+import { useState } from 'react';
 
 const Header = () => {
+
+
+    const [displays, setDisplay] = useState('block');
+
+    const haldeAllDe = () => {
+        console.log('>>> check ', displays);
+        setDisplay(displays === 'block' ? 'none' : 'block');
+    }
     return (
         <>
             {/* Header Section Begin */}
@@ -91,12 +100,12 @@ const Header = () => {
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-3">
-                            <div className="hero__categories">
+                            <div className="hero__categories" onClick={haldeAllDe}>
                                 <div className="hero__categories__all">
                                     <i className="fa fa-bars" />
                                     <span>All departments</span>
                                 </div>
-                                <ul>
+                                <ul style={{ display: displays }}  >
                                     <li><Link to="/">Fresh Meat</Link></li>
                                     <li><Link to="/">Vegetables</Link></li>
                                     <li><Link to="/">Fruit &amp; Nut Gifts</Link></li>

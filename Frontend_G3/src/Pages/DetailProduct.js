@@ -7,8 +7,9 @@ import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 
 const DetailProduct = () => {
+
     return (
-        <div>
+        <div >
             {/* Product Details Section Begin */}
             <section className="product-details spad">
                 <div className="container">
