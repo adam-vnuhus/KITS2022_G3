@@ -65,6 +65,11 @@ export default function AdminSideBar(){
 
         return    <nav className='sidebar'>
                 <div className='sidebar-container'>
+                    <div className="text-center">
+                        <img src="https://img.freepik.com/premium-vector/colorful-market-logo-with-gradient_23-2148472540.jpg?w=2000" className="w-75 mt-3 rounded-circle"/>
+                        {/*<h3 className="text-white">eMarket</h3>*/}
+                        <hr/>
+                    </div>
 
                     <div className='sidebar-container'>
                         <div className='sidebar-items'>

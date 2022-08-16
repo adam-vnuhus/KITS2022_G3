@@ -1,4 +1,3 @@
-
 import './App.css';
 import Header from './Components/Header';
 import './Css/style.css';
@@ -7,7 +6,7 @@ import Footer from './Components/Footer';
 import Home from './Pages/Home';
 import Categories from './Pages/HomeComponents/Categories';
 import ShopMainPage from "./Pages/ShopMainPage";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import {BrowserRouter, Routes, Route} from "react-router-dom";
 import Layout from './Components/Layout';
 import Cart from "./Pages/Cart";
 import Contact from "./Pages/Contact";
@@ -21,197 +20,195 @@ import React from "react";
 
 
 const all_orders = [
-  {
-    id: "#1236",
-    date: "1 Nov, 10:20 AM",
-    email: "michael.lawson@reqres.in",
-    first_name: "Michael",
-    last_name: "Lawson",
-    avatar: "https://reqres.in/img/faces/7-image.jpg",
-    product: "Phone Case Pink  x 2",
-    price: "50,00",
-    status: "Paid"
-  },
-  {
-    id: "#1235",
-    date: "1 Nov, 10:20 AM",
-    email: "lindsay.ferguson@reqres.in",
-    first_name: "Lindsay",
-    last_name: "Ferguson",
-    avatar: "https://reqres.in/img/faces/8-image.jpg",
-    product: "Valvet T-shirt",
-    price: "55,50",
-    status: "Canceled"
-  },
-  {
-    id: "#1234",
-    date: "1 Nov, 10:20 AM",
-    email: "tobias.funke@reqres.in",
-    first_name: "Tobias",
-    last_name: "Funke",
-    avatar: "https://reqres.in/img/faces/9-image.jpg",
-    product: "Nike Sport V2",
-    price: "140,20",
-    status: "Paid"
-  },
-  {
-    id: "#1233",
-    date: "1 Nov, 10:20 AM",
-    email: "byron.fields@reqres.in",
-    first_name: "Byron",
-    last_name: "Fields",
-    avatar: "https://reqres.in/img/faces/10-image.jpg",
-    product: "Nike Sport V2",
-    price: "140,20",
-    status: "Refunded"
-  },
-  {
-    id: "#1232",
-    date: "1 Nov, 10:20 AM",
-    email: "george.edwards@reqres.in",
-    first_name: "George",
-    last_name: "Edwards",
-    avatar: "https://reqres.in/img/faces/11-image.jpg",
-    product: "Nike Sport V2",
-    price: "140,20",
-    status: "Canceled"
-  },
-  {
-    id: "#1231",
-    date: "1 Nov, 10:20 AM",
-    email: "rachel.howell@reqres.in",
-    first_name: "Rachel",
-    last_name: "Howell",
-    avatar: "https://reqres.in/img/faces/12-image.jpg",
-    product: "Nike Sport V2",
-    price: "140,20",
-    status: "Paid"
-  },
-  {
-    id: "#1236",
-    date: "1 Nov, 10:20 AM",
-    email: "michael.lawson@reqres.in",
-    first_name: "Michael",
-    last_name: "Lawson",
-    avatar: "https://reqres.in/img/faces/7-image.jpg",
-    product: "Phone Case Pink  x 2",
-    price: "50,00",
-    status: "Paid"
-  },
-  {
-    id: "#1235",
-    date: "1 Nov, 10:20 AM",
-    email: "lindsay.ferguson@reqres.in",
-    first_name: "Lindsay",
-    last_name: "Ferguson",
-    avatar: "https://reqres.in/img/faces/8-image.jpg",
-    product: "Valvet T-shirt",
-    price: "55,50",
-    status: "Canceled"
-  },
-  {
-    id: "#1234",
-    date: "1 Nov, 10:20 AM",
-    email: "tobias.funke@reqres.in",
-    first_name: "Tobias",
-    last_name: "Funke",
-    avatar: "https://reqres.in/img/faces/9-image.jpg",
-    product: "Nike Sport V2",
-    price: "140,20",
-    status: "Paid"
-  },
-  {
-    id: "#1233",
-    date: "1 Nov, 10:20 AM",
-    email: "byron.fields@reqres.in",
-    first_name: "Byron",
-    last_name: "Fields",
-    avatar: "https://reqres.in/img/faces/10-image.jpg",
-    product: "Nike Sport V2",
-    price: "140,20",
-    status: "Refunded"
-  },
-  {
-    id: "#1232",
-    date: "1 Nov, 10:20 AM",
-    email: "george.edwards@reqres.in",
-    first_name: "George",
-    last_name: "Edwards",
-    avatar: "https://reqres.in/img/faces/11-image.jpg",
-    product: "Nike Sport V2",
-    price: "140,20",
-    status: "Canceled"
-  },
-  {
-    id: "#1231",
-    date: "1 Nov, 10:20 AM",
-    email: "rachel.howell@reqres.in",
-    first_name: "Rachel",
-    last_name: "Howell",
-    avatar: "https://reqres.in/img/faces/12-image.jpg",
-    product: "Nike Sport V2",
-    price: "140,20",
-    status: "Paid"
-  }
+    {
+        id: "#1236",
+        date: "1 Nov, 10:20 AM",
+        email: "michael.lawson@reqres.in",
+        first_name: "Michael",
+        last_name: "Lawson",
+        avatar: "https://reqres.in/img/faces/7-image.jpg",
+        product: "Phone Case Pink  x 2",
+        price: "50,00",
+        status: "Paid"
+    },
+    {
+        id: "#1235",
+        date: "1 Nov, 10:20 AM",
+        email: "lindsay.ferguson@reqres.in",
+        first_name: "Lindsay",
+        last_name: "Ferguson",
+        avatar: "https://reqres.in/img/faces/8-image.jpg",
+        product: "Valvet T-shirt",
+        price: "55,50",
+        status: "Canceled"
+    },
+    {
+        id: "#1234",
+        date: "1 Nov, 10:20 AM",
+        email: "tobias.funke@reqres.in",
+        first_name: "Tobias",
+        last_name: "Funke",
+        avatar: "https://reqres.in/img/faces/9-image.jpg",
+        product: "Nike Sport V2",
+        price: "140,20",
+        status: "Paid"
+    },
+    {
+        id: "#1233",
+        date: "1 Nov, 10:20 AM",
+        email: "byron.fields@reqres.in",
+        first_name: "Byron",
+        last_name: "Fields",
+        avatar: "https://reqres.in/img/faces/10-image.jpg",
+        product: "Nike Sport V2",
+        price: "140,20",
+        status: "Refunded"
+    },
+    {
+        id: "#1232",
+        date: "1 Nov, 10:20 AM",
+        email: "george.edwards@reqres.in",
+        first_name: "George",
+        last_name: "Edwards",
+        avatar: "https://reqres.in/img/faces/11-image.jpg",
+        product: "Nike Sport V2",
+        price: "140,20",
+        status: "Canceled"
+    },
+    {
+        id: "#1231",
+        date: "1 Nov, 10:20 AM",
+        email: "rachel.howell@reqres.in",
+        first_name: "Rachel",
+        last_name: "Howell",
+        avatar: "https://reqres.in/img/faces/12-image.jpg",
+        product: "Nike Sport V2",
+        price: "140,20",
+        status: "Paid"
+    },
+    {
+        id: "#1236",
+        date: "1 Nov, 10:20 AM",
+        email: "michael.lawson@reqres.in",
+        first_name: "Michael",
+        last_name: "Lawson",
+        avatar: "https://reqres.in/img/faces/7-image.jpg",
+        product: "Phone Case Pink  x 2",
+        price: "50,00",
+        status: "Paid"
+    },
+    {
+        id: "#1235",
+        date: "1 Nov, 10:20 AM",
+        email: "lindsay.ferguson@reqres.in",
+        first_name: "Lindsay",
+        last_name: "Ferguson",
+        avatar: "https://reqres.in/img/faces/8-image.jpg",
+        product: "Valvet T-shirt",
+        price: "55,50",
+        status: "Canceled"
+    },
+    {
+        id: "#1234",
+        date: "1 Nov, 10:20 AM",
+        email: "tobias.funke@reqres.in",
+        first_name: "Tobias",
+        last_name: "Funke",
+        avatar: "https://reqres.in/img/faces/9-image.jpg",
+        product: "Nike Sport V2",
+        price: "140,20",
+        status: "Paid"
+    },
+    {
+        id: "#1233",
+        date: "1 Nov, 10:20 AM",
+        email: "byron.fields@reqres.in",
+        first_name: "Byron",
+        last_name: "Fields",
+        avatar: "https://reqres.in/img/faces/10-image.jpg",
+        product: "Nike Sport V2",
+        price: "140,20",
+        status: "Refunded"
+    },
+    {
+        id: "#1232",
+        date: "1 Nov, 10:20 AM",
+        email: "george.edwards@reqres.in",
+        first_name: "George",
+        last_name: "Edwards",
+        avatar: "https://reqres.in/img/faces/11-image.jpg",
+        product: "Nike Sport V2",
+        price: "140,20",
+        status: "Canceled"
+    },
+    {
+        id: "#1231",
+        date: "1 Nov, 10:20 AM",
+        email: "rachel.howell@reqres.in",
+        first_name: "Rachel",
+        last_name: "Howell",
+        avatar: "https://reqres.in/img/faces/12-image.jpg",
+        product: "Nike Sport V2",
+        price: "140,20",
+        status: "Paid"
+    }
 ]
 
-const columns=["ID",
-  "DATE",
-  "STATUS",
-  "IMAGE",
+const columns = ["ID",
+    "DATE",
+    "STATUS",
+    "CUSTOMERS IMG",
     "FIRST NAME",
     "LAST NAME",
-  "PRODUCT",
-  "REVENUE"]
+    "PRODUCT",
+    "REVENUE"]
 
 const tableColumns = ["id",
-  "date",
-  "status",
-  "avatar",
-  "first_name",
-  "last_name",
-  "product",
-  "price",]
-
-
+    "date",
+    "status",
+    "avatar",
+    "first_name",
+    "last_name",
+    "product",
+    "price",]
 
 
 function App() {
-  ;
-  return (
+    return (
 
-    <BrowserRouter>
-      <Routes>
-        <Route path="/admin/" element={<AdminLayout />}>
-          <Route path="/admin/" element={<Admin />} />
-          <Route path="/admin/orders" element={<MainContent content={all_orders} text={"order"} columns={columns} fields={tableColumns}  />} />
-          <Route path="/admin/orders" element={<MainContent content={all_orders} text={"order"} columns={columns} fields={tableColumns}  />} />
+        <BrowserRouter>
+            <Routes>
+                <Route path="/admin/" element={<AdminLayout/>}>
+                    <Route path="/admin/" element={<Admin/>}/>
+                    <Route path="/admin/orders"
+                           element={<MainContent content={all_orders} entity={"order"} columns={columns}
+                                                 fields={tableColumns} addNew={0}/>}/>
 
 
-        </Route>
+                </Route>
 
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="/shop" element={<ShopMainPage />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/checkout" element={<Checkout />} />
-          <Route path="/login" element={<Login />} />
-          {/* <Route path="blogs" element={<Blogs />} />
+                <Route path="/" element={<Layout/>}>
+                    <Route index element={<Home/>}/>
+                    <Route path="/shop" element={<ShopMainPage/>}/>
+                    <Route path="/cart" element={<Cart/>}/>
+                    <Route path="/contact" element={<Contact/>}/>
+                    <Route path="/checkout" element={<Checkout/>}/>
+                    <Route path="/login" element={<Login/>}/>
+                    {/* <Route path="blogs" element={<Blogs />} />
           <Route path="contact" element={<Contact />} />
           <Route path="*" element={<NoPage />} /> */}
-        </Route>
-      </Routes>
-    </BrowserRouter>
-    // <>
-    //   <Header />
-    //   <Home />
-    //   {/* <ShopMainPage /> */}
-    //   <Footer />
-    //   {/* <Categories /> */}
-    //   {/* error  library */}
-    // </>
-  );
+                </Route>
+            </Routes>
+        </BrowserRouter>
+        // <>
+        //   <Header />
+        //   <Home />
+        //   {/* <ShopMainPage /> */}
+        //   <Footer />
+        //   {/* <Categories /> */}
+        //   {/* error  library */}
+        // </>
+    );
 }
 
 export default App;
