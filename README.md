@@ -27,13 +27,13 @@ https://wireframe.cc/pro/pp/9ddde99b3572926
 |  /api/v1/products/search-name?name="...."  |  name like  |  
 |  /api/v2/users  |  lay ra tat ca khach hang <=> role USER  | 
 |  /api/v2/name-user?name='a'  |  tim kiem user theo ten   |  
-|  Cell  |  Cell  |  
-|  Cell  |  Cell  | 
-|  Cell  |  Cell  |  
-|  Cell  |  Cell  | 
-|  Cell  |  Cell  |  
-|  Cell  |  Cell  | 
-|  Cell  |  Cell  |  
+|  /api/v1/users/{id}/upload-file  |  Cell  |  
+|  /users/{id}/files/{fileId} DELETE |  xem file + xoa file  | 
+|  /users/{id}/files  |  danh sach anh  |  
+|  /api/v1/product/{id}/upload-file POST |  up file  | 
+|  /product/{id}/files/{fileId}  |  xem file + xoa file   |  
+|  /product/{id}/files  |  danh sach file anh   | 
+|  /api/v1/user/{email}  |  info user  |  
 |  Cell  |  Cell  | 
 |  Cell  |  Cell  |  
 
