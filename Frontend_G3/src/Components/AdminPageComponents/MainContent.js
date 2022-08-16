@@ -24,7 +24,7 @@ const sliceData = (data, page, rowsPerPage) => {
 }
 
 
-function MainContent ({entity,content,columns,fields}) {
+function MainContent ({entity,content,columns,fields,addNew}) {
 const all_items= content;
     const [search, setSearch] = useState('');
     const [items, setItems] = useState(all_items);
@@ -75,7 +75,7 @@ const all_items= content;
     return(
         <div className='dashboard-content'>
             <PageHeader
-                btnText={"New " + entity} />
+                btnText={addNew===1?"New " + entity:null} />
 
 
             <div className='dashboard-content-container'>
@@ -83,7 +83,7 @@ const all_items= content;
                     <h2>{entity.toUpperCase()} LIST</h2>
                     <div className='dashboard-content-search'>
                         <input
-                            type='entity'
+                            type='text'
                             value={search}
                             placeholder='Search..'
                             className='dashboard-content-input'

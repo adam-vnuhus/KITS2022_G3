@@ -5,7 +5,7 @@ export default function PageHeader ({ btnText, onClick }) {
     return(
         <div className='dashboard-header-container'>
             {btnText &&
-                <button className='dashboard-header-btn' onClick={onClick}>{btnText}</button>
+                <button className='dashboard-header-btn' onClick={onClick}>{btnText}</button>||<span></span>
             }
 
             <div className='dashboard-header-right'>

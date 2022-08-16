@@ -174,7 +174,6 @@ const tableColumns = ["id",
 
 
 function App() {
-    ;
     return (
 
         <BrowserRouter>
@@ -183,7 +182,7 @@ function App() {
                     <Route path="/admin/" element={<Admin/>}/>
                     <Route path="/admin/orders"
                            element={<MainContent content={all_orders} entity={"order"} columns={columns}
-                                                 fields={tableColumns}/>}/>
+                                                 fields={tableColumns} addNew={0}/>}/>
 
 
                 </Route>
