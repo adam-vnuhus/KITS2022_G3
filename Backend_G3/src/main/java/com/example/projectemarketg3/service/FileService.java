@@ -1,9 +1,11 @@
 package com.example.projectemarketg3.service;
 
 import com.example.projectemarketg3.entity.Image;
+import com.example.projectemarketg3.entity.Product;
 import com.example.projectemarketg3.entity.User;
 import com.example.projectemarketg3.exception.BadRequestException;
 import com.example.projectemarketg3.repository.ImageRepository;
+import com.example.projectemarketg3.repository.ProductRepository;
 import com.example.projectemarketg3.repository.UserRepository;
 import com.example.projectemarketg3.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,14 +32,18 @@ import java.util.stream.Collectors;
 
 @Service
 public class FileService {
+//    @Autowired
+//    private UserRepository userRepository;
+
     @Autowired
-    private UserRepository userRepository;
+    private ProductRepository productRepository;
 
     @Autowired
     private ImageRepository imageRepository;
 
     // Path folder để upload file
     private final Path rootPath = Paths.get("uploads");
+
 
 
     public FileService() {
@@ -55,15 +61,15 @@ public class FileService {
     // Upload file
     public String uploadFile(Long id, MultipartFile file) {
         // B1 : Tạo folder tương ứng userId
-        Path userDir = Paths.get("uploads").resolve(String.valueOf(id));
-        createFolder(userDir.toString());
+        Path pathDir = Paths.get("uploads").resolve(String.valueOf(id));
+        createFolder(pathDir.toString());
 
         // B2 : Validate file
         validate(file);
 
         // B3 : Tạo path tương ứng với fileUpload
         String generateFileId = String.valueOf(Instant.now().getEpochSecond());
-        File fileServer = new File(userDir + "/" + generateFileId);
+        File fileServer = new File(pathDir + "/" + generateFileId);
 
         try {
             // Sử dụng Buffer để lưu dữ liệu
@@ -72,11 +78,13 @@ public class FileService {
             stream.write(file.getBytes());
             stream.close();
 
-            String link = "/api/v1/users/" + id + "/files/" + generateFileId;
+//            String link = "/api/v1/users/" + id + "/files/" + generateFileId;
+            String link = "/api/v1/product/" + id + "/files/" + generateFileId;
 
-            User user = userRepository.getUserById(id);
+//            User user = userRepository.getUserById(id);
+            Product product = productRepository.getProductById(id);
 
-            Image image = Image.builder().id(generateFileId).createAt(new Date(System.currentTimeMillis())).url(link).user(user).build();
+            Image image = Image.builder().id(generateFileId).createAt(new Date(System.currentTimeMillis())).url(link).product(product).build();
 
             imageRepository.save(image);
             return link;

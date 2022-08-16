@@ -44,8 +44,8 @@ public class ProductController {
     }
 
     // update product rest api
-//    @PutMapping("/products/{id}")
-//    public  ResponseEntity <products> updateproduct(@PathVariable Long id, @RequestBody products productDetails){
+//    @PutMapping("/{id}")
+//    public  ResponseEntity <products> updateProduct(@PathVariable Long id, @RequestBody products productDetails){
 //        products product = productRepository.findById(id)
 //                .orElseThrow (()->new NotFoundException
 //                        ("product not exist with id :" + id));
@@ -54,9 +54,9 @@ public class ProductController {
 //        product.set(productDetails.get());
 //        product.set(productDetails.get());
 //
-//        products updatedproduct = productRepository.save(product);
+//        products updatedProduct = productRepository.save(product);
 //
-//        return  ResponseEntity.ok(updatedproduct);
+//        return  ResponseEntity.ok(updatedProduct);
 //    }
 
     // delete product rest api
@@ -74,7 +74,7 @@ public class ProductController {
     //    HOT PRODUCT
     @GetMapping("/hot")
     public List<Product> getProductTopSold() {
-        return productRepository.findTop6AllByOrderBySold();
+        return productRepository.findTop6AllByOrderBySoldDesc();
     }
 
     //SEARCH BY NAME -> http://localhost:8080/api/v1/products/search-name?name="Lesley Rohan"
