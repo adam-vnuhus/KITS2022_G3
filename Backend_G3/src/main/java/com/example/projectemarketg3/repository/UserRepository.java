@@ -19,8 +19,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query("UPDATE User u SET u.enabled = TRUE WHERE u.email = ?1")
     void enableUser(String email);
 
-    @Query("select u from User u where u.role = 'USER' order by u.name")
-    List<User> findByRoleOrderByNameAsc();
+    User getByEmail(String email);
+
+
 
     List<User> findByNameStartsWithIgnoreCaseOrderByNameAsc(String name);
 

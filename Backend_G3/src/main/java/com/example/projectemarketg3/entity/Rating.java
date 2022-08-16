@@ -30,6 +30,9 @@ public class Rating {
     @Column(name = "star")
     private Integer star;
 
+    @Column(name = "checking")
+    private Boolean checking;
+
     @OneToOne(orphanRemoval = true)
     @JoinColumn(name = "user_id")
     private User user;

@@ -144,7 +144,7 @@ public class initData {
         List<Product> products = productRepository.findAll();
         List<User> users = userRepository.findAll();
 
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 10; i++) {
             Product product = products.get(random.nextInt(products.size()));
             User user  = users.get(random.nextInt(users.size()));
 
@@ -154,6 +154,7 @@ public class initData {
                     .star(5)
                     .product(product)
                     .user(user)
+                    .checking(false)
                     .build();
 
             ratingRepository.save(rating);
