@@ -46,7 +46,7 @@ public class OrderController {
     }
 
     // update order rest api
-//    @PutMapping("/orders/{id}")
+//    @PutMapping("/{id}")
 //    public  ResponseEntity <Orders> updateOrder(@PathVariable Long id, @RequestBody Orders orderDetails){
 //        Orders order = ordersRepository.findById(id)
 //                .orElseThrow (()->new NotFoundException
@@ -56,9 +56,9 @@ public class OrderController {
 //        order.set(orderDetails.get());
 //        order.set(orderDetails.get());
 //
-//        Orders updatedorder = ordersRepository.save(order);
+//        Orders updatedOrder = ordersRepository.save(order);
 //
-//        return  ResponseEntity.ok(updatedorder);
+//        return  ResponseEntity.ok(updatedOrder);
 //    }
 
     // delete order rest api

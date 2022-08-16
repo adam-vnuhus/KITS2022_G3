@@ -1,6 +1,5 @@
 package com.example.projectemarketg3.controller;
 
-import com.example.projectemarketg3.entity.Product;
 import com.example.projectemarketg3.entity.Rating;
 import com.example.projectemarketg3.exception.NotFoundException;
 import com.example.projectemarketg3.repository.RatingRepository;
@@ -26,6 +25,36 @@ public class RatingController {
         return ratingRepository.findAll();
     }
 
+    // create a new rating rest api
+    @PostMapping("/")
+    public Rating createRating(@RequestBody Rating rating) {
+        return ratingRepository.save(rating);
+    }
+
+    // get rating by ID rest api
+    @GetMapping("/{id}")
+    public ResponseEntity<Rating> getRatingById(@PathVariable Long id) {
+        Rating rating = ratingRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException
+                        ("rating not exist with id :" + id));
+        return ResponseEntity.ok(rating);
+    }
+
+    // update rating rest api
+//    @PutMapping("/{id}")
+//    public  ResponseEntity <ratings> updateRating(@PathVariable Long id, @RequestBody Ratings ratingDetails){
+//        Ratings rating = ratingRepository.findById(id)
+//                .orElseThrow (()->new NotFoundException
+//                        ("rating not exist with id :" + id));
+//
+//        rating.set(ratingDetails.get());
+//        rating.set(ratingDetails.get());
+//        rating.set(ratingDetails.get());
+//
+//        ratings updateRating = ratingRepository.save(rating);
+//
+//        return  ResponseEntity.ok(updateRating);
+//    }
 
     // delete rating rest api
     @DeleteMapping("/{id}")
