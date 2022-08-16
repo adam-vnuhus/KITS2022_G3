@@ -15,8 +15,11 @@ public class CategoryController {
     @Autowired
     private CategoryRepository categoryRepository;
 
+
+
     @GetMapping
     public List<Category> getAllCategory(){
         return categoryRepository.findAll();
     }
+
 }
