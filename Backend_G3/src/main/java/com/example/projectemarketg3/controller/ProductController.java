@@ -74,7 +74,7 @@ public class ProductController {
     //    HOT PRODUCT
     @GetMapping("/hot")
     public List<Product> getProductTopSold() {
-        return productRepository.findTop6AllByOrderBySold();
+        return productRepository.findTop6AllByOrderBySoldDesc();
     }
 
     //SEARCH BY NAME -> http://localhost:8080/api/v1/products/search-name?name="Lesley Rohan"
