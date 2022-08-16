@@ -34,6 +34,7 @@ public class Orders {
     @OneToMany(mappedBy = "orders", orphanRemoval = false, cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private Set<OrderDetail> orderDetails = new LinkedHashSet<>();
 
+
     @ManyToOne
     @JoinColumn(name = "status_id")
     private Status status;

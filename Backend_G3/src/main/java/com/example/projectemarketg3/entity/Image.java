@@ -3,6 +3,7 @@ package com.example.projectemarketg3.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.sql.Date;
 
 @Builder
 @AllArgsConstructor
@@ -13,18 +14,16 @@ import javax.persistence.*;
 @Table(name = "image")
 public class Image {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
-    private Long id;
+    private String id;
 
     @Column(name = "url")
     private String url;
 
-    @Column(name = "note")
-    private String note;
+    @Column(name = "create_at")
+    private Date createAt;
 
     @ManyToOne
-    @JoinColumn(name = "product_id")
-    private Product product;
-
+    @JoinColumn(name = "user_id")
+    private User user;
 }

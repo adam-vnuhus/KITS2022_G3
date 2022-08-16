@@ -15,8 +15,8 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query("select p from Product p where upper(p.name) like upper(?1)")
     List<Product> findByNameLikeIgnoreCase(String name);
 
-    @Query("select p from Product p where p.name like concat(?1, '%')")
-    List<Product> findByNameStartsWith(String name);
+    List<Product> getByNameStartsWithIgnoreCaseOrderByNameAsc(String name);
+
 
     @Query("select p from Product p where p.category.name = ?1")
     List<Product> findByCategory_Name(String name);

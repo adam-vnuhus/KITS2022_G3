@@ -1,7 +1,5 @@
 package com.example.projectemarketg3;
 
-import com.cloudinary.Cloudinary;
-import com.cloudinary.utils.ObjectUtils;
 import com.github.javafaker.Faker;
 import com.github.slugify.Slugify;
 import org.springframework.boot.SpringApplication;
@@ -33,23 +31,23 @@ public class Projectreactor3Application {
         return new Faker();
     }
 
-    @Bean
-    public CommonsMultipartResolver multipartResolver() {
-        CommonsMultipartResolver resolver = new CommonsMultipartResolver();
-        resolver.setDefaultEncoding("UFT-8");
-
-        return resolver;
-    }
-
-    @Bean
-    public Cloudinary cloudinary(){
-        //bam
-        return new Cloudinary(ObjectUtils.asMap(
-                "cloud_name","ddyozlbyd",
-                "api_key","839698234848697",
-                "api_secret","k4ayjlOLzsp-LtxgQEKt27oXUmo",
-                "secure",true
-        ));
-    }
+//    @Bean
+//    public CommonsMultipartResolver multipartResolver() {
+//        CommonsMultipartResolver resolver = new CommonsMultipartResolver();
+//        resolver.setDefaultEncoding("UFT-8");
+//
+//        return resolver;
+//    }
+//
+//    @Bean
+//    public Cloudinary cloudinary(){
+//        //bam
+//        return new Cloudinary(ObjectUtils.asMap(
+//                "cloud_name","ddyozlbyd",
+//                "api_key","839698234848697",
+//                "api_secret","k4ayjlOLzsp-LtxgQEKt27oXUmo",
+//                "secure",true
+//        ));
+//    }
 
 }

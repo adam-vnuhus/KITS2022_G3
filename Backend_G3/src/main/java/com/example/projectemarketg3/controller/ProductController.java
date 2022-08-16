@@ -80,7 +80,7 @@ public class ProductController {
     //SEARCH BY NAME -> http://localhost:8080/api/v1/products/search-name?name="Lesley Rohan"
     @GetMapping("/search-name")
     public List<Product> finByName(@RequestParam String name) {
-        return productRepository.findByNameStartsWith(name);
+        return productRepository.getByNameStartsWithIgnoreCaseOrderByNameAsc(name);
     }
 
     //    SEARCH BY PRICE

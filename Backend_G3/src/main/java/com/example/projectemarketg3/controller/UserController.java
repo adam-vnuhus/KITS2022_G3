@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v2")
+@RequestMapping("/api/v1")
 public class UserController {
 
     @Autowired
@@ -22,8 +22,8 @@ public class UserController {
         return userRepository.findByRoleOrderByNameAsc();
     }
 
-    @GetMapping("/name-user")
+    @GetMapping("/users/search")
     public List<User> findNameUser(@RequestParam String name){
-        return userRepository.findByNameStartsWith(name);
+        return userRepository.findByNameStartsWithIgnoreCaseOrderByNameAsc(name);
     }
 }

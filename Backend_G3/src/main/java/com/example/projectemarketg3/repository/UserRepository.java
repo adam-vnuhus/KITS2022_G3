@@ -22,7 +22,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query("select u from User u where u.role = 'USER' order by u.name")
     List<User> findByRoleOrderByNameAsc();
 
-    List<User> findByNameStartsWith(String name);
+    List<User> findByNameStartsWithIgnoreCaseOrderByNameAsc(String name);
 
+    User getUserById(Long id);
 
 }
