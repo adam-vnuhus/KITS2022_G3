@@ -37,4 +37,10 @@ https://wireframe.cc/pro/pp/9ddde99b3572926
 |  Cell  |  Cell  | 
 |  Cell  |  Cell  |  
 
-
+# API Admin
+| API | note | method | 
+| :----- | :---------- | :-------------- | 
+| B      | C           | A               | 
+| E      | F           | D               | 
+| H      | I           | G               | 
+| T      | U           | S               |
