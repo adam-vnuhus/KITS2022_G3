@@ -5,7 +5,7 @@ import Carousel from 'react-bootstrap/Carousel'
 import 'bootstrap/dist/css/bootstrap.css';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
-
+import { useParams } from "react-router-dom";
 const DetailProduct = () => {
 
     return (

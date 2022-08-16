@@ -1,11 +1,13 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 import { useState } from 'react';
-
 const Header = () => {
 
+    let param = window.location.pathname;
 
-    const [displays, setDisplay] = useState('block');
+    const defaultDisplay = (param === "/" ? 'block' : 'none')
+
+    const [displays, setDisplay] = useState(defaultDisplay);
 
     const haldeAllDe = () => {
         console.log('>>> check ', displays);
@@ -96,6 +98,7 @@ const Header = () => {
             </header>
             {/* Header Section End */}
             {/* Hero Section Begin */}
+
             <section className="hero">
                 <div className="container">
                     <div className="row">
@@ -143,7 +146,7 @@ const Header = () => {
                                 </div>
                             </div>
                             {/* banner */}
-                            <div id="carouselExampleSlidesOnly" className="carousel slide" data-ride="carousel">
+                            <div id="carouselExampleSlidesOnly" className={param === "/" ? 'carousel slide d-block' : 'carousel slide d-none'} data-ride="carousel">
                                 <div className="carousel-inner">
                                     <div className="carousel-item active">
                                         <img className="d-block w-100" src={require(`../img/hero/banner.jpg`)} alt="First slide" />
