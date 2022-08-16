@@ -4,6 +4,7 @@ package com.example.projectemarketg3.service;
 import com.example.projectemarketg3.entity.User;
 import com.example.projectemarketg3.exception.NotFoundException;
 import com.example.projectemarketg3.repository.UserRepository;
+import com.example.projectemarketg3.request.UserRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -69,6 +70,24 @@ public class UserService implements UserDetailsService {
         }
 
         return fileService.getFiles(id);
+    }
+
+    public UserRequest infoUserByEmail(String email){
+       User user = userRepository.getByEmail(email);
+       UserRequest userRequest = UserRequest.builder()
+               .id(user.getId())
+               .email(user.getEmail())
+               .address(user.getAddress())
+               .dob(user.getDob())
+               .gender(user.getGender())
+               .name(user.getName())
+               .image(user.getImage())
+               .phone(user.getPhone())
+               .point(user.getPoint())
+               .ranking(user.getRanking())
+               .build();
+
+       return userRequest;
     }
 
 }

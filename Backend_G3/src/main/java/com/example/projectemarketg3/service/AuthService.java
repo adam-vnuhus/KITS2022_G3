@@ -53,7 +53,8 @@ public class AuthService {
         SecurityContextHolder.getContext().setAuthentication(authentication);
 //        luu thong tin trong session -> name mdinh
         session.setAttribute("MY_SESSION",authentication.getName());
-        return "login success";
+
+        return "chao mung " + loginRequest.getEmail();
     }
 
     // LOGOUT USER
