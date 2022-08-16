@@ -63,6 +63,8 @@ public class User implements UserDetails {
     @Column(name = "enabled")
     private Boolean enabled = false;
 
+
+
     @Type(type = "json")
     @Column(name = "role", columnDefinition = "json")
     private List<String> role;
@@ -70,6 +72,9 @@ public class User implements UserDetails {
     @ManyToOne
     @JoinColumn(name = "ranking_id")
     private Ranking ranking;
+
+    @Column(name = "rank_date")
+    private Date rank_date;
 
     @Override
     public boolean equals(Object o) {

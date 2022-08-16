@@ -26,4 +26,8 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query("select p from Product p where p.sellPrice between ?1 and ?2 order by p.sellPrice")
     List<Product> findBySellPriceBetweenOrderBySellPriceAsc(Long sellPriceStart, Long sellPriceEnd);
 
+    Product getProductById(Long id);
+
+    List<Product> getByCategory_NameContainsIgnoreCase(String category);
+
 }

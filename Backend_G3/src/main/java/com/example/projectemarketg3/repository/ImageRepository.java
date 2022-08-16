@@ -10,4 +10,6 @@ import java.util.List;
 public interface ImageRepository extends JpaRepository<Image, String> {
     List<Image> getByUser_IdOrderByCreateAtDesc(Long id);
 
+    List<Image> getByProduct_IdOrderByCreateAtDesc(Long id);
+
 }

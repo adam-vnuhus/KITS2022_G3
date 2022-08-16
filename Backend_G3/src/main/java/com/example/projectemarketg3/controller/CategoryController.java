@@ -1,8 +1,10 @@
 package com.example.projectemarketg3.controller;
 
 import com.example.projectemarketg3.entity.Category;
+import com.example.projectemarketg3.entity.Product;
 import com.example.projectemarketg3.exception.NotFoundException;
 import com.example.projectemarketg3.repository.CategoryRepository;
+import com.example.projectemarketg3.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +18,8 @@ import java.util.Map;
 public class CategoryController {
     @Autowired
     private CategoryRepository categoryRepository;
+    @Autowired
+    private ProductRepository productRepository;
 
     @GetMapping
     public List<Category> getAllCategory(){
@@ -23,7 +27,7 @@ public class CategoryController {
     }
 
     // create a new category rest api
-    @PostMapping("/")
+    @PostMapping
     public Category createCategory(@RequestBody Category category) {
         return categoryRepository.save(category);
     }
@@ -38,20 +42,15 @@ public class CategoryController {
     }
 
     // update category rest api
-//    @PutMapping("/category/{id}")
-//    public  ResponseEntity <Category> updatedCategory(@PathVariable Long id, @RequestBody Category categoryDetails){
-//        Category category = categoryRepository.findById(id)
-//                .orElseThrow (()->new NotFoundException
-//                        ("category not exist with id :" + id));
-//
-//        category.set(categoryDetails.get());
-//        category.set(categoryDetails.get());
-//        category.set(categoryDetails.get());
-//
-//        Category updatedCategory = categoryRepository.save(category);
-//
-//        return  ResponseEntity.ok(updatedCategory);
-//    }
+    @PutMapping("/{id}")
+    public  ResponseEntity <Category> updatedCategory(@PathVariable Long id, @RequestBody Category categoryDetails){
+        Category category = categoryRepository.findById(id)
+                .orElseThrow (()->new NotFoundException
+                        ("category not exist with id :" + id));
+
+        category.setName(categoryDetails.getName());
+        return  ResponseEntity.ok(categoryRepository.save(category));
+    }
 
     // delete category rest api
     @DeleteMapping("/{id}")
@@ -63,6 +62,11 @@ public class CategoryController {
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted",Boolean.TRUE);
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/product/{category}")
+    public List<Product> getProductByCategory(@PathVariable String category){
+        return productRepository.getByCategory_NameContainsIgnoreCase(category);
     }
 
 }

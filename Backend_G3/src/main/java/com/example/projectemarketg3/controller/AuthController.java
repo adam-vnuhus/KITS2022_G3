@@ -2,6 +2,7 @@ package com.example.projectemarketg3.controller;
 
 import com.example.projectemarketg3.request.LoginRequest;
 import com.example.projectemarketg3.request.RegisterUserRequest;
+import com.example.projectemarketg3.request.UserRequest;
 import com.example.projectemarketg3.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +17,7 @@ public class AuthController {
     private AuthService authService;
 
     @GetMapping("/login")
-    public String login(@RequestBody LoginRequest request, HttpSession session) {
+    public UserRequest login(@RequestBody LoginRequest request, HttpSession session) {
         return authService.login(request, session);
     }
 

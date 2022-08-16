@@ -20,10 +20,10 @@ public class FileController {
     private ProductService productService;
 
     // Upload file
-    @PostMapping("/users/{id}/upload-file")
-    public String uploadFile(@PathVariable Long id, @ModelAttribute("file") MultipartFile file) {
-        return userService.uploadFile(id, file);
-    }
+//    @PostMapping("/users/{id}/upload-file")
+//    public String uploadFile(@PathVariable Long id, @ModelAttribute("file") MultipartFile file) {
+//        return userService.uploadFile(id, file);
+//    }
 
     @PostMapping("/product/{id}/upload-file")
     public String productUpFile(@PathVariable Long id,@ModelAttribute("file") MultipartFile file){
@@ -31,10 +31,10 @@ public class FileController {
     }
 
     // Xem file
-    @GetMapping(value = "/users/{id}/files/{fileId}", produces = MediaType.IMAGE_JPEG_VALUE)
-    public byte[] readFile(@PathVariable Long id, @PathVariable String fileId) {
-        return userService.readFile(id, fileId);
-    }
+//    @GetMapping(value = "/users/{id}/files/{fileId}", produces = MediaType.IMAGE_JPEG_VALUE)
+//    public byte[] readFile(@PathVariable Long id, @PathVariable String fileId) {
+//        return userService.readFile(id, fileId);
+//    }
 
     @GetMapping(value = "/product/{id}/files/{fileId}",produces = MediaType.IMAGE_JPEG_VALUE)
     public byte[] readFileProduct(@PathVariable Long id,@PathVariable String fileId){
@@ -42,11 +42,11 @@ public class FileController {
     }
 
     // Xóa file
-    @DeleteMapping("/users/{id}/files/{fileId}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteFile(@PathVariable Long id, @PathVariable String fileId) {
-        userService.deleteFile(id, fileId);
-    }
+//    @DeleteMapping("/users/{id}/files/{fileId}")
+//    @ResponseStatus(HttpStatus.NO_CONTENT)
+//    public void deleteFile(@PathVariable Long id, @PathVariable String fileId) {
+//        userService.deleteFile(id, fileId);
+//    }
 
     @DeleteMapping("/product/{id}/files/{fileId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -55,10 +55,10 @@ public class FileController {
     }
 
     // Lấy danh sách file upload
-    @GetMapping("/users/{id}/files")
-    public List<String> getFiles(@PathVariable Long id) {
-        return userService.getFiles(id);
-    }
+//    @GetMapping("/users/{id}/files")
+//    public List<String> getFiles(@PathVariable Long id) {
+//        return userService.getFiles(id);
+//    }
 
     @GetMapping("/product/{id}/files")
     public List<String> getFileProduct(@PathVariable Long id){

@@ -7,6 +7,7 @@ import com.example.projectemarketg3.repository.TokenRepository;
 import com.example.projectemarketg3.repository.UserRepository;
 import com.example.projectemarketg3.request.LoginRequest;
 import com.example.projectemarketg3.request.RegisterUserRequest;
+import com.example.projectemarketg3.request.UserRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -43,8 +44,10 @@ public class AuthService {
     @Autowired
     private AuthenticationManager authenticationManager;
 
+
+
 //    LOGIN
-    public String login(LoginRequest loginRequest, HttpSession session){
+    public UserRequest login(LoginRequest loginRequest, HttpSession session){
         //tao foi tuong dua tren thong tin xac thuwc
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(loginRequest.getEmail(),loginRequest.getPassword());
 //        tien hanh xac thuc (@Bean trong config)
@@ -54,7 +57,9 @@ public class AuthService {
 //        luu thong tin trong session -> name mdinh
         session.setAttribute("MY_SESSION",authentication.getName());
 
-        return "chao mung " + loginRequest.getEmail();
+//        "chao mung " + loginRequest.getEmail();
+        return  userService.infoUserByEmail(loginRequest.getEmail());
+
     }
 
     // LOGOUT USER

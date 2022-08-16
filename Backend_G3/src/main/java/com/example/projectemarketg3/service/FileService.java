@@ -164,8 +164,8 @@ public class FileService {
 
     // Lấy danh sách file
     public List<String> getFiles(Long id) {
-        // Lấy ds file tương ứng với user_id
-        List<Image> images = imageRepository.getByUser_IdOrderByCreateAtDesc(id);
+        // Lấy ds file tương ứng với product_id
+        List<Image> images = imageRepository.getByProduct_IdOrderByCreateAtDesc(id);
 
         return images.stream().map(Image::getUrl).collect(Collectors.toList());
     }

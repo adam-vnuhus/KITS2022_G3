@@ -21,6 +21,12 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     User getByEmail(String email);
 
+    @Query("select u from User u where upper(u.ranking.name) like upper(concat('%', ?1, '%')) order by u.rank_date DESC")
+    List<User> findByRanking_NameContainsIgnoreCaseOrderByRank_dateDesc(String name);
+
+    @Query("select distinct u from User u where u.ranking.name = ?1 order by u.rank_date DESC")
+    List<User> findDistinctByRanking_NameOrderByRank_dateDesc(String name);
+
 
 
     List<User> findByNameStartsWithIgnoreCaseOrderByNameAsc(String name);

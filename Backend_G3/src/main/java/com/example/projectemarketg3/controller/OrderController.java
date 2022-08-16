@@ -2,13 +2,13 @@ package com.example.projectemarketg3.controller;
 
 import com.example.projectemarketg3.entity.OrderDetail;
 import com.example.projectemarketg3.entity.Orders;
+import com.example.projectemarketg3.exception.NotFoundException;
 import com.example.projectemarketg3.repository.OrderDetailRepository;
 import com.example.projectemarketg3.repository.OrdersRepository;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import com.example.projectemarketg3.exception.NotFoundException;
 
 import java.util.HashMap;
 import java.util.List;
@@ -26,12 +26,12 @@ public class OrderController {
 
 
     @GetMapping
-    public List<Orders> getAllOrder(){
+    public List<Orders> getAllOrder() {
         return ordersRepository.findAll();
     }
 
     // create a new order rest api
-    @PostMapping("/")
+    @PostMapping
     public Orders createOrder(@RequestBody Orders order) {
         return ordersRepository.save(order);
     }
@@ -46,39 +46,43 @@ public class OrderController {
     }
 
     // update order rest api
-//    @PutMapping("/{id}")
-//    public  ResponseEntity <Orders> updateOrder(@PathVariable Long id, @RequestBody Orders orderDetails){
-//        Orders order = ordersRepository.findById(id)
-//                .orElseThrow (()->new NotFoundException
-//                        ("order not exist with id :" + id));
-//
-//        order.set(orderDetails.get());
-//        order.set(orderDetails.get());
-//        order.set(orderDetails.get());
-//
-//        Orders updatedOrder = ordersRepository.save(order);
-//
-//        return  ResponseEntity.ok(updatedOrder);
-//    }
+    @PutMapping("/{id}")
+    public ResponseEntity<Orders> updateOrder(@PathVariable Long id, @RequestBody Orders orderDetails) {
+        Orders order = ordersRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException
+                        ("order not found with id :" + id));
+
+        order.setNote(orderDetails.getNote());
+        order.setTotalPrice(orderDetails.getTotalPrice());
+        order.setOrderDetails(orderDetails.getOrderDetails());
+        order.setStatus(orderDetails.getStatus());
+        order.setUser(orderDetails.getUser());
+
+        ordersRepository.save(order);
+        return ResponseEntity.ok(order);
+    }
 
     // delete order rest api
     @DeleteMapping("/{id}")
-    public ResponseEntity <Map<String, Boolean>> deleteOrder(@PathVariable Long id){
+    public Orders deleteOrder(@PathVariable Long id) {
         Orders order = ordersRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException
                         ("order not exist with id :" + id));
         ordersRepository.delete(order);
-        Map<String, Boolean> response = new HashMap<>();
-        response.put("deleted",Boolean.TRUE);
-        return ResponseEntity.ok(response);
+       return order;
+    }
+
+    @GetMapping("/user/{id}")
+    public  List<Orders> listOrdersByIdUser(@PathVariable Long id){
+        return ordersRepository.getByUser_IdOrderByCreateAtDesc(id);
     }
 
 
     //----------------------------------------------- DETAILS-----------------------------------------------------------
 
     @GetMapping("/details")
-    public List<OrderDetail> getAllDetail(){
-        return orderDetailRepository.findAll();
+    public List<OrderDetail> getAllDetail() {
+        return orderDetailRepository.findByOrderByTotalDesc();
     }
 
     // create a new order detail rest api
@@ -129,18 +133,18 @@ public class OrderController {
 
     // delete order detail rest api
     @DeleteMapping("/details/{id}")
-    public ResponseEntity <Map<String, Boolean>> deleteOrderDetails(@PathVariable Long id){
+    public ResponseEntity<Map<String, Boolean>> deleteOrderDetails(@PathVariable Long id) {
         OrderDetail orderdetails = orderDetailRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException
                         ("orderdetails not exist with id :" + id));
         orderDetailRepository.delete(orderdetails);
         Map<String, Boolean> response = new HashMap<>();
-        response.put("deleted",Boolean.TRUE);
+        response.put("deleted", Boolean.TRUE);
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/purchases/{id}")
-    public long purchasesProductById(@PathVariable Long id){
+    public long purchasesProductById(@PathVariable Long id) {
         return orderDetailRepository.countByProduct_Id(id);
     }
 

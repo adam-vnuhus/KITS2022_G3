@@ -21,4 +21,10 @@ public interface OrderDetailRepository extends JpaRepository<OrderDetail, Long> 
     @Query("select count(distinct o) from OrderDetail o where upper(o.product.id) = upper(:id)")
     long countDistinctByProduct_IdAllIgnoreCase(@Param("id") Long id);
 
+    List<OrderDetail> findByOrderByTotalDesc();
+
+
+
+
+
 }
