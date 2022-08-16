@@ -73,13 +73,20 @@ const DetailProduct = () => {
                                 <p>Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Vestibulum ac diam sit amet quam
                                     vehicula elementum sed sit amet dui. Sed porttitor lectus nibh. Vestibulum ac diam sit amet
                                     quam vehicula elementum sed sit amet dui. Proin eget tortor risus.</p>
-                                <div className="product__details__quantity">
-                                    <div className="quantity">
-                                        <div className="pro-qty">
-                                            <input type="text" defaultValue={1} />
-                                        </div>
-                                    </div>
+                                <div className="input-group col-md-6 d-flex mb-3">
+                                    <span className="input-group-btn mr-2">
+                                        <button type="button" className="fa-solid fa-chevron-left" data-type="minus" data-field>
+                                            <i className="ion-ios-remove" />
+                                        </button>
+                                    </span>
+                                    <input type="text" id="quantity" name="quantity" className="form-control input-number" defaultValue={1} min={1} max={100} />
+                                    <span className="input-group-btn ml-2">
+                                        <button type="button" className="fa-solid fa-angle-right" data-type="plus" data-field>
+                                            <i className="ion-ios-add" />
+                                        </button>
+                                    </span>
                                 </div>
+
                                 <a href="/" className="primary-btn">ADD TO CARD</a>
 
                                 <ul>

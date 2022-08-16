@@ -2,11 +2,12 @@ import './App.css';
 import Header from './Components/Header';
 import './Css/style.css';
 import './Css/owl-carousel-min.css';
+
 import Footer from './Components/Footer';
 import Home from './Pages/Home';
 import Categories from './Pages/HomeComponents/Categories';
 import ShopMainPage from "./Pages/ShopMainPage";
-import {BrowserRouter, Routes, Route} from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from './Components/Layout';
 import Cart from "./Pages/Cart";
 import Contact from "./Pages/Contact";
@@ -17,6 +18,7 @@ import AdminLayout from "./Components/AdminPageComponents/AdminLayout";
 import Admin from "./Pages/AdminPages/Admin";
 import MainContent from "./Components/AdminPageComponents/MainContent";
 import React from "react";
+import DetailProduct from './Pages/DetailProduct';
 
 
 const all_orders = [
@@ -178,22 +180,25 @@ function App() {
 
         <BrowserRouter>
             <Routes>
-                <Route path="/admin/" element={<AdminLayout/>}>
-                    <Route path="/admin/" element={<Admin/>}/>
+                <Route path="/admin/" element={<AdminLayout />}>
+                    <Route path="/admin/" element={<Admin />} />
                     <Route path="/admin/orders"
-                           element={<MainContent content={all_orders} entity={"order"} columns={columns}
-                                                 fields={tableColumns} addNew={0}/>}/>
+                        element={<MainContent content={all_orders} entity={"order"} columns={columns}
+                            fields={tableColumns} addNew={0} />} />
 
 
                 </Route>
 
-                <Route path="/" element={<Layout/>}>
-                    <Route index element={<Home/>}/>
-                    <Route path="/shop" element={<ShopMainPage/>}/>
-                    <Route path="/cart" element={<Cart/>}/>
-                    <Route path="/contact" element={<Contact/>}/>
-                    <Route path="/checkout" element={<Checkout/>}/>
-                    <Route path="/login" element={<Login/>}/>
+                <Route path="/" element={<Layout />}>
+                    <Route index element={<Home />} />
+                    <Route path="/shop" element={<ShopMainPage />} />
+                    <Route path="/cart" element={<Cart />} />
+                    <Route path="/contact" element={<Contact />} />
+                    <Route path="/checkout" element={<Checkout />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/test" element={<DetailProduct />} />
+
+
                     {/* <Route path="blogs" element={<Blogs />} />
           <Route path="contact" element={<Contact />} />
           <Route path="*" element={<NoPage />} /> */}
