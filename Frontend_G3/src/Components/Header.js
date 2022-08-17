@@ -6,8 +6,10 @@ const Header = () => {
     let param = window.location.pathname;
 
     const defaultDisplay = (param === "/" ? 'block' : 'none')
+    const defaultHeader = (param !== "/login" ? 'block' : 'none')
 
     const [displays, setDisplay] = useState(defaultDisplay);
+    const [onlyNav,setOnlyNav] = useState(defaultHeader);
 
     const haldeAllDe = () => {
         console.log('>>> check ', displays);
@@ -99,7 +101,7 @@ const Header = () => {
             {/* Header Section End */}
             {/* Hero Section Begin */}
 
-            <section className="hero">
+            <section className="hero" style={{display: onlyNav}}>
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-3">

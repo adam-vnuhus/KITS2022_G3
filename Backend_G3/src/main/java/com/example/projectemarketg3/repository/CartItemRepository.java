@@ -10,10 +10,8 @@ import java.util.List;
 @Repository
 public interface CartItemRepository extends JpaRepository<CartItem, Long> {
 
-    @Query(nativeQuery = true ,
-            value = "select c.product.id ,c.product.name,c.product.sellPrice, c.quantity from CartItem c where c.user.id = ?1")
-    public List<CartItem> getCartItemBy_UserId(Long id);
-
-
-
+//    @Query(nativeQuery = true ,
+//            value = "select c.product.id ,c.product.name,c.product.sellPrice, c.quantity from CartItem c where c.user.id = ?1")
+//    public List<CartItem> getCartItemBy_UserId(Long id);
+    List<CartItem> findCartItemByUser(Long id);
 }

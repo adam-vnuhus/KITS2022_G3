@@ -186,8 +186,6 @@ function App() {
                     <Route path="/admin/orders"
                         element={<MainContent content={all_orders} entity={"order"} columns={columns}
                             fields={tableColumns} addNew={0} />} />
-
-
                 </Route>
 
                 <Route path="/" element={<Layout />}>
