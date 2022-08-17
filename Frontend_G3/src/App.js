@@ -19,7 +19,8 @@ import MainContent from "./Components/AdminPageComponents/MainContent";
 import React from "react";
 import DetailProduct from './Pages/DetailProduct';
 import SignIn from "./Pages/SignIn";
-
+import ProfileCustomer from './Pages/ProfileCustomer';
+import './Css/profile.css'
 
 const all_orders = [
     {
@@ -196,7 +197,8 @@ function App() {
                     <Route path="/contact" element={<Contact />} />
                     <Route path="/checkout" element={<Checkout />} />
                     <Route path="/login" element={<SignIn />} />
-
+                    <Route path="/detail" element={<DetailProduct />} />
+                    <Route path="/profile" element={<ProfileCustomer />} />
 
                     {/* <Route path="blogs" element={<Blogs />} />
           <Route path="contact" element={<Contact />} />
