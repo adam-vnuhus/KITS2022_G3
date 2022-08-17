@@ -85,6 +85,7 @@ public class UserService implements UserDetailsService {
                .phone(user.getPhone())
                .point(user.getPoint())
                .ranking(user.getRanking())
+               .rank_date(user.getRank_date())
                .build();
 
        return userRequest;

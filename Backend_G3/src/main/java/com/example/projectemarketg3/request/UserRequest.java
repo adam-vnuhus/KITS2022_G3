@@ -22,5 +22,5 @@ public class UserRequest {
     private String image;
     private String point;
     private Ranking ranking;
-
+    private Date rank_date;
 }
