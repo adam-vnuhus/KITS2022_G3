@@ -4,6 +4,8 @@ import com.example.projectemarketg3.entity.Ranking;
 import com.example.projectemarketg3.entity.User;
 import com.example.projectemarketg3.repository.RankingRepository;
 import com.example.projectemarketg3.repository.UserRepository;
+import com.example.projectemarketg3.request.UserRequest;
+import com.example.projectemarketg3.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +21,8 @@ public class RankController {
     private RankingRepository rankingRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private UserService userService;
 
     @GetMapping
     public List<Ranking> getAllRank(){
@@ -43,7 +47,7 @@ public class RankController {
     }
 
     @GetMapping("/users/{name}")
-    public List<User> getAllUserByRank(@PathVariable String name){
-        return userRepository.findDistinctByRanking_NameOrderByRank_dateDesc(name);
+    public List<UserRequest> getAllUserByRank(@PathVariable String name){
+        return userService.findDistinctByRanking_NameOrderByRank_dateDesc(name);
     }
 }

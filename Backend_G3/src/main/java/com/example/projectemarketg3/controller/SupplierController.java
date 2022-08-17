@@ -25,7 +25,7 @@ public class SupplierController {
     }
 
     // create a new supplier rest api
-    @PostMapping("/")
+    @PostMapping
     public Supplier createSupplier(@RequestBody Supplier supplier) {
         return supplierRepository.save(supplier);
     }
@@ -40,20 +40,18 @@ public class SupplierController {
     }
 
     // update supplier rest api
-//    @PutMapping("/supplier/{id}")
-//    public  ResponseEntity <supplier> updatesupplier(@PathVariable Long id, @RequestBody supplier supplierDetails){
-//        supplier supplier = supplierRepository.findById(id)
-//                .orElseThrow (()->new NotFoundException
-//                        ("supplier not exist with id :" + id));
-//
-//        supplier.set(supplierDetails.get());
-//        supplier.set(supplierDetails.get());
-//        supplier.set(supplierDetails.get());
-//
-//        supplier updatedsupplier = supplierRepository.save(supplier);
-//
-//        return  ResponseEntity.ok(updatedsupplier);
-//    }
+    @PutMapping("/{id}")
+    public  ResponseEntity <Supplier> updatesupplier(@PathVariable Long id, @RequestParam String name){
+        Supplier supplier = supplierRepository.findById(id)
+                .orElseThrow (()->new NotFoundException
+                        ("supplier not exist with id :" + id));
+
+       supplier.setName(name);
+
+       supplierRepository.save(supplier);
+
+        return  ResponseEntity.ok(supplier);
+    }
 
     // delete supplier rest api
     @DeleteMapping("/{id}")

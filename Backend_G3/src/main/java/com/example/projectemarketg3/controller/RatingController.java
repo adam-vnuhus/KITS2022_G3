@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +27,7 @@ public class RatingController {
     }
 
     // create a new rating rest api
-    @PostMapping("/")
+    @PostMapping
     public Rating createRating(@RequestBody Rating rating) {
         return ratingRepository.save(rating);
     }
@@ -41,20 +42,19 @@ public class RatingController {
     }
 
     // update rating rest api
-//    @PutMapping("/{id}")
-//    public  ResponseEntity <ratings> updateRating(@PathVariable Long id, @RequestBody Ratings ratingDetails){
-//        Ratings rating = ratingRepository.findById(id)
-//                .orElseThrow (()->new NotFoundException
-//                        ("rating not exist with id :" + id));
-//
-//        rating.set(ratingDetails.get());
-//        rating.set(ratingDetails.get());
-//        rating.set(ratingDetails.get());
-//
-//        ratings updateRating = ratingRepository.save(rating);
-//
-//        return  ResponseEntity.ok(updateRating);
-//    }
+    @PutMapping("/{id}")
+    public  ResponseEntity <Rating> updateRating(@PathVariable Long id, @RequestBody Boolean check){
+        Rating rating = ratingRepository.findById(id)
+                .orElseThrow (()->new NotFoundException
+                        ("rating not exist with id :" + id));
+
+        rating.setCreateAt(new Date(System.currentTimeMillis()));
+        rating.setChecking(check);
+
+        ratingRepository.save(rating);
+
+        return  ResponseEntity.ok(ratingRepository.save(rating));
+    }
 
     // delete rating rest api
     @DeleteMapping("/{id}")
@@ -66,5 +66,11 @@ public class RatingController {
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted",Boolean.TRUE);
         return ResponseEntity.ok(response);
+    }
+
+//    Get product star
+    @GetMapping("/{star}/star")
+    public List<Rating> getAllByStar(@PathVariable Integer star){
+        return ratingRepository.getByStarOrderByCreateAtDesc(star);
     }
 }

@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,7 +47,7 @@ public class UserService implements UserDetailsService {
 
     // Upload file
     public String uploadFile(Long id, MultipartFile file) {
-        if(userRepository.findById(id).isEmpty()) {
+        if (userRepository.findById(id).isEmpty()) {
             throw new NotFoundException("Không tồn tại user có id = " + id);
         }
 
@@ -65,29 +66,52 @@ public class UserService implements UserDetailsService {
 
     // Lấy danh sách file
     public List<String> getFiles(Long id) {
-        if(userRepository.findById(id).isEmpty()) {
+        if (userRepository.findById(id).isEmpty()) {
             throw new NotFoundException("Không tồn tại user có id = " + id);
         }
 
         return fileService.getFiles(id);
     }
 
-    public UserRequest infoUserByEmail(String email){
-       User user = userRepository.getByEmail(email);
-       UserRequest userRequest = UserRequest.builder()
-               .id(user.getId())
-               .email(user.getEmail())
-               .address(user.getAddress())
-               .dob(user.getDob())
-               .gender(user.getGender())
-               .name(user.getName())
-               .image(user.getImage())
-               .phone(user.getPhone())
-               .point(user.getPoint())
-               .ranking(user.getRanking())
-               .build();
+    public UserRequest infoUserByEmail(String email) {
+        User user = userRepository.getByEmail(email);
+        UserRequest userRequest = UserRequest.builder()
+                .id(user.getId())
+                .email(user.getEmail())
+                .address(user.getAddress())
+                .dob(user.getDob())
+                .gender(user.getGender())
+                .name(user.getName())
+                .image(user.getImage())
+                .phone(user.getPhone())
+                .point(user.getPoint())
+                .ranking(user.getRanking())
+                .rank_date(user.getRank_date())
+                .build();
 
-       return userRequest;
+        return userRequest;
+    }
+
+    public List<UserRequest> findDistinctByRanking_NameOrderByRank_dateDesc(String name) {
+        List<UserRequest> userRequestList = new ArrayList<>();
+        List<User> userList = userRepository.findDistinctByRanking_NameOrderByRank_dateDesc(name);
+        userList.forEach(s-> {
+            userRequestList.add(UserRequest.builder()
+                    .id(s.getId())
+                    .email(s.getEmail())
+                    .address(s.getAddress())
+                    .dob(s.getDob())
+                    .gender(s.getGender())
+                    .name(s.getName())
+                    .image(s.getImage())
+                    .phone(s.getPhone())
+                    .point(s.getPoint())
+                    .ranking(s.getRanking())
+                    .rank_date(s.getRank_date())
+                    .build());
+        });
+
+        return userRequestList;
     }
 
 
