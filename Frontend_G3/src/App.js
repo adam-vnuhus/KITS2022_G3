@@ -3,7 +3,7 @@ import './App.css';
 import './Css/style.css';
 import './Css/owl-carousel-min.css';
 
-
+import './Css/profile.css'
 import Home from './Pages/Home';
 
 import ShopMainPage from "./Pages/ShopMainPage";
@@ -20,6 +20,7 @@ import React from "react";
 import DetailProduct from './Pages/DetailProduct';
 import SignIn from "./Pages/SignIn";
 import Dashboard from "./Components/AdminPageComponents/DashBoard";
+import ProfileCustomer from './Pages/ProfileCustomer';
 
 
 const all_orders = [
@@ -183,7 +184,7 @@ function App() {
             <Routes>
                 <Route path="/admin/" element={<AdminLayout />}>
                     <Route path="/admin/" element={<Dashboard />} />
-                    <Route path="/admin/dashboard" element={<Dashboard/>} />
+                    <Route path="/admin/dashboard" element={<Dashboard />} />
                     <Route path="/admin/orders"
                         element={<MainContent content={all_orders} entity={"order"} columns={columns}
                             fields={tableColumns} addNew={0} />} />
@@ -196,6 +197,8 @@ function App() {
                     <Route path="/contact" element={<Contact />} />
                     <Route path="/checkout" element={<Checkout />} />
                     <Route path="/login" element={<SignIn />} />
+                    <Route path="/detai" element={<DetailProduct />} />
+                    <Route path="/profile" element={<ProfileCustomer />} />
 
 
                     {/* <Route path="blogs" element={<Blogs />} />

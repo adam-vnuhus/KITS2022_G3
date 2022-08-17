@@ -44,7 +44,7 @@ const ProfileCustomer = () => {
                                                     <p className="text-muted mb-1">Full Stack Developer</p>
                                                     <p className="text-muted mb-4">Bay Area, San Francisco, CA</p>
                                                     <div className="d-flex justify-content-center mb-2">
-                                                        <button type="button" className="btn btn-primary">Follow</button>
+                                                        <button type="button" className="btn btn-primary">Avata</button>
                                                         <button type="button" className="btn btn-outline-primary ms-1">Message</button>
                                                     </div>
                                                 </div>
@@ -221,6 +221,9 @@ const ProfileCustomer = () => {
                             </div>
 
 
+                        </Tab>
+                        <Tab eventKey="end" title="Đánh giá">
+                            <h1>ok</h1>
                         </Tab>
 
                     </Tabs>
