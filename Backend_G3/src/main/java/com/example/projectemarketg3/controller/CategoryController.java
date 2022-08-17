@@ -34,7 +34,7 @@ public class CategoryController {
 
     // get category by ID rest api
     @GetMapping("/{id}")
-    public ResponseEntity<Category> getcategoryById(@PathVariable Long id) {
+    public ResponseEntity<Category> getCategoryById(@PathVariable Long id) {
         Category category = categoryRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException
                         ("category not exist with id :" + id));
@@ -54,7 +54,7 @@ public class CategoryController {
 
     // delete category rest api
     @DeleteMapping("/{id}")
-    public ResponseEntity <Map<String, Boolean>> deletecategory(@PathVariable Long id){
+    public ResponseEntity <Map<String, Boolean>> deleteCategory(@PathVariable Long id){
         Category category = categoryRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException
                         ("category not exist with id :" + id));
@@ -64,9 +64,8 @@ public class CategoryController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/product/{category}")
-    public List<Product> getProductByCategory(@PathVariable String category){
+    @GetMapping("/")
+    public List<Product> getProductByCategory(@RequestParam("name") String category){
         return productRepository.getByCategory_NameContainsIgnoreCase(category);
     }
-
 }
