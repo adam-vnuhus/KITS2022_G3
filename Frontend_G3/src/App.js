@@ -19,6 +19,7 @@ import MainContent from "./Components/AdminPageComponents/MainContent";
 import React from "react";
 import DetailProduct from './Pages/DetailProduct';
 import SignIn from "./Pages/SignIn";
+import Dashboard from "./Components/AdminPageComponents/DashBoard";
 
 
 const all_orders = [
@@ -181,7 +182,8 @@ function App() {
         <BrowserRouter>
             <Routes>
                 <Route path="/admin/" element={<AdminLayout />}>
-                    <Route path="/admin/" element={<Admin />} />
+                    <Route path="/admin/" element={<Dashboard />} />
+                    <Route path="/admin/dashboard" element={<Dashboard/>} />
                     <Route path="/admin/orders"
                         element={<MainContent content={all_orders} entity={"order"} columns={columns}
                             fields={tableColumns} addNew={0} />} />
@@ -202,14 +204,6 @@ function App() {
                 </Route>
             </Routes>
         </BrowserRouter>
-        // <>
-        //   <Header />
-        //   <Home />
-        //   {/* <ShopMainPage /> */}
-        //   <Footer />
-        //   {/* <Categories /> */}
-        //   {/* error  library */}
-        // </>
     );
 }
 

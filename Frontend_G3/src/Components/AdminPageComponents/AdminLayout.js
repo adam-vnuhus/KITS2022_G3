@@ -6,7 +6,7 @@ import AdminSideBar from "./AdminSideBar";
 
 const AdminLayout = () => {
     return(<>
-            <div className="row">
+            <div className="row bg-light bg-gradient">
             <AdminSideBar/>
                     <Outlet />
             </div>
