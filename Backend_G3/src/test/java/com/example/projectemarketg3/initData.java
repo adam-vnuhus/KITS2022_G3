@@ -216,19 +216,24 @@ public class initData {
         }
     }
 
+
     @Test
-    void dataImage() {
-//        List<Product> products = productRepository.findAll();
-//        for (int i = 0; i < 100; i++) {
-//            Product product = products.get(random.nextInt(products.size()));
-//
-//            Image image = Image.builder()
-//                    .product(product)
-//                    .url("https://res.cloudinary.com/ddyozlbyd/image/upload/v1660550124/oqnvy0ircdezaehm61ts.jpg")
-//                    .note("test product " + i)
-//                    .build();
-//
-//            imageRepository.save(image);
-//        }
+    void dataCart() {
+        List<Product> products = productRepository.findAll();
+        List<User> users = userRepository.findAll();
+
+        for (int i = 0; i < 20; i++) {
+
+            Product product = products.get(random.nextInt(products.size()));
+            User user = users.get(random.nextInt(users.size()));
+
+            CartItem cartItem = CartItem.builder()
+                    .product(product)
+                    .user(user)
+                    .quantity(2)
+                    .build();
+
+            cartItemRepository.save(cartItem);
+        }
     }
 }
