@@ -16,7 +16,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     List<Product> getByNameStartsWithIgnoreCaseOrderByNameAsc(String name);
 
-
     List<Product> findByCategory_Name(String name);
 
     List<Product> findBySellPriceBetweenOrderBySellPriceAsc(Long sellPriceStart, Long sellPriceEnd);
@@ -24,7 +23,4 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     Product getProductById(Long id);
 
     List<Product> getByCategory_NameContainsIgnoreCase(String category);
-
-
-
 }
