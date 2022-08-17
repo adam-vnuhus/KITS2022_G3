@@ -30,13 +30,13 @@ public class ProductController {
 
     // create a new product rest api
     @PostMapping("/")
-    public Product createproduct(@RequestBody Product product) {
+    public Product createProduct(@RequestBody Product product) {
         return productRepository.save(product);
     }
 
     // get product by ID rest api
     @GetMapping("/{id}")
-    public ResponseEntity<Product> getproductById(@PathVariable Long id) {
+    public ResponseEntity<Product> getProductById(@PathVariable Long id) {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException
                         ("product not exist with id :" + id));
@@ -61,7 +61,7 @@ public class ProductController {
 
     // delete product rest api
     @DeleteMapping("/{id}")
-    public ResponseEntity<Map<String, Boolean>> deleteproduct(@PathVariable Long id) {
+    public ResponseEntity<Map<String, Boolean>> deleteProduct(@PathVariable Long id) {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException
                         ("product not exist with id :" + id));
@@ -77,9 +77,9 @@ public class ProductController {
         return productRepository.findTop6AllByOrderBySoldDesc();
     }
 
-    //SEARCH BY NAME -> http://localhost:8080/api/v1/products/search-name?name="Lesley Rohan"
+    //SEARCH BY NAME -> http://localhost:8080/api/v1/products/search-name?name=Lesley Rohan
     @GetMapping("/search-name")
-    public List<Product> finByName(@RequestParam String name) {
+    public List<Product> findByName(@RequestParam String name) {
         return productRepository.getByNameStartsWithIgnoreCaseOrderByNameAsc(name);
     }
 
