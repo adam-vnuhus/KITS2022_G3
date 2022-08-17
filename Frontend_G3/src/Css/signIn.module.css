@@ -16,6 +16,10 @@
     background-color: #ecf0f3;
     color: #a0a5a8;
 }
+
+.opacity{
+    opacity:95%;
+}
 /**/
 .main {
     position: relative;
