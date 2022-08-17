@@ -12,13 +12,13 @@ import Layout from './Components/Layout';
 import Cart from "./Pages/Cart";
 import Contact from "./Pages/Contact";
 import Checkout from "./Pages/Checkout";
-import Login from "./Pages/Login";
 
 import AdminLayout from "./Components/AdminPageComponents/AdminLayout";
 import Admin from "./Pages/AdminPages/Admin";
 import MainContent from "./Components/AdminPageComponents/MainContent";
 import React from "react";
 import DetailProduct from './Pages/DetailProduct';
+import SignIn from "./Pages/SignIn";
 
 
 const all_orders = [
@@ -195,8 +195,7 @@ function App() {
                     <Route path="/cart" element={<Cart />} />
                     <Route path="/contact" element={<Contact />} />
                     <Route path="/checkout" element={<Checkout />} />
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/test" element={<DetailProduct />} />
+                    <Route path="/login" element={<SignIn />} />
 
 
                     {/* <Route path="blogs" element={<Blogs />} />
