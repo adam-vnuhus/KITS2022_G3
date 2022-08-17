@@ -21,8 +21,8 @@ export default function SignIn(){
     }
 
     return <>
-        <div className={styles["body"]}>
-            <div className={styles["main"]}>
+        <div className={styles["body"]} style={{backgroundImage:"url("+"https://wallpaperforu.com/wp-content/uploads/2020/10/food-wallpaper-20100313212461920x1200.jpg"+")",backgroundRepeat: "no-repeat",backgroundSize:"cover"}}>
+            <div className={`${styles["main"]} ${styles["opacity"]}`}>
                 <div className={`${styles["container"]} ${styles["a-container"]} ${isTxl}`}  id={styles["a-container"]}>
                     <form className={styles["form"]} id={styles["a-form"]} method action>
                         <h2 className={styles["form_title title"]}>Create Account</h2>
