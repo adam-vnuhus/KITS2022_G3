@@ -81,8 +81,7 @@ function MainContent({entity, content, columns, fields, addNew, linkToEdit, link
                     }
                     <td>
                         <button type="button" className="btn btn-primary" onClick={()=>editButtonHandler(item)}>Edit</button>
-                        <Link to={{linkToDelete} + "/" + item[fields[0]]}>"
-                            style="text-decoration: none">
+                        <Link to={{linkToDelete} + "/" + item[fields[0]]}>
                             <button type="button" className="btn btn-danger">Delete</button>
                         </Link>
                     </td>
