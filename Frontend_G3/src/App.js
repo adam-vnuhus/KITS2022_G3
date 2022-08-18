@@ -187,7 +187,7 @@ function App() {
                     <Route path="/admin/dashboard" element={<Dashboard />} />
                     <Route path="/admin/orders"
                         element={<MainContent content={all_orders} entity={"order"} columns={columns}
-                            fields={tableColumns} addNew={0} />} />
+                            fields={tableColumns} addNew={0} linkToEdit={} linkToDelete={} linkToAddNew={} />} />
                 </Route>
 
                 <Route path="/" element={<Layout />}>
@@ -197,7 +197,7 @@ function App() {
                     <Route path="/contact" element={<Contact />} />
                     <Route path="/checkout" element={<Checkout />} />
                     <Route path="/login" element={<SignIn />} />
-                    <Route path="/detai" element={<DetailProduct />} />
+                    <Route path="/detail" element={<DetailProduct />} />
                     <Route path="/profile" element={<ProfileCustomer />} />
 
 

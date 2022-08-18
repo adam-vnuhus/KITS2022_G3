@@ -4,6 +4,7 @@ import React, {useState, useEffect} from 'react';
 
 import './mainContent.css';
 import PageHeader from "./PageHeader";
+import {Link} from "react-router-dom";
 
 const calculateRange = (data, rowsPerPage) => {
     const range = [];
@@ -19,7 +20,7 @@ const sliceData = (data, page, rowsPerPage) => {
 }
 
 
-function MainContent ({entity,content,columns,fields,addNew}) {
+function MainContent ({entity,content,columns,fields,addNew,linkToAddNew,linkToEdit,linkToDelete}) {
 const all_items= content;
     const [search, setSearch] = useState('');
     const [items, setItems] = useState(all_items);
@@ -61,7 +62,23 @@ const all_items= content;
 
             {items.map((item, index) => (
                 <tr key={index}>
-                    {fields.map((field,index)=> !item[field].includes('https')?<td className="text-center"><span>{item[field]}</span></td>:<td className="text-center"><img className="rounded-circle" src={item[field]} width="80px" height="80px" alt="{item[field]}"/></td>)}
+                    {fields.map((field,index)=>
+                        !item[field].includes('https')
+                            ?<td className="text-center">
+                                <span>{item[field]}</span>
+                    </td>
+                            :<td className="text-center">
+                                <img className="rounded-circle" src={item[field]} width="80px" height="80px" alt={item[field]}/>
+                            </td>)}
+                    <td>
+                        <Link to={{linkToEdit}+"/"+item[fields[0]]}>
+                            <button type="button" className="btn btn-primary">Edit</button>
+                        </Link>
+                        <Link to={{linkToDelete}+"/"+item[fields[0]]}>"
+                            style="text-decoration: none">
+                            <button type="button" className="btn btn-danger">Delete</button>
+                        </Link>
+                    </td>
                 </tr>
             ))}
             </tbody>
@@ -70,6 +87,7 @@ const all_items= content;
     return(
         <div className='mainContent_ mainContent_dashboard-content'>
             <PageHeader
+                linkToAddNew={linkToAddNew}
                 btnText={addNew===1?"New " + entity:null} />
 
 
