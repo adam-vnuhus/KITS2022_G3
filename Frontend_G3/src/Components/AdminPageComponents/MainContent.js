@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
-
-
-
+import React, {useEffect, useState} from 'react';
 import './mainContent.css';
 import PageHeader from "./PageHeader";
+import {Link} from "react-router-dom";
+import AdminEditForm from "./AdminEditForm";
 
 const calculateRange = (data, rowsPerPage) => {
     const range = [];
@@ -18,13 +17,15 @@ const sliceData = (data, page, rowsPerPage) => {
     return data.slice((page - 1) * rowsPerPage, page * rowsPerPage);
 }
 
-
-function MainContent({ entity, content, columns, fields, addNew }) {
+function MainContent({entity, content, columns, fields, addNew, linkToEdit, linkToDelete}) {
     const all_items = content;
+    const [isShown,setShown] = useState("d-none")
+
     const [search, setSearch] = useState('');
     const [items, setItems] = useState(all_items);
     const [page, setPage] = useState(1);
     const [pagination, setPagination] = useState([]);
+    const [selectedItem,setSelectedItem] = useState(null);
 
     useEffect(() => {
         setPagination(calculateRange(all_items, 5));
@@ -41,8 +42,7 @@ function MainContent({ entity, content, columns, fields, addNew }) {
                 item.product.toLowerCase().includes(search.toLowerCase())
             );
             setItems(search_results);
-        }
-        else {
+        } else {
             __handleChangePage(1);
         }
     };
@@ -55,24 +55,49 @@ function MainContent({ entity, content, columns, fields, addNew }) {
 
     const columnsData = columns.map((column, index) => (<th className="text-center">{column}</th>))
 
-    // let i = 0;
+    function editButtonHandler(item) {
+        setShown("d-block")
+        setSelectedItem(item)
+    }
+    function hideEditForm() {
+        setShown("d-none")
+    }
+
     const body = (items.length !== 0 ?
         <tbody>
 
-            {items.map((item, index) => (
+        {items.map((item, index) => (
+            <>
                 <tr key={index}>
-                    {fields.map((field, index) => !item[field].includes('https') ? <td className="text-center"><span>{item[field]}</span></td> : <td className="text-center"><img className="rounded-circle" src={item[field]} width="80px" height="80px" alt="{item[field]}" /></td>)}
+                    {fields.map((field, index) =>
+                        !item[field].includes('https')
+                            ? <td className="text-center">
+                                <span>{item[field]}</span>
+                            </td>
+                            : <td className="text-center">
+                                <img className="rounded-circle" src={item[field]} width="80px" height="80px"
+                                     alt={item[field]}/>
+                            </td>)
+                    }
+                    <td>
+                        <button type="button" className="btn btn-primary" onClick={()=>editButtonHandler(item)}>Edit</button>
+                        <Link to={{linkToDelete} + "/" + item[fields[0]]}>"
+                            style="text-decoration: none">
+                            <button type="button" className="btn btn-danger">Delete</button>
+                        </Link>
+                    </td>
                 </tr>
-            ))}
+            </>
+        ))}
+
         </tbody>
         : null)
 
     return (
         <div className='mainContent_ mainContent_dashboard-content'>
             <PageHeader
-                btnText={addNew === 1 ? "New " + entity : null} />
-
-
+                linkToAddNew={linkToAddNew}
+                btnText={addNew === 1 ? "New " + entity : null}/>
             <div className='mainContent_dashboard-content-container'>
                 <div className='mainContent_dashboard-content-header'>
                     <h2>{entity.toUpperCase()} LIST</h2>
@@ -82,17 +107,16 @@ function MainContent({ entity, content, columns, fields, addNew }) {
                             value={search}
                             placeholder='Search..'
                             className='mainContent_dashboard-content-input'
-                            onChange={e => __handleSearch(e)} />
+                            onChange={e => __handleSearch(e)}/>
                     </div>
                 </div>
-
+                <AdminEditForm columns={columns} fields={fields} entity={entity} itemSelected={selectedItem}
+                               linkToAPI={linkToEdit} show={isShown}/>
                 <table>
                     <thead>
                         <tr>{columnsData}</tr>
-
                     </thead>
                     {body}
-
                 </table>
 
                 {items.length !== 0 ?
@@ -115,7 +139,4 @@ function MainContent({ entity, content, columns, fields, addNew }) {
         </div>
     )
 }
-
-
-
 export default MainContent;
