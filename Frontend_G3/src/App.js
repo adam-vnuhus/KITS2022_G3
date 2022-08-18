@@ -188,7 +188,7 @@ function App() {
                     <Route path="/admin/dashboard" element={<Dashboard />} />
                     <Route path="/admin/orders"
                         element={<MainContent content={all_orders} entity={"order"} columns={columns}
-                            fields={tableColumns} addNew={0} />} />
+                            fields={tableColumns} addNew={0} linkToEdit={} linkToDelete={} linkToAddNew={} />} />
                 </Route>
 
                 <Route path="/" element={<Layout />}>
