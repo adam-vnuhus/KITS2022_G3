@@ -96,7 +96,7 @@ function MainContent({entity, content, columns, fields, addNew, linkToEdit, link
     return (
         <div className='mainContent_ mainContent_dashboard-content'>
             <PageHeader
-                linkToAddNew={linkToAddNew}
+                linkToAddNew={""}
                 btnText={addNew === 1 ? "New " + entity : null}/>
             <div className='mainContent_dashboard-content-container'>
                 <div className='mainContent_dashboard-content-header'>

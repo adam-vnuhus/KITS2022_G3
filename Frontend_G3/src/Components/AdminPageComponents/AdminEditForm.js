@@ -51,14 +51,14 @@ const AdminEditForm = ({itemSelected, linkToAPI, entity, columns, fields,show}) 
                 <div className="container">
                     <div className="container">
                         <div className="col-lg-10 col-md-12 mx-auto col-sm-12">
-                            <h2><strong>{item ? 'EDIT ' + entity.toUpperCase() : 'NEW ' + entity.toUpperCase()}</strong>
+                            <h2><strong>{itemID ? 'EDIT ' + entity.toUpperCase() : 'NEW ' + entity.toUpperCase()}</strong>
                             </h2>
                             <br/>
                             <div className="table-responsive">
                                 <table className="table table-user-information">
                                     <tbody>
                                     <tr>
-                                        {item ? (
+                                        {itemID ? (
                                             <td className="my-3 align-middle col-3">
                                                 <strong>{entity} ID</strong>
                                             </td>
@@ -111,5 +111,4 @@ const AdminEditForm = ({itemSelected, linkToAPI, entity, columns, fields,show}) 
         </>
     );
 };
-
 export default AdminEditForm;
