@@ -1,8 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import { Stepper, Step } from 'react-form-stepper';
+
+import DetailOrder from './ProfileComponent/DetailOrder';
 const ProfileCustomer = () => {
+    const [isOpen, setIsOpen] = useState(false);
+    function toggleModal() {
+        setIsOpen(!isOpen);
+    }
     return (
         <div className="ProfileCustomer">
             <main>
@@ -32,6 +38,7 @@ const ProfileCustomer = () => {
                 </header>
                 <div>
                     <Tabs defaultActiveKey="second" className="col-md-12">
+                        {/* tab tài khoản */}
                         <Tab eventKey="first" title="Tài khoản">
                             <section >
                                 <div className="container py-5">
@@ -115,31 +122,26 @@ const ProfileCustomer = () => {
 
 
                         </Tab>
+                        {/* end tab tài khoản */}
+                        {/* đơn mua */}
                         <Tab eventKey="second" title="Đơn mua">
                             <div><br /></div>
                             <div><h2>Thông tin đơn hàng</h2></div>
                             <br />
                             <div className="card shadow-0 border mb-4">
                                 <div className="card-body">
-                                    <div className="row">
+                                    <div className="row d-flex justify-content-between align-items-center">
                                         <div className="col-md-2">
                                             <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/13.webp" className="img-fluid" alt="Phone" />
                                         </div>
-                                        <div className="col-md-2 text-center d-flex justify-content-center align-items-center">
-                                            <p className="text-muted mb-0">Samsung Galaxy</p>
+                                        <div className="col-md-3 d-flex flex-column">
+                                            <p className="text-muted mb-0">INVOICE#Y34XDHR</p>
+                                            <span class="text-muted small">by DHFL on 21 Jan, 2020</span>
                                         </div>
-                                        <div className="col-md-2 text-center d-flex justify-content-center align-items-center">
-                                            <p className="text-muted mb-0 small">White</p>
+                                        <div className="text-end align-items-center col-md-7    ">
+                                            <button onClick={toggleModal} class="btn btn-outline-primary" type="button">Track order details</button>
                                         </div>
-                                        <div className="col-md-2 text-center d-flex justify-content-center align-items-center">
-                                            <p className="text-muted mb-0 small">Capacity: 64GB</p>
-                                        </div>
-                                        <div className="col-md-2 text-center d-flex justify-content-center align-items-center">
-                                            <p className="text-muted mb-0 small">Qty: 1</p>
-                                        </div>
-                                        <div className="col-md-2 text-center d-flex justify-content-center align-items-center">
-                                            <p className="text-muted mb-0 small">$499</p>
-                                        </div>
+
                                     </div>
                                     <hr className="mb-4" style={{ backgroundColor: '#e0e0e0', opacity: 1 }} />
                                     <div className="row d-flex align-items-center">
@@ -150,8 +152,13 @@ const ProfileCustomer = () => {
                                             <Step label="Đã giao" />
                                         </Stepper>
                                     </div>
+
                                 </div>
                             </div>
+                            <DetailOrder
+                                show={isOpen}
+                                onHide={toggleModal}
+                            />
 
                             <div className="card shadow-0 border mb-4">
                                 <div className="card-body">
@@ -222,10 +229,7 @@ const ProfileCustomer = () => {
 
 
                         </Tab>
-                        <Tab eventKey="end" title="Đánh giá">
-                            <h1>ok</h1>
-                        </Tab>
-
+                        {/* end đơn mua */}
                     </Tabs>
                 </div>
             </main >

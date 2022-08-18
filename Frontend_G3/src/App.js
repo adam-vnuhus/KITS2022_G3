@@ -21,6 +21,7 @@ import DetailProduct from './Pages/DetailProduct';
 import SignIn from "./Pages/SignIn";
 import Dashboard from "./Components/AdminPageComponents/DashBoard";
 import ProfileCustomer from './Pages/ProfileCustomer';
+import DetailOrder from './Pages/ProfileComponent/DetailOrder';
 
 
 const all_orders = [
@@ -197,8 +198,9 @@ function App() {
                     <Route path="/contact" element={<Contact />} />
                     <Route path="/checkout" element={<Checkout />} />
                     <Route path="/login" element={<SignIn />} />
-                    <Route path="/detai" element={<DetailProduct />} />
+                    <Route path="/detail" element={<DetailProduct />} />
                     <Route path="/profile" element={<ProfileCustomer />} />
+                    <Route path="/testdetail" element={<DetailOrder />} />
 
 
                     {/* <Route path="blogs" element={<Blogs />} />

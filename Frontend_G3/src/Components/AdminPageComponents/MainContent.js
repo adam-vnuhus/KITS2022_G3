@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 
 
 
@@ -19,8 +19,8 @@ const sliceData = (data, page, rowsPerPage) => {
 }
 
 
-function MainContent ({entity,content,columns,fields,addNew}) {
-const all_items= content;
+function MainContent({ entity, content, columns, fields, addNew }) {
+    const all_items = content;
     const [search, setSearch] = useState('');
     const [items, setItems] = useState(all_items);
     const [page, setPage] = useState(1);
@@ -53,24 +53,24 @@ const all_items= content;
         setItems(sliceData(all_items, new_page, 5));
     }
 
-    const columnsData = columns.map((column,index) => (<th className="text-center">{column}</th>))
+    const columnsData = columns.map((column, index) => (<th className="text-center">{column}</th>))
 
-    let i = 0;
+    // let i = 0;
     const body = (items.length !== 0 ?
-            <tbody>
+        <tbody>
 
             {items.map((item, index) => (
                 <tr key={index}>
-                    {fields.map((field,index)=> !item[field].includes('https')?<td className="text-center"><span>{item[field]}</span></td>:<td className="text-center"><img className="rounded-circle" src={item[field]} width="80px" height="80px" alt="{item[field]}"/></td>)}
+                    {fields.map((field, index) => !item[field].includes('https') ? <td className="text-center"><span>{item[field]}</span></td> : <td className="text-center"><img className="rounded-circle" src={item[field]} width="80px" height="80px" alt="{item[field]}" /></td>)}
                 </tr>
             ))}
-            </tbody>
-            : null)
+        </tbody>
+        : null)
 
-    return(
+    return (
         <div className='mainContent_ mainContent_dashboard-content'>
             <PageHeader
-                btnText={addNew===1?"New " + entity:null} />
+                btnText={addNew === 1 ? "New " + entity : null} />
 
 
             <div className='mainContent_dashboard-content-container'>
@@ -88,7 +88,7 @@ const all_items= content;
 
                 <table>
                     <thead>
-                    <tr>{columnsData}</tr>
+                        <tr>{columnsData}</tr>
 
                     </thead>
                     {body}
@@ -102,7 +102,7 @@ const all_items= content;
                                 key={index}
                                 className={item === page ? 'active-pagination' : 'pagination'}
                                 onClick={() => __handleChangePage(item)}>
-                                    {item}
+                                {item}
                             </span>
                         ))}
                     </div>
