@@ -35,13 +35,12 @@ public class RankController {
     }
 
     @PutMapping("/{id}")
-    public Ranking updateRankingById(@PathVariable Long id,@RequestBody Integer discount){
+    public Ranking updateRankingById(@PathVariable Long id,@RequestParam Integer discount){
         Optional<Ranking> rankingOptional = rankingRepository.findById(id);
         if(rankingOptional.isEmpty()) throw new RuntimeException("not found Ranking id = " + id);
 
         Ranking rankingNew = rankingOptional.get();
         rankingNew.setDiscount(discount);
-
         rankingRepository.save(rankingNew);
         return rankingNew;
     }

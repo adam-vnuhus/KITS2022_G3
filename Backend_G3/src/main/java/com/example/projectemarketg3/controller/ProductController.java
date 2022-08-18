@@ -4,6 +4,7 @@ import com.example.projectemarketg3.entity.Product;
 import com.example.projectemarketg3.exception.NotFoundException;
 import com.example.projectemarketg3.repository.OrderDetailRepository;
 import com.example.projectemarketg3.repository.ProductRepository;
+import com.example.projectemarketg3.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/products")
@@ -21,19 +23,47 @@ public class ProductController {
     private ProductRepository productRepository;
     @Autowired
     private OrderDetailRepository orderDetailRepository;
+    @Autowired
+    private ProductService productService;
 
 
     // Get all products rest api
     @GetMapping
-    public List<Product> getAllProduct( @RequestParam Optional<String> name,@RequestParam Optional<Long> category, @RequestParam Optional<Long> start, @RequestParam Optional<Long> end) {
-        if(name.isPresent()){
-            return productRepository.findProductByName(name.get());
-        } else if (category.isPresent()) {
-            return productRepository.findProductByCategoryAndName(name.get(), category.get());
-        } else if (start.isPresent() && end.isPresent()) {
-            return productRepository.findProductByCategoryAndNameAndPrice(name.get(), category.get(),start.get(), end.get());
-        } else {
-            return productRepository.findAll();
+    public List<Product> getAllProduct(@RequestParam Optional<String> name,
+                                       @RequestParam Optional<String> category,
+                                       @RequestParam Optional<Long> start,
+                                       @RequestParam Optional<Long> end) {
+//        return productService.searchProduct(name.get(), category.get(), start.get(), end.get());
+
+        //        name
+        if (name.isPresent() && category.isEmpty() && start.isEmpty() && end.isEmpty()) {
+            return productService.caseSearch(1, name.get(), null, null, null);
+        }
+//        category
+        else if (category.isPresent() && name.isEmpty() && start.isEmpty() && end.isEmpty()) {
+            return productService.caseSearch(2, null, category.get(), null, null);
+        }
+//        price
+        else if (category.isEmpty() && name.isEmpty() && start.isPresent() && end.isPresent()) {
+            return productService.caseSearch(3, null, null, start.get(), end.get());
+        }
+//        name category
+        else if (category.isPresent() && name.isPresent() && start.isEmpty() && end.isEmpty()) {
+            return productService.caseSearch(4, name.get(), category.get(), null, null);
+        }
+//        name category price
+        else if (category.isPresent() && name.isPresent() && start.isPresent() && end.isPresent()) {
+            return productService.caseSearch(5, name.get(), category.get(), start.get(), end.get());
+        }
+//        name price
+        else if (category.isEmpty() && name.isPresent() && start.isPresent() && end.isPresent()) {
+            return productService.caseSearch(6, name.get(), null, start.get(), end.get());
+        }
+//        category price
+        else if (category.isPresent() && name.isEmpty() && start.isPresent() && end.isPresent()) {
+            return productService.caseSearch(7, null, category.get(), start.get(), end.get());
+        }else {
+            return productService.caseSearch(0, null, null, null, null);
         }
     }
 

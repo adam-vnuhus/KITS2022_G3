@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -23,7 +24,8 @@ public class UserController {
     @GetMapping("/users")
     public List<User> getCustomer(@RequestParam Optional<String> name){
         if (name.isPresent()){
-            return userRepository.findByNameStartsWithIgnoreCaseOrderByNameAsc(name.get());
+            List<User> getCustomer = userRepository.findByNameStartsWithIgnoreCaseOrderByNameAsc(name.get());
+            return getCustomer.stream().filter(s->!s.getRole().contains("ADMIN")).collect(Collectors.toList());
         }else {
         return userRepository.findAll();}
     }
