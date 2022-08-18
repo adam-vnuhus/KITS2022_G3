@@ -2,13 +2,11 @@ import {Link} from "react-router-dom";
 import React from "react";
 // import "./mainContent.css";
 
-export default function PageHeader ({ btnText, onClick,linkToAddNew }) {
+export default function PageHeader ({ btnText, onClick }) {
     return(
         <div className='mainContent_dashboard-header-container'>
             {btnText &&
-                <Link to={linkToAddNew}>
                 <button className='mainContent_dashboard-header-btn' type={"button"} onClick={onClick}>{btnText}</button>||<span className=""></span>
-                </Link>
             }
 
             <div className='mainContent_dashboard-header-right'>
