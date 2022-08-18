@@ -22,8 +22,8 @@ const Categories = () => {
         infinite: true,
         slidesToShow: 5,
         slidesToScroll: 1,
-        autoplay: true,
-        autoplaySpeed: 10000,
+        // autoplay: true,
+        // autoplaySpeed: 1000000000000000000,
         pauseOnHover: true
     };
     console.log('>>> check categories : ', categories)
@@ -34,9 +34,19 @@ const Categories = () => {
                 {categories != null ?
                     categories.map((item, index) => {
                         return (
-                            <div className="img-topranker" style={{ overflow: "hidden" }}> <img className="" src={require(`./feature-3.jpg`)} alt="" style={{ width: 166 }} />
-                                <h4>{item.name}</h4>
+                            // <div className="img-topranker" style={{ overflow: "hidden" }}>
+                            //     <div id="width-size">
+                            //         <img className="" src={require(`./feature-3.jpg`)} alt="" style={{ width: 250 }} />
+                            //         <h4>{item.name}</h4>
+                            //     </div>
+                            // </div>
+                            <div className="card" style={{ width: '18rem' }}>
+                                <img className="" src={require(`./feature-3.jpg`)} alt="" style={{ width: 250 }} />
+                                <div className="card-body" style={{ height: 100 }}>
+                                    <p className="card-text">{item.name}</p>
+                                </div>
                             </div>
+
                         )
                     })
                     : "Loading"
