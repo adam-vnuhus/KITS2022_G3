@@ -16,7 +16,7 @@ public class AuthController {
     @Autowired
     private AuthService authService;
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     public UserRequest login(@RequestBody LoginRequest request, HttpSession session) {
         return authService.login(request, session);
     }

@@ -34,7 +34,7 @@ public class RankController {
        return rankingRepository.save(ranking);
     }
 
-    @PutMapping(value = "/{id}",produces = "application/json")
+    @PutMapping("/{id}")
     public Ranking updateRankingById(@PathVariable Long id,@RequestBody Integer discount){
         Optional<Ranking> rankingOptional = rankingRepository.findById(id);
         if(rankingOptional.isEmpty()) throw new RuntimeException("not found Ranking id = " + id);

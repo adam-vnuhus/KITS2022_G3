@@ -1,18 +1,16 @@
 package com.example.projectemarketg3.controller;
 
-import com.example.projectemarketg3.entity.OrderDetail;
-import com.example.projectemarketg3.entity.Orders;
+import com.example.projectemarketg3.dto.DetailDto;
+import com.example.projectemarketg3.dto.OrderDto;
+import com.example.projectemarketg3.entity.*;
 import com.example.projectemarketg3.exception.NotFoundException;
-import com.example.projectemarketg3.repository.OrderDetailRepository;
-import com.example.projectemarketg3.repository.OrdersRepository;
+import com.example.projectemarketg3.repository.*;
 import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api/v1/orders")
@@ -23,6 +21,12 @@ public class OrderController {
     private OrdersRepository ordersRepository;
     @Autowired
     private OrderDetailRepository orderDetailRepository;
+    @Autowired
+    private StatusRepository statusRepository;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private ProductRepository productRepository;
 
 
     @GetMapping
@@ -32,7 +36,26 @@ public class OrderController {
 
     // create a new order rest api
     @PostMapping
-    public Orders createOrder(@RequestBody Orders order) {
+    public Orders createOrder(@RequestBody OrderDto orderDto) {
+        Optional<Status> status = statusRepository.findById(1L);
+        Optional<User> user = userRepository.findById(orderDto.getUserId());
+        Set<OrderDetail> orderDetails = new HashSet<>();
+
+        for (Long id_details : orderDto.getOrderDetailsId()
+             ) {
+            Optional<OrderDetail> productOptional = orderDetailRepository.findById(id_details);
+            orderDetails.add(productOptional.get());
+        }
+
+        Orders order = Orders.builder()
+                .createAt(orderDto.getCreateAt())
+                .note(orderDto.getNote())
+                .totalPrice(orderDto.getTotalPrice())
+                .orderDetails(orderDetails)
+                .status(status.get())
+                .user(user.get())
+                .build();
+
         return ordersRepository.save(order);
     }
 
@@ -87,7 +110,14 @@ public class OrderController {
 
     // create a new order detail rest api
     @PostMapping("/details")
-    public OrderDetail createOrderDetails(@RequestBody OrderDetail orderDetail) {
+    public OrderDetail createOrderDetails(@RequestBody DetailDto detailDto) {
+        Optional<Product> product = productRepository.findById(detailDto.getProductId());
+
+        OrderDetail orderDetail = OrderDetail.builder()
+                .product(product.get())
+                .quantity(detailDto.getQuantity())
+                .total(detailDto.getQuantity() * product.get().getSellPrice())
+                .build();
         return orderDetailRepository.save(orderDetail);
     }
 

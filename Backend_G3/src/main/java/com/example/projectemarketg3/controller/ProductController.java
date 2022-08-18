@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/products")
@@ -24,8 +25,16 @@ public class ProductController {
 
     // Get all products rest api
     @GetMapping
-    public List<Product> getAllProduct() {
-        return productRepository.findAll();
+    public List<Product> getAllProduct(@RequestParam Optional<String> name,@RequestParam Optional<Long> sellPriceStart, @RequestParam Optional<Long> sellPriceEnd) {
+        if(name.isPresent() && sellPriceEnd.isEmpty() && sellPriceStart.isEmpty() ){
+            return productRepository.getByNameStartsWithIgnoreCaseOrderByNameAsc(name.get());
+        }if(name.isEmpty() && sellPriceEnd.isPresent() && sellPriceStart.isPresent()){
+            return productRepository.findBySellPriceBetweenOrderBySellPriceAsc(sellPriceStart.get(), sellPriceEnd.get());
+        }if(name.isPresent() && sellPriceEnd.isPresent() && sellPriceStart.isPresent()) {
+            return productRepository.getByNameStartsWithIgnoreCaseAndSellPriceBetween(name.get(), sellPriceStart.get(), sellPriceEnd.get());
+        }
+        else {
+        return productRepository.findAll();}
     }
 
     // create a new product rest api

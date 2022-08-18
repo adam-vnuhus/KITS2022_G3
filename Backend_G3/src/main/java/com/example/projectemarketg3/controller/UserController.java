@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -19,10 +20,13 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-//    @GetMapping("/users")
-//    public List<User> getCustomer(){
-//        return userRepository.
-//    }
+    @GetMapping("/users")
+    public List<User> getCustomer(@RequestParam Optional<String> name){
+        if (name.isPresent()){
+            return userRepository.findByNameStartsWithIgnoreCaseOrderByNameAsc(name.get());
+        }else {
+        return userRepository.findAll();}
+    }
 
     @GetMapping("/user/{email}")
     public UserRequest infoUser(@PathVariable String email){

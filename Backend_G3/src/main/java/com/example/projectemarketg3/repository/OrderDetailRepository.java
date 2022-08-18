@@ -13,6 +13,8 @@ import java.util.List;
 public interface OrderDetailRepository extends JpaRepository<OrderDetail, Long> {
     long countByProduct_Id(Long id);
 
+
+
     List<OrderDetail> getOrderDetailsByOrdersId(Long orderID);
 
     @Query("select count(o.product.id) from OrderDetail o ")
@@ -22,9 +24,5 @@ public interface OrderDetailRepository extends JpaRepository<OrderDetail, Long> 
     long countDistinctByProduct_IdAllIgnoreCase(@Param("id") Long id);
 
     List<OrderDetail> findByOrderByTotalDesc();
-
-
-
-
 
 }

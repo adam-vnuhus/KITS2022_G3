@@ -1,8 +1,13 @@
 package com.example.projectemarketg3.controller;
 
+import com.example.projectemarketg3.dto.RatingDto;
+import com.example.projectemarketg3.entity.Product;
 import com.example.projectemarketg3.entity.Rating;
+import com.example.projectemarketg3.entity.User;
 import com.example.projectemarketg3.exception.NotFoundException;
+import com.example.projectemarketg3.repository.ProductRepository;
 import com.example.projectemarketg3.repository.RatingRepository;
+import com.example.projectemarketg3.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +16,7 @@ import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/rating")
@@ -18,17 +24,36 @@ public class RatingController {
 
     @Autowired
     private RatingRepository ratingRepository;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private ProductRepository productRepository;
 
 
     // get all rating rest api
     @GetMapping
     public List<Rating> getAllRating(){
         return ratingRepository.findAll();
+//        return ratingRepository.getByOrderByCreateAtDesc();
     }
 
     // create a new rating rest api
     @PostMapping
-    public Rating createRating(@RequestBody Rating rating) {
+    public Rating createRating(@RequestBody RatingDto ratingDto) {
+
+        Optional<User> user = userRepository.findById(ratingDto.getUserId());
+        Optional<Product> product = productRepository.findById(ratingDto.getProductId());
+
+        Rating rating = Rating.builder()
+                .createAt(ratingDto.getCreateAt())
+                .note(ratingDto.getNote())
+                .image(ratingDto.getImage())
+                .star(ratingDto.getStar())
+                .checking(false)
+                .user(user.get())
+                .product(product.get())
+                .build();
+
         return ratingRepository.save(rating);
     }
 
