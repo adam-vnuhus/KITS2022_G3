@@ -155,15 +155,11 @@ const ProfileCustomer = () => {
 
                                 </div>
                             </div>
+
                             <DetailOrder
                                 show={isOpen}
                                 onHide={toggleModal}
                             />
-
-
-
-
-
                         </Tab>
                         {/* end đơn mua */}
                     </Tabs>

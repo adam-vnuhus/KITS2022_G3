@@ -1,20 +1,19 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, {useState} from 'react';
-import {Link, useNavigate, useParams} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 
-const AdminEditForm = ({itemSelected, linkToAPI, entity, columns, fields,show}) => {
-    const params = useParams();
+const AdminEditForm = ({itemSelected, selectedID, linkToAPI, entity, columns, fields, onCancel}) => {
     const [item, setItem] = useState(itemSelected);
 
     let navigate = useNavigate();
 
-    const itemID = item[fields[0]];
+
     const saveItem = () => {
         let method = 'POST';
         let id = '';
         if (item) {
             method = 'PUT';
-            id = itemID;
+            id = selectedID;
         }
 
         const requestOptions = {
@@ -47,66 +46,65 @@ const AdminEditForm = ({itemSelected, linkToAPI, entity, columns, fields,show}) 
 
     return (
         <>
-            <div className={`${show} ${"container col-8"}`}>
-                <div className="container">
-                    <div className="container">
-                        <div className="col-lg-10 col-md-12 mx-auto col-sm-12">
-                            <h2><strong>{itemID ? 'EDIT ' + entity.toUpperCase() : 'NEW ' + entity.toUpperCase()}</strong>
-                            </h2>
-                            <br/>
-                            <div className="table-responsive">
-                                <table className="table table-user-information">
-                                    <tbody>
-                                    <tr>
-                                        {itemID ? (
-                                            <td className="my-3 align-middle col-3">
-                                                <strong>{entity} ID</strong>
-                                            </td>
-                                        ) : null}
-                                        <td className="text-primary">{itemID}</td>
-                                    </tr>
-                                    {item.map((item, index) => (
-                                        <tr key={index}>
-                                            {fields.map(
-                                                (field) => (
-                                                    <>
-                                                        <td className="my-3 align-middle col-3">
-                                                            <strong>{columns[index]}</strong>
-                                                        </td>
-                                                        <td>
-                                                            <input
-                                                                type="text"
-                                                                className="form-control"
-                                                                value={item[field]}
-                                                                name={field}
-                                                                onChange={(e) => handleChange(e)}
-                                                            />
-                                                        </td>
-                                                    </>
-                                                )
-                                            )}
-                                        </tr>))}
-                                    </tbody>
-                                </table>
-                                <div>
-                                    <button
-                                        type="button"
-                                        className="btn btn-primary"
-                                        onClick={() => saveItem()}
-                                    >
-                                        Save
-                                    </button>
-                                    <span> </span>
-                                    <Link to="/">
-                                        <button type="button" className="btn btn-secondary">
-                                            Cancel
-                                        </button>
-                                    </Link>
-                                </div>
+            <div style={{
+                width: '99vw',
+                position: 'absolute',
+                backgroundColor: 'rgba(0,0,0,0.7)',
+                left: 0,
+                top: 0,
+                textAlign: 'center',
+                display:"flex"
+            }}>
+                <span className={"col-3"} onClick={onCancel}/>
+                <div className={`${"col-7 mx-0 py-5 border bg-white"}`} style={{zIndex: 200}}>
+                    <div className="col-lg-10 col-md-12 mx-auto col-sm-12">
+                        <h2>
+                            <strong>{selectedID ? 'EDIT ' + entity.toUpperCase() : 'NEW ' + entity.toUpperCase()}</strong>
+                        </h2>
+                        <br/>
+                        <div className="px-auto">
+                            <table className="table table-user-information">
+                                <tbody>
+                                {fields.map(
+                                    (field, index) => (
+                                        <>
+                                            <tr key={index}>
+                                                {columns[index]!==columns[0]?<><td className="align-middle col-4">
+                                                        <strong>{columns[index]}</strong>
+                                                    </td>
+                                                    <td className={"col"}>
+                                                        <input
+                                                            type="text"
+                                                            className="form-control col-8"
+                                                            value={item!=null?item[field]:""}
+                                                            name={field}
+                                                            onChange={(e) => handleChange(e)}
+                                                        />
+                                                    </td></>:null}
+
+                                            </tr>
+                                        </>
+                                    )
+                                )}
+                                </tbody>
+                            </table>
+                            <div className={"text-center"}>
+                                <button
+                                    type="button"
+                                    className="btn btn-primary btn-lg"
+                                    onClick={() => saveItem()}
+                                >
+                                    Save
+                                </button>
+                                <span className="col-6"> </span>
+                                <button type="button" className="btn btn-secondary btn-lg" onClick={onCancel}>
+                                    Cancel
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
+                <span className={"col-2"} onClick={onCancel}></span>
             </div>
         </>
     );
