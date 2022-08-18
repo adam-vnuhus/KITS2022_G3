@@ -36,10 +36,8 @@ public class Product {
     @Column(name = "image")
     private String image;
 
-
     @Column(name = "sold")
     private Integer sold;
-
 
     @Column(name = "origin")
     private String origin;

@@ -43,6 +43,23 @@ public class Orders {
     @JoinColumn(name = "user_id")
     private User user;
 
+//    info User
+
+    @Column(name = "ship")
+    private Integer ship;
+
+    @Column(name = "address_user")
+    private String addressUser;
+
+    @Column(name = "name_user")
+    private String nameUser;
+
+    @Column(name = "phone_user")
+    private String phoneUser;
+
+    @Column(name = "disscount")
+    private Integer disscount;
+
     @PreRemove
     public void preRemove() {
         orderDetails.forEach(s -> s.setOrders(null));

@@ -34,30 +34,7 @@ public class OrderController {
         return ordersRepository.findAll();
     }
 
-    // create a new order rest api
-    @PostMapping
-    public Orders createOrder(@RequestBody OrderDto orderDto) {
-        Optional<Status> status = statusRepository.findById(1L);
-        Optional<User> user = userRepository.findById(orderDto.getUserId());
-        Set<OrderDetail> orderDetails = new HashSet<>();
 
-        for (Long id_details : orderDto.getOrderDetailsId()
-             ) {
-            Optional<OrderDetail> productOptional = orderDetailRepository.findById(id_details);
-            orderDetails.add(productOptional.get());
-        }
-
-        Orders order = Orders.builder()
-                .createAt(orderDto.getCreateAt())
-                .note(orderDto.getNote())
-                .totalPrice(orderDto.getTotalPrice())
-                .orderDetails(orderDetails)
-                .status(status.get())
-                .user(user.get())
-                .build();
-
-        return ordersRepository.save(order);
-    }
 
     // get order by ID rest api
     @GetMapping("/{id}")
@@ -109,17 +86,7 @@ public class OrderController {
     }
 
     // create a new order detail rest api
-    @PostMapping("/details")
-    public OrderDetail createOrderDetails(@RequestBody DetailDto detailDto) {
-        Optional<Product> product = productRepository.findById(detailDto.getProductId());
 
-        OrderDetail orderDetail = OrderDetail.builder()
-                .product(product.get())
-                .quantity(detailDto.getQuantity())
-                .total(detailDto.getQuantity() * product.get().getSellPrice())
-                .build();
-        return orderDetailRepository.save(orderDetail);
-    }
 
     // get order detail by OrderID rest api
     @GetMapping("/{id}/details")

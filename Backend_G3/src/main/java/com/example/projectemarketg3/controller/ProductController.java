@@ -25,16 +25,16 @@ public class ProductController {
 
     // Get all products rest api
     @GetMapping
-    public List<Product> getAllProduct(@RequestParam Optional<String> name,@RequestParam Optional<Long> sellPriceStart, @RequestParam Optional<Long> sellPriceEnd) {
-        if(name.isPresent() && sellPriceEnd.isEmpty() && sellPriceStart.isEmpty() ){
-            return productRepository.getByNameStartsWithIgnoreCaseOrderByNameAsc(name.get());
-        }if(name.isEmpty() && sellPriceEnd.isPresent() && sellPriceStart.isPresent()){
-            return productRepository.findBySellPriceBetweenOrderBySellPriceAsc(sellPriceStart.get(), sellPriceEnd.get());
-        }if(name.isPresent() && sellPriceEnd.isPresent() && sellPriceStart.isPresent()) {
-            return productRepository.getByNameStartsWithIgnoreCaseAndSellPriceBetween(name.get(), sellPriceStart.get(), sellPriceEnd.get());
+    public List<Product> getAllProduct( @RequestParam Optional<String> name,@RequestParam Optional<Long> category, @RequestParam Optional<Long> start, @RequestParam Optional<Long> end) {
+        if(name.isPresent()){
+            return productRepository.findProductByName(name.get());
+        } else if (category.isPresent()) {
+            return productRepository.findProductByCategoryAndName(name.get(), category.get());
+        } else if (start.isPresent() && end.isPresent()) {
+            return productRepository.findProductByCategoryAndNameAndPrice(name.get(), category.get(),start.get(), end.get());
+        } else {
+            return productRepository.findAll();
         }
-        else {
-        return productRepository.findAll();}
     }
 
     // create a new product rest api
@@ -100,7 +100,7 @@ public class ProductController {
     }
 
     @GetMapping("/category/{name}")
-    public List<Product> getProductByCategory(@PathVariable String name){
+    public List<Product> getProductByCategory(@PathVariable String name) {
         return productRepository.findByCategory_Name(name);
     }
 }

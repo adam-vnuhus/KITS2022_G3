@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> findTop6AllByOrderBySoldDesc();
-    
+
     List<Product> findByNameLikeIgnoreCase(String name);
 
     List<Product> getByNameStartsWithIgnoreCaseOrderByNameAsc(String name);
@@ -26,5 +26,36 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     List<Product> getByNameStartsWithIgnoreCaseAndSellPriceBetween(String name, Long sellPriceStart, Long sellPriceEnd);
 
+    List<Product> getByNameLikeAndCategory_NameLikeAndSellPriceBetween(String name, String category, Long sellPriceStart, Long sellPriceEnd);
+
+
+    @Query(value = "SELECT * FROM product p\n" +
+            "INNER JOIN category c ON c.id = p.category_id\n" +
+            "INNER JOIN supplier s ON s.id = p.supplier_id\n" +
+            " WHERE p.description LIKE %?1%" +
+            " OR p.name LIKE %?1% " +
+            "OR p.origin LIKE %?1%" +
+            " OR p.slug  LIKE %?1% " +
+            "OR c.name LIKE %?1%" +
+            " OR s.name  LIKE %?1%"
+            , nativeQuery = true)
+    List<Product> findProductByName(String name);
+
+    @Query(value = "SELECT * FROM product p\n" +
+            "INNER JOIN category c ON c.id = p.category_id\n" +
+            "INNER JOIN supplier s ON s.id = p.supplier_id\n" +
+            "WHERE (p.category_id = ?2) \n" +
+            "AND (p.description LIKE %?1% OR p.name LIKE %?1% OR p.origin LIKE %?1% OR s.name  LIKE %?1%)"
+            , nativeQuery = true)
+    List<Product> findProductByCategoryAndName(String name, Long categoryId);
+
+    @Query(value = "SELECT * FROM product p\n" +
+            "INNER JOIN category c ON c.id = p.category_id\n" +
+            "INNER JOIN supplier s ON s.id = p.supplier_id\n" +
+            "WHERE (p.category_id = ?2) \n" +
+            "AND (p.description LIKE %?1% OR p.name LIKE %?1% OR p.origin LIKE %?1% OR s.name  LIKE %?1%)\n" +
+            "AND (p.sell_price BETWEEN ?3 AND ?4)"
+            , nativeQuery = true)
+    List<Product> findProductByCategoryAndNameAndPrice(String name, Long categoryId, Long start, Long end);
 
 }
