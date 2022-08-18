@@ -15,7 +15,8 @@ class ProductService {
     }
 
     getProductById(productId) {
-        return axios.get(PRODUCT_API_BASE_URL + '/' + productId);
+        let dataid = axios.get(PRODUCT_API_BASE_URL + '/' + productId);
+        return dataid;
     }
 
     getProductByDepartmentID(departmentID) {

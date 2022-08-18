@@ -197,7 +197,7 @@ function App() {
                     <Route path="/contact" element={<Contact />} />
                     <Route path="/checkout" element={<Checkout />} />
                     <Route path="/login" element={<SignIn />} />
-                    <Route path="/detail" element={<DetailProduct />} />
+                    <Route path="/detail/:id" element={<DetailProduct />} />
                     <Route path="/profile" element={<ProfileCustomer />} />
                     <Route path="/testdetail" element={<DetailOrder />} />
 

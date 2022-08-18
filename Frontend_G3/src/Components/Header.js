@@ -1,15 +1,15 @@
 import React from 'react';
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useState } from 'react';
 const Header = () => {
 
     let param = window.location.pathname;
-
-    const defaultDisplay = (param === "/" ? 'block' : 'none')
-    const defaultHeader = (param !== "/login" ? 'block' : 'none')
+    let params = useParams('')
+    const defaultDisplay = (param || params === "/" ? 'block' : 'none')
+    const defaultHeader = (param || params !== "/login" ? 'block' : 'none')
 
     const [displays, setDisplay] = useState(defaultDisplay);
-    const [onlyNav,setOnlyNav] = useState(defaultHeader);
+    const [onlyNav, setOnlyNav] = useState(defaultHeader);
 
     const haldeAllDe = () => {
         console.log('>>> check ', displays);
@@ -68,12 +68,12 @@ const Header = () => {
                         <div className="col-lg-6">
                             <nav className="header__menu">
                                 <ul>
-                                    <li className="active"><Link to="./index.html">Home</Link></li>
-                                    <li><Link to="/">Shop</Link></li>
+                                    <li className="active"><Link to="/">Home</Link></li>
+                                    <li><Link to="/shop">Shop</Link></li>
                                     <li><Link to="/">Pages</Link>
                                         <ul className="header__menu__dropdown">
                                             <li><Link to="/">Shop Details</Link></li>
-                                            <li><Link to="/">Shoping Cart</Link></li>
+                                            <li><Link to="/cart">Shoping Cart</Link></li>
                                             <li><Link to="/">Check Out</Link></li>
                                             <li><Link to="/">Blog Details</Link></li>
                                         </ul>
@@ -84,13 +84,13 @@ const Header = () => {
                             </nav>
                         </div>
                         <div className="col-lg-3">
-                            {/* <div className="header__cart">
+                            <div className="header__cart">
                                 <ul>
                                     <li><Link to="/"><i className="fa fa-heart" /> <span>1</span></Link></li>
-                                    <li><Link to="/"><i className="fa fa-shopping-bag" /> <span>3</span></Link></li>
+                                    <li><Link to="/cart"><i className="fa fa-shopping-bag" /> <span>3</span></Link></li>
                                 </ul>
                                 <div className="header__cart__price">item: <span>$150.00</span></div>
-                            </div> */}
+                            </div>
                         </div>
                     </div>
                     <div className="humberger__open">
@@ -101,7 +101,7 @@ const Header = () => {
             {/* Header Section End */}
             {/* Hero Section Begin */}
 
-            <section className="hero" style={{display: onlyNav}}>
+            <section className="hero" style={{ display: onlyNav }}>
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-3">
@@ -110,7 +110,7 @@ const Header = () => {
                                     <i className="fa fa-bars" />
                                     <span>All departments</span>
                                 </div>
-                                <ul style={{ display: displays }}  >
+                                <ul className={param === "/" ? 'd-block' : `d-${displays}`}  >
                                     <li><Link to="/">Fresh Meat</Link></li>
                                     <li><Link to="/">Vegetables</Link></li>
                                     <li><Link to="/">Fruit &amp; Nut Gifts</Link></li>
