@@ -160,72 +160,8 @@ const ProfileCustomer = () => {
                                 onHide={toggleModal}
                             />
 
-                            <div className="card shadow-0 border mb-4">
-                                <div className="card-body">
-                                    <div className="row">
-                                        <div className="col-md-2">
-                                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/13.webp" className="img-fluid" alt="Phone" />
-                                        </div>
-                                        <div className="col-md-2 text-center d-flex justify-content-center align-items-center">
-                                            <p className="text-muted mb-0">Samsung Galaxy</p>
-                                        </div>
-                                        <div className="col-md-2 text-center d-flex justify-content-center align-items-center">
-                                            <p className="text-muted mb-0 small">White</p>
-                                        </div>
-                                        <div className="col-md-2 text-center d-flex justify-content-center align-items-center">
-                                            <p className="text-muted mb-0 small">Capacity: 64GB</p>
-                                        </div>
-                                        <div className="col-md-2 text-center d-flex justify-content-center align-items-center">
-                                            <p className="text-muted mb-0 small">Qty: 1</p>
-                                        </div>
-                                        <div className="col-md-2 text-center d-flex justify-content-center align-items-center">
-                                            <p className="text-muted mb-0 small">$499</p>
-                                        </div>
-                                    </div>
-                                    <hr className="mb-4" style={{ backgroundColor: '#e0e0e0', opacity: 1 }} />
-                                    <div className="row d-flex align-items-center">
-                                        <Stepper activeStep={0}>
-                                            <Step label="Chờ xác nhận" />
-                                            <Step label="Chờ lấy hàng" />
-                                            <Step label="Đang giao" />
-                                            <Step label="Đã giao" />
-                                        </Stepper>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="card shadow-0 border mb-4">
-                                <div className="card-body">
-                                    <div className="row">
-                                        <div className="col-md-2">
-                                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/13.webp" className="img-fluid" alt="Phone" />
-                                        </div>
-                                        <div className="col-md-2 text-center d-flex justify-content-center align-items-center">
-                                            <p className="text-muted mb-0">Samsung Galaxy</p>
-                                        </div>
-                                        <div className="col-md-2 text-center d-flex justify-content-center align-items-center">
-                                            <p className="text-muted mb-0 small">White</p>
-                                        </div>
-                                        <div className="col-md-2 text-center d-flex justify-content-center align-items-center">
-                                            <p className="text-muted mb-0 small">Capacity: 64GB</p>
-                                        </div>
-                                        <div className="col-md-2 text-center d-flex justify-content-center align-items-center">
-                                            <p className="text-muted mb-0 small">Qty: 1</p>
-                                        </div>
-                                        <div className="col-md-2 text-center d-flex justify-content-center align-items-center">
-                                            <p className="text-muted mb-0 small">$499</p>
-                                        </div>
-                                    </div>
-                                    <hr className="mb-4" style={{ backgroundColor: '#e0e0e0', opacity: 1 }} />
-                                    <div className="row d-flex align-items-center">
-                                        <Stepper activeStep={0}>
-                                            <Step label="Chờ xác nhận" />
-                                            <Step label="Chờ lấy hàng" />
-                                            <Step label="Đang giao" />
-                                            <Step label="Đã giao" />
-                                        </Stepper>
-                                    </div>
-                                </div>
-                            </div>
+
+
 
 
                         </Tab>
