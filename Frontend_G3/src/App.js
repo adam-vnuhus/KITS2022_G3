@@ -21,6 +21,8 @@ import SignIn from "./Pages/SignIn";
 import Dashboard from "./Components/AdminPageComponents/DashBoard";
 import ProfileCustomer from './Pages/ProfileCustomer';
 import DetailOrder from './Pages/ProfileComponent/DetailOrder';
+import DeleteConfirmModal from "./Components/AdminPageComponents/DeleteConfirmModal";
+import Error from "./Pages/ErrorPage";
 
 
 const all_orders = [
@@ -176,6 +178,20 @@ const tableColumns = ["id",
     "product",
     "price",]
 
+const orderProps = {
+    content: all_orders,
+    entity: "order",
+    columns: columns,
+    fields: tableColumns,
+    addNew: 1,
+    linkToEdit: null,
+    linkToDelete: null,
+    linkToAddNew: null,
+    linkToSearch: null
+}
+
+
+
 
 function App() {
     return (
@@ -186,13 +202,13 @@ function App() {
                     <Route path="/admin/" element={<Dashboard />} />
                     <Route path="/admin/dashboard" element={<Dashboard />} />
                     <Route path="/admin/orders"
-                        element={<MainContent content={all_orders} entity={"order"} columns={columns}
-                            fields={tableColumns} addNew={0} linkToEdit={null} linkToDelete={null} linkToAddNew={null} />} />
+                        element={<MainContent Props={orderProps} />} />
                 </Route>
+                <Route path="/404" element={<Error errorCode={404} message={"WE CAN'T FIND THAT PAGE!"} />} />
+                <Route path="/500" element={<Error errorCode={500} message={"SOMETHING WENT WRONG !"} />} />
 
                 <Route path="/" element={<Layout />}>
                     <Route index element={<Home />} />
-
                     <Route path="/shop/:name" element={<ShopMainPage />} />
                     <Route path="/shop" element={<ShopMainPage />} />
                     <Route path="/cart" element={<Cart />} />
@@ -202,6 +218,9 @@ function App() {
                     <Route path="/detail/:id" element={<DetailProduct />} />
                     <Route path="/profile" element={<ProfileCustomer />} />
                     <Route path="/testdetail" element={<DetailOrder />} />
+                    <Route path="/test" element={<DeleteConfirmModal />} />
+
+
 
 
                     {/* <Route path="blogs" element={<Blogs />} />

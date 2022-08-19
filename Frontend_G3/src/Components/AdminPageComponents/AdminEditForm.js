@@ -2,7 +2,7 @@
 import React, {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 
-const AdminEditForm = ({itemSelected, selectedID, linkToAPI, entity, columns, fields, onCancel}) => {
+const AdminEditForm = ({itemSelected, selectedID, linkToAPI, entity, columns, fields, onCancel,reset}) => {
     const [item, setItem] = useState(itemSelected);
 
     let navigate = useNavigate();
@@ -30,6 +30,7 @@ const AdminEditForm = ({itemSelected, selectedID, linkToAPI, entity, columns, fi
                 console.log(data);
                 navigate(-1);
             });
+        reset();
     };
 
     const handleChange = (event) => {
@@ -54,28 +55,30 @@ const AdminEditForm = ({itemSelected, selectedID, linkToAPI, entity, columns, fi
                 top: 0,
                 textAlign: 'center',
                 display:"flex"
-            }}>
-                <span className={"col-3"} onClick={onCancel}/>
-                <div className={`${"col-7 mx-0 py-5 border bg-white"}`} style={{zIndex: 200}}>
-                    <div className="col-lg-10 col-md-12 mx-auto col-sm-12">
+
+            }} onClick={onCancel}>
+                <span className={"col-3 p-0"} onClick={onCancel}/>
+                <div className={`${"col-7 mx-0 py-5 border bg-white"}`} style={{zIndex: 200,position:'relative'}} onClick={(event)=>event.stopPropagation()}>
+                    <div className="col-12 mx-0">
                         <h2>
                             <strong>{selectedID ? 'EDIT ' + entity.toUpperCase() : 'NEW ' + entity.toUpperCase()}</strong>
                         </h2>
                         <br/>
-                        <div className="px-auto">
-                            <table className="table table-user-information">
-                                <tbody>
+                        <div className="px-auto col-12" style={{position: 'relative'}}>
+                            <table className="table table-user-information" style={{left: 0,right: 0,position:'relative',display:'inline-block'}}>
+                                <tbody className={"col-12"}>
                                 {fields.map(
                                     (field, index) => (
                                         <>
-                                            <tr key={index}>
-                                                {columns[index]!==columns[0]?<><td className="align-middle col-4">
-                                                        <strong>{columns[index]}</strong>
+                                            <tr key={index} className={"col-12"}>
+                                                {columns[index]!==columns[0]?<>
+                                                    <td className={"mt-3 align-middle"} style={{maxWidth:'fit-content'}}>
+                                                        <strong className={" mt-3"}>{columns[index]}</strong>
                                                     </td>
-                                                    <td className={"col"}>
+                                                    <td className={"mx-0 text-center col-10"} >
                                                         <input
                                                             type="text"
-                                                            className="form-control col-8"
+                                                            className="form-control col-xl-8 col-lg-4 col-md-2 col-sm-3 ms-3"
                                                             value={item!=null?item[field]:""}
                                                             name={field}
                                                             onChange={(e) => handleChange(e)}
@@ -104,7 +107,7 @@ const AdminEditForm = ({itemSelected, selectedID, linkToAPI, entity, columns, fi
                         </div>
                     </div>
                 </div>
-                <span className={"col-2"} onClick={onCancel}></span>
+                <span className={"col-2 p-0"} onClick={onCancel}></span>
             </div>
         </>
     );
