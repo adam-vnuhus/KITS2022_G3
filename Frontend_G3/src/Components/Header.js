@@ -132,10 +132,11 @@ const Header = () => {
                                 <ul className={param === "/" ? 'd-block' : `d-${displays}`}  >
                                     {categories != null ?
                                         categories.map((item, index) => {
+
                                             return (
                                                 <>
 
-                                                    <li><Link to={"/shop/" + item.name}>{item.name}</Link></li>
+                                                    <li key={index + 1}><Link to={"/shop/" + item.name}>{item.name}</Link></li>
 
                                                 </>
                                             )

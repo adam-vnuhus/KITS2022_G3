@@ -29,9 +29,8 @@ const Categories = () => {
         autoplaySpeed: 20000,
         pauseOnHover: true
     };
-
     return (
-        <div class="Categories-top">
+        <div className="Categories-top">
             <h4>Top Product</h4>
             <Slider {...settings} >
                 {categories != null ?

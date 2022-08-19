@@ -41,7 +41,7 @@ const Home = () => {
                         {product && product.length > 0 ?
                             product.slice(0, 12).map((item, index) => {
                                 return (
-                                    <div className="col-md-6 col-lg-3 ">
+                                    <div key={index + 1} className="col-md-6 col-lg-3 ">
                                         <div className="product">
                                             <a href="/" className="img-prod"><img className="img-fluid" /*src={require(`../img/product-1.jpg`)}*/ src={item.image} alt="Colorlib Template" />
 
