@@ -19,54 +19,48 @@ const sliceData = (data, page, rowsPerPage) => {
     return data.slice((page - 1) * rowsPerPage, page * rowsPerPage);
 }
 
-function MainContent({entity, content, columns, fields, addNew, linkToEdit, linkToDelete}) {
-    const all_items = content;
-    const [isShown,setShown] = useState(false)
+function MainContent({Props}) {
+    const entity = Props.entity;
+    const content = Props.content;
+    const columns = Props.columns;
+    const fields = Props.fields;
+    const addNew = Props.addNew;
+    const linkToEdit = Props.linkToEdit;
+    const linkToDelete = Props.linkToDelete;
+    const LinkToSearch = Props.linkToSearch;
 
-    const [search, setSearch] = useState('');
-    const [items, setItems] = useState(all_items);
+    const [isShown,setShown] = useState(false)
+    const [showConfirmModal,setShowConfirmModal] = useState(false)
+    const [searchTerm, setSearchTerm] = useState("")
+
+    const [items, setItems] = useState(content);
     const [page, setPage] = useState(1);
     const [pagination, setPagination] = useState([]);
     const [selectedItem,setSelectedItem] = useState(null);
 
     useEffect(() => {
-        setPagination(calculateRange(all_items, 5));
-        setItems(sliceData(all_items, page, 5));
+        setPagination(calculateRange(content, 5));
+        setItems(sliceData(content, page, 5));
     }, []);
 
-    // useEffect(() => {
-    //     let url = 'https://62b0495de460b79df0422035.mockapi.io/products/';
-    //     if (searchTerm.length > 0) {
-    //         url = url + '?search=' + searchTerm;
-    //     }
-    //
-    //     fetch(url)
-    //         .then((response) => response.json())
-    //         .then((data) => {
-    //             setProduct(data);
-    //         });
-    // }, [searchTerm]);
-
     // Search
-    const __handleSearch = (event) => {
-        setSearch(event.target.value);
-        if (event.target.value !== '') {
-            let search_results = items.filter((item) =>
 
-                item.first_name.toLowerCase().includes(search.toLowerCase()) ||
-                item.last_name.toLowerCase().includes(search.toLowerCase()) ||
-                item.product.toLowerCase().includes(search.toLowerCase())
-            );
-            setItems(search_results);
-        } else {
-            __handleChangePage(1);
+    useEffect(() => {
+        let url = ''
+        if (searchTerm.length > 0) {
+            url = LinkToSearch + + searchTerm;
+            fetch(url)
+                .then((response) => response.json())
+                .then((data) => {
+                    setItems(data);
+                });
         }
-    };
+    }, [searchTerm]);
 
     // Change Page
     const __handleChangePage = (new_page) => {
         setPage(new_page);
-        setItems(sliceData(all_items, new_page, 5));
+        setItems(sliceData(content, new_page, 5));
     }
 
     const columnsData = columns.map((column, index) => (<th className="text-center" key={index}>{column}</th>))
@@ -81,6 +75,17 @@ function MainContent({entity, content, columns, fields, addNew, linkToEdit, link
     }
     function hideEditForm() {
         setShown(false)
+    }
+    function deleteButtonHandler(item) {
+        setSelectedItem(item);
+        setShowConfirmModal(true);
+    }
+    function hideConfirmModal() {
+
+        setShowConfirmModal(false)
+    }
+    function reset(){
+        setSelectedItem(null);
     }
 
     const body = (items.length !== 0 ?
@@ -101,9 +106,8 @@ function MainContent({entity, content, columns, fields, addNew, linkToEdit, link
                     }
                     <td>
                         <button type="button" className="btn btn-primary rounded-circle mx-2" onClick={()=>editButtonHandler(item)}><i className={"fa fa-pen-to-square"}></i></button>
-                        <Link to={{linkToDelete} + "/" + item[fields[0]]}>
-                            <button type="button" className="btn btn-danger rounded-circle mx-2"><i className={"fa fa-trash"}></i></button>
-                        </Link>
+                        <button type="button" className="btn btn-danger rounded-circle mx-2" onClick={()=>deleteButtonHandler(item)}><i className={"fa fa-trash"}></i></button>
+
                     </td>
                 </tr>
             </>
@@ -114,7 +118,8 @@ function MainContent({entity, content, columns, fields, addNew, linkToEdit, link
 
     return (
         <>
-            <DeleteConfirmModal/>
+            {showConfirmModal&&<DeleteConfirmModal onCancel={hideConfirmModal} reset={reset}
+                                 selectedID={selectedItem ? selectedItem[fields[0]] : null} linkToAPI={linkToDelete} onshow={showConfirmModal}/>}
             <div className='mainContent_ mainContent_dashboard-content'>
                 <PageHeader
                     onClick={newButtonHandler}
@@ -125,14 +130,14 @@ function MainContent({entity, content, columns, fields, addNew, linkToEdit, link
                         <div className='mainContent_dashboard-content-search'>
                             <input
                                 type='text'
-                                value={search}
+                                value={searchTerm}
                                 placeholder='Search..'
                                 className='mainContent_dashboard-content-input'
-                                onChange={e => __handleSearch(e)}/>
+                                onChange={e => setSearchTerm(e.target.value)}/>
                         </div>
                     </div>
                     {isShown&& <AdminEditForm columns={columns} fields={fields} entity={entity} itemSelected={selectedItem}
-                                              linkToAPI={linkToEdit} selectedID={selectedItem?selectedItem[fields[0]]:null} onCancel={hideEditForm}/>}
+                                              linkToAPI={linkToEdit} selectedID={selectedItem?selectedItem[fields[0]]:null} onCancel={hideEditForm} reset={reset}/>}
 
                     <table>
                         <thead>
