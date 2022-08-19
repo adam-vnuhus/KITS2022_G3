@@ -9,6 +9,7 @@ export default function ShopMainPage() {
     const [categories, setCategories] = useState([]);
     const [addressCat, setAddressCat] = useState('');
 
+
     useEffect(() => {
         if (param.name != 'product') {
             ProductService.getProductCategoriesName(param.name)
@@ -31,7 +32,7 @@ export default function ShopMainPage() {
         }
 
 
-    }, [])
+    }, [param])
     console.log(product)
     useEffect(() => {
         CategoriesService.getCategories()
@@ -61,7 +62,7 @@ export default function ShopMainPage() {
                     <div className="col-lg-3 col-md-5">
                         <div className="sidebar">
                             <div className="sidebar__item">
-                                <h4>Department</h4>
+                                {/* <h4>Department</h4>
                                 {categories != null ?
                                     categories.map((item, index) => {
                                         return (
@@ -80,7 +81,8 @@ export default function ShopMainPage() {
                                     })
 
                                     : ''
-                                }
+                                } */}
+                                <img src='https://i.ibb.co/j6gv9r8/banner-Categories.jpg' style={{ opacity: 0.85 }} alt="" />
                             </div>
                             <div className="sidebar__item">
                                 <h4>Price</h4>
@@ -383,7 +385,7 @@ export default function ShopMainPage() {
                                         <div className="col-lg-4 col-md-6 col-sm-6">
                                             <div className="product">
                                                 <a href="/" className="img-prod"><img className="img-fluid" /*src={require(`../img/product-1.jpg`)}*/ src={item.image} alt="Colorlib Template" />
-                                                    <span className="status">30%</span>
+
                                                     <div className="overlay" />
                                                 </a>
                                                 <div className=" text py-3 pb-4 px-3 text-center">

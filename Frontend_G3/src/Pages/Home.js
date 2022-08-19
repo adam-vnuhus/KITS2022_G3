@@ -44,7 +44,7 @@ const Home = () => {
                                     <div className="col-md-6 col-lg-3 ">
                                         <div className="product">
                                             <a href="/" className="img-prod"><img className="img-fluid" /*src={require(`../img/product-1.jpg`)}*/ src={item.image} alt="Colorlib Template" />
-                                                <span className="status">30%</span>
+
                                                 <div className="overlay" />
                                             </a>
                                             <div className="text py-3 pb-4 px-3 text-center">

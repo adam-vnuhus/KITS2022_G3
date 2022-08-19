@@ -135,17 +135,8 @@ const Header = () => {
                                             return (
                                                 <>
 
-                                                    <li><Link to="/">{item.name}</Link></li>
-                                                    {/* <li><Link to="/">Vegetables</Link></li>
-                                                    <li><Link to="/">Fruit &amp; Nut Gifts</Link></li>
-                                                    <li><Link to="/">Fresh Berries</Link></li>
-                                                    <li><Link to="/">Ocean Foods</Link></li>
-                                                    <li><Link to="/">Butter &amp; Eggs</Link></li>
-                                                    <li><Link to="/">Fastfood</Link></li>
-                                                    <li><Link to="/">Fresh Onion</Link></li>
-                                                    <li><Link to="/">Papayaya &amp; Crisps</Link></li>
-                                                    <li><Link to="/">Oatmeal</Link></li>
-                                                    <li><Link to="/">Fresh Bananas</Link></li> */}
+                                                    <li><Link to={"/shop/" + item.name}>{item.name}</Link></li>
+
                                                 </>
                                             )
 
@@ -169,7 +160,7 @@ const Header = () => {
                                             All Categories
                                             <span className="arrow_carrot-down" />
                                         </div>
-                                        <input type="text" placeholder="What do yo u need?" />
+                                        <input type="text" placeholder="What do you need?" />
                                         <button type="submit" className="site-btn">SEARCH</button>
                                     </form>
                                 </div>
