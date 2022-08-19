@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, useParams } from "react-router-dom";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import CategoriesService from '../services/CategoriesService';
 const Header = () => {
 
     let param = window.location.pathname;
@@ -15,6 +16,19 @@ const Header = () => {
         console.log('>>> check ', displays);
         setDisplay(displays === 'block' ? 'none' : 'block');
     }
+    const [categories, setCategories] = useState([]);
+
+    useEffect(() => {
+        CategoriesService.getCategories()
+            .then(response => response.data)
+            .then((data) => {
+                if (data.length > 0) {
+                    setCategories(data)
+                }
+            });
+
+    }, [])
+    // console.log('>>> check categories :', categories)
     return (
         <>
             {/* Header Section Begin */}
@@ -104,27 +118,47 @@ const Header = () => {
             <section className="hero" style={{ display: onlyNav }}>
                 <div className="container">
                     <div className="row">
-                        <div className="col-lg-3">
+
+
+                        <div id="category-select" className="col-lg-3">
                             <div className="hero__categories" onClick={haldeAllDe}>
                                 <div className="hero__categories__all">
                                     <i className="fa fa-bars" />
                                     <span>All departments</span>
                                 </div>
+
                                 <ul className={param === "/" ? 'd-block' : `d-${displays}`}  >
-                                    <li><Link to="/">Fresh Meat</Link></li>
-                                    <li><Link to="/">Vegetables</Link></li>
-                                    <li><Link to="/">Fruit &amp; Nut Gifts</Link></li>
-                                    <li><Link to="/">Fresh Berries</Link></li>
-                                    <li><Link to="/">Ocean Foods</Link></li>
-                                    <li><Link to="/">Butter &amp; Eggs</Link></li>
-                                    <li><Link to="/">Fastfood</Link></li>
-                                    <li><Link to="/">Fresh Onion</Link></li>
-                                    <li><Link to="/">Papayaya &amp; Crisps</Link></li>
-                                    <li><Link to="/">Oatmeal</Link></li>
-                                    <li><Link to="/">Fresh Bananas</Link></li>
+                                    {categories != null ?
+                                        categories.map((item, index) => {
+                                            return (
+                                                <>
+
+                                                    <li><Link to="/">{item.name}</Link></li>
+                                                    {/* <li><Link to="/">Vegetables</Link></li>
+                                                    <li><Link to="/">Fruit &amp; Nut Gifts</Link></li>
+                                                    <li><Link to="/">Fresh Berries</Link></li>
+                                                    <li><Link to="/">Ocean Foods</Link></li>
+                                                    <li><Link to="/">Butter &amp; Eggs</Link></li>
+                                                    <li><Link to="/">Fastfood</Link></li>
+                                                    <li><Link to="/">Fresh Onion</Link></li>
+                                                    <li><Link to="/">Papayaya &amp; Crisps</Link></li>
+                                                    <li><Link to="/">Oatmeal</Link></li>
+                                                    <li><Link to="/">Fresh Bananas</Link></li> */}
+                                                </>
+                                            )
+
+                                        })
+
+                                        :
+                                        ""
+                                    }
+
                                 </ul>
+
                             </div>
                         </div>
+
+
                         <div className="col-lg-9">
                             <div className="hero__search">
                                 <div className="hero__search__form">
@@ -162,13 +196,13 @@ const Header = () => {
                                 </div>
                             </div>
                             {/* <div className="hero__item set-bg" data-setbg="img/hero/banner.jpg">
-                  <div className="hero__text">
-                      <span>FRUIT FRESH</span>
-                      <h2>Vegetable <br />100% Organic</h2>
-                      <p>Free Pickup and Delivery Available</p>
-                      <Link to="/" className="primary-btn">SHOP NOW</Link>
-                  </div>
-              </div> */}
+                                <div className="hero__text">
+                                    <span>FRUIT FRESH</span>
+                                    <h2>Vegetable <br />100% Organic</h2>
+                                    <p>Free Pickup and Delivery Available</p>
+                                    <Link to="/" className="primary-btn">SHOP NOW</Link>
+                                </div>
+                            </div> */}
                         </div>
                     </div>
                 </div>

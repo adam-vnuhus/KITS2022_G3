@@ -10,6 +10,12 @@ class ProductService {
     }
 
 
+    getProductCategoriesName(categoryName) {
+        let dataCategories = axios.get(PRODUCT_API_BASE_URL + '?category=' + categoryName);
+        return dataCategories;
+    }
+
+
     createProduct(product) {
         return axios.post(PRODUCT_API_BASE_URL, product);
     }

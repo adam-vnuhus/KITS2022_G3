@@ -3,6 +3,8 @@ import Slider from "react-slick";
 import './Categories.css';
 import { useEffect, useState } from 'react';
 import CategoriesService from '../../services/CategoriesService';
+import ProductService from '../../services/ProductService';
+import { Link, useParams } from "react-router-dom";
 const Categories = () => {
     const [categories, setCategories] = useState([]);
 
@@ -13,17 +15,31 @@ const Categories = () => {
                 if (data.length > 0) {
                     setCategories(data)
                 }
+                console(data)
             });
 
     }, [])
+
+    // useEffect(() => {
+    //     let country_url =
+    //         'http://localhost:8080/api/v1/products/category';
+
+    //     fetch(country_url)
+    //         .then((response) => response.json())
+    //         .then((data) => {
+    //             setCategories(data)
+
+    //         });
+
+    // }, []);
     const settings = {
         dots: true,
         centerPadding: "0px",
         infinite: true,
         slidesToShow: 5,
         slidesToScroll: 1,
-        // autoplay: true,
-        // autoplaySpeed: 1000000000000000000,
+        autoplay: true,
+        autoplaySpeed: 20000,
         pauseOnHover: true
     };
     console.log('>>> check categories : ', categories)
@@ -34,18 +50,16 @@ const Categories = () => {
                 {categories != null ?
                     categories.map((item, index) => {
                         return (
-                            // <div className="img-topranker" style={{ overflow: "hidden" }}>
-                            //     <div id="width-size">
-                            //         <img className="" src={require(`./feature-3.jpg`)} alt="" style={{ width: 250 }} />
-                            //         <h4>{item.name}</h4>
-                            //     </div>
-                            // </div>
+
                             <div className="card" style={{ width: '18rem' }}>
-                                <img className="" src={require(`./feature-3.jpg`)} alt="" style={{ width: 250 }} />
-                                <div className="card-body" style={{ height: 100 }}>
-                                    <p className="card-text">{item.name}</p>
-                                </div>
+                                <Link to={'/shop/' + item.name}>
+                                    <img className="" src={require(`./feature-3.jpg`)} alt="" style={{ width: 250 }} />
+                                    <div className="card-body" style={{ height: 80 }}>
+                                        <p className="card-text">{item.name}</p>
+                                    </div>
+                                </Link>
                             </div>
+
 
                         )
                     })

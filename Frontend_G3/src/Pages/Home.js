@@ -3,7 +3,7 @@ import Categories from './HomeComponents/Categories';
 import { useEffect, useState } from 'react';
 import ProductService from '../services/ProductService';
 import { Link } from "react-router-dom";
-import axios from 'axios';
+
 const Home = () => {
     const [product, setProduct] = useState([]);
 
@@ -17,7 +17,7 @@ const Home = () => {
             });
 
     }, [])
-    console.log('>>> check dataProduct : ', product);
+    // console.log('>>> check dataProduct : ', product);
     return (
         <>
 
@@ -51,7 +51,7 @@ const Home = () => {
                                                 <h3><a href="/">{item.name}</a></h3>
                                                 <div className="d-flex">
                                                     <div className="pricing">
-                                                        <p className="price"><span className="mr-2 price-dc">$120.00</span><span className="price-sale">${item.buyPrice}</span></p>
+                                                        <p className="price"><span className="mr-2 price-dc">${item.buyPrice + (item.buyPrice * 0.3)}</span><span className="price-sale">${item.buyPrice}</span></p>
                                                     </div>
                                                 </div>
                                                 <div className="bottom-area d-flex px-3">
