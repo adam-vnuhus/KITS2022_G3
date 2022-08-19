@@ -8,20 +8,31 @@ export default function ShopMainPage() {
     const [product, setProduct] = useState([]);
     const [categories, setCategories] = useState([]);
     const [addressCat, setAddressCat] = useState('');
-    let linkCat;
+
     useEffect(() => {
+        if (param.name != 'product') {
+            ProductService.getProductCategoriesName(param.name)
+                .then(response => response.data)
+                .then((data) => {
+                    if (data.length > 0) {
+                        setProduct(data)
+                    }
 
-        ProductService.getProductCategoriesName(param.name)
-            .then(response => response.data)
-            .then((data) => {
-                if (data.length > 0) {
-                    setProduct(data)
-                }
+                });
+        } else {
+            ProductService.getProduct()
+                .then(response => response.data)
+                .then((data) => {
+                    if (data.length > 0) {
+                        setProduct(data)
+                    }
 
-            });
+                });
+        }
+
 
     }, [])
-    // console.log(ProductService.getProductCategoriesName(linkCat))
+    console.log(product)
     useEffect(() => {
         CategoriesService.getCategories()
             .then(response => response.data)
@@ -44,7 +55,7 @@ export default function ShopMainPage() {
     console.log(addressCat)
     return <div>
         {/* Product Section Begin */}
-        <section className="product spad">
+        <section className="products spad">
             <div className="container">
                 <div className="row">
                     <div className="col-lg-3 col-md-5">
@@ -369,19 +380,6 @@ export default function ShopMainPage() {
                             {product != null ?
                                 product.map((item, index) => {
                                     return (
-                                        // <div className="product__item">
-                                        //     <div className="product__item__pic set-bg" data-setbg="img/product/product-1.jpg">
-                                        //         <ul className="product__item__pic__hover">
-                                        //             <li><a href="/"><i className="fa fa-heart" /></a></li>
-                                        //             <li><a href="/"><i className="fa fa-retweet" /></a></li>
-                                        //             <li><a href="/"><i className="fa fa-shopping-cart" /></a></li>
-                                        //         </ul>
-                                        //     </div>
-                                        //     <div className="product__item__text">
-                                        //         <h6><a href="/">Crab Pool Security</a></h6>
-                                        //         <h5>$30.00</h5>
-                                        //     </div>
-                                        // </div>
                                         <div className="col-lg-4 col-md-6 col-sm-6">
                                             <div className="product">
                                                 <a href="/" className="img-prod"><img className="img-fluid" /*src={require(`../img/product-1.jpg`)}*/ src={item.image} alt="Colorlib Template" />

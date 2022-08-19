@@ -6,11 +6,13 @@ const Header = () => {
 
     let param = window.location.pathname;
     let params = useParams('')
-    const defaultDisplay = (param || params === "/" ? 'block' : 'none')
-    const defaultHeader = (param || params !== "/login" ? 'block' : 'none')
+    const defaultDisplay = (param === "/" || params === "/" ? 'block' : 'none')
+    const defaultHeader = (param !== "/login" || params !== "/login" ? 'block' : 'none')
 
     const [displays, setDisplay] = useState(defaultDisplay);
     const [onlyNav, setOnlyNav] = useState(defaultHeader);
+
+    useEffect(() => setDisplay(defaultDisplay), [param, params])
 
     const haldeAllDe = () => {
         console.log('>>> check ', displays);
@@ -83,7 +85,7 @@ const Header = () => {
                             <nav className="header__menu">
                                 <ul>
                                     <li className="active"><Link to="/">Home</Link></li>
-                                    <li><Link to="/shop">Shop</Link></li>
+                                    <li><Link to="/shop/product">Shop</Link></li>
                                     <li><Link to="/">Pages</Link>
                                         <ul className="header__menu__dropdown">
                                             <li><Link to="/">Shop Details</Link></li>

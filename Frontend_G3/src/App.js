@@ -192,7 +192,9 @@ function App() {
 
                 <Route path="/" element={<Layout />}>
                     <Route index element={<Home />} />
+
                     <Route path="/shop/:name" element={<ShopMainPage />} />
+                    <Route path="/shop" element={<ShopMainPage />} />
                     <Route path="/cart" element={<Cart />} />
                     <Route path="/contact" element={<Contact />} />
                     <Route path="/checkout" element={<Checkout />} />
