@@ -12,14 +12,10 @@ import java.util.Set;
 @Builder
 public class InfoUserShoppingDto {
     private Date createAt;
-    private String note;
     private Long totalPrice;
     private Set<Long> orderDetailsId;
     private String status;
     private Long userId;
     private Integer ship;
-    private String addressUser;
-    private String nameUser;
-    private String phoneUser;
-    private Integer discount;
+
 }
