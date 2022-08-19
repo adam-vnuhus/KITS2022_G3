@@ -37,4 +37,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
             , nativeQuery = true)
     List<Product> findProductByCategoryAndNameAndPrice(String name, Long categoryId, Long start, Long end);
 
+    List<Product> findByCategory_Id(Long id);
+
 }

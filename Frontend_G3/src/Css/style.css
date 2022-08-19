@@ -622,8 +622,8 @@ ol {
 .hero__categories ul {
 	border: 1px solid #ebebeb;
 	padding-left: 40px;
-	padding-top: 10px;
-	padding-bottom: 12px;
+	padding-top: 15px;
+	padding-bottom: 50px;
 }
 
 .hero__categories ul li {
@@ -2946,6 +2946,12 @@ ol {
 	.shoping__discount form input {
 		width: 240px;
 	}
+
+
+}
+
+div#category-select {
+	width: 20% !important;
 }
 
 /* Tablet Device = 768px */
