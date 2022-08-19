@@ -54,7 +54,7 @@ public class AuthService {
         Authentication authentication = authenticationManager.authenticate(token);
 //        luu tru thong tin user dang nhap
         SecurityContextHolder.getContext().setAuthentication(authentication);
-//        luu thong tin trong session -> name mdinh
+//        luu thong tin trong session -> name minh
         session.setAttribute("MY_SESSION",authentication.getName());
 
 //        "chao mung " + loginRequest.getEmail();
