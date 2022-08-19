@@ -1,10 +1,12 @@
 package com.example.projectemarketg3.controller;
 
 import com.example.projectemarketg3.entity.User;
+import com.example.projectemarketg3.exception.NotFoundException;
 import com.example.projectemarketg3.repository.UserRepository;
 import com.example.projectemarketg3.request.UserRequest;
 import com.example.projectemarketg3.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
@@ -21,7 +23,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/users")
+    @GetMapping("/user")
     public List<User> getCustomer(@RequestParam Optional<String> name){
         if (name.isPresent()){
             List<User> getCustomer = userRepository.findByNameStartsWithIgnoreCaseOrderByNameAsc(name.get());
@@ -35,11 +37,28 @@ public class UserController {
         return userService.infoUserByEmail(email);
     }
 
-    @GetMapping("/users/search")
-    public List<User> findNameUser(@RequestParam String name){
-        return userRepository.findByNameStartsWithIgnoreCaseOrderByNameAsc(name);
+    //Tìm kiếm theo name, address, phone, email, username
+    @GetMapping("/user/search")
+    public List<User> findNameUser(@RequestParam("searchterm") String searchterm){
+        return userRepository.searchUser(searchterm);
     }
+    // Sửa thông tin User
+    @PutMapping("/user/{id}")
+    public ResponseEntity< User > updateUser(@PathVariable Long id, @RequestBody User userDetails) {
+        User User = userRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("User not exist with id :" + id));
 
+        if (userDetails.getName()!=null)User.setName(userDetails.getName());
+        if (userDetails.getDob()!=null)User.setDob(userDetails.getDob());
+        if (userDetails.getEmail()!=null)User.setEmail(userDetails.getEmail());
+        if (userDetails.getGender()!=null)User.setGender(userDetails.getGender());
+        if (userDetails.getPhone()!=null)User.setPhone(userDetails.getPhone());
+        if (userDetails.getAddress()!=null)User.setAddress(userDetails.getAddress());
+        if (userDetails.getImage()!=null)User.setImage(userDetails.getImage());
+        if (userDetails.getPassword()!=null)User.setPassword(userDetails.getPassword());
+        User updatedUser = userRepository.save(User);
+        return ResponseEntity.ok(updatedUser);
+    }
 //    USER ADD NEW ADDRESS
 
 

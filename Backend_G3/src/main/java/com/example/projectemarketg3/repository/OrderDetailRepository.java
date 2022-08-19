@@ -13,6 +13,9 @@ import java.util.List;
 public interface OrderDetailRepository extends JpaRepository<OrderDetail, Long> {
     long countByProduct_Id(Long id);
 
+    @Query("select o from OrderDetail o where o.orders.user.id = ?1")
+    List<OrderDetail> findByOrders_User_Id(Long id);
+
 
 
     List<OrderDetail> getOrderDetailsByOrdersId(Long orderID);
