@@ -21,6 +21,7 @@ class ProjectEMarketG3ApplicationTests {
 
 	@Test
 	void contextLoads() {
+		System.out.println((500*2)/100);
 	}
 
 	@Test

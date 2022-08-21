@@ -38,8 +38,7 @@ public class initData {
     private Slugify slugify;
     @Autowired
     private Faker faker;
-    @Autowired
-    private CartItemRepository cartItemRepository;
+
     @Autowired
     private ImageRepository imageRepository;
 
@@ -161,24 +160,6 @@ public class initData {
         }
     }
 
-    @Test
-    void dataCartItem() {
-        List<Product> products = productRepository.findAll();
-        List<User> users = userRepository.findAll();
-
-        for (int i = 0; i < 20; i++) {
-            Product product = products.get(random.nextInt(products.size()));
-            User user  = users.get(random.nextInt(users.size()));
-            CartItem cartItem = CartItem.builder()
-                    .quantity(2)
-                    .product(product)
-                    .user(user)
-                    .build();
-
-            cartItemRepository.save(cartItem);
-        }
-    }
-
 
     @Test
     void dataOrder() {
@@ -216,24 +197,4 @@ public class initData {
         }
     }
 
-
-    @Test
-    void dataCart() {
-        List<Product> products = productRepository.findAll();
-        List<User> users = userRepository.findAll();
-
-        for (int i = 0; i < 20; i++) {
-
-            Product product = products.get(random.nextInt(products.size()));
-            User user = users.get(random.nextInt(users.size()));
-
-            CartItem cartItem = CartItem.builder()
-                    .product(product)
-                    .user(user)
-                    .quantity(2)
-                    .build();
-
-            cartItemRepository.save(cartItem);
-        }
-    }
 }

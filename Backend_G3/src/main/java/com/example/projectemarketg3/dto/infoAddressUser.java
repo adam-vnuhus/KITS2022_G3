@@ -8,9 +8,9 @@ import lombok.*;
 @Setter
 @Builder
 public class infoAddressUser {
+    private Long userId;
     private String note;
     private String addressUser;
     private String nameUser;
     private String phoneUser;
-    private Integer discount;
 }

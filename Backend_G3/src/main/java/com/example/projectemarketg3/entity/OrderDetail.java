@@ -27,6 +27,7 @@ public class OrderDetail {
     @Column(name = "total")
     private Long total;
 
+
     @ManyToOne
     @JsonIgnore
     @JoinColumn(name = "orders_id")
@@ -35,6 +36,10 @@ public class OrderDetail {
     @OneToOne
     @JoinColumn(name = "product_id")
     private Product product;
+
+    @OneToOne(orphanRemoval = true)
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @Override
     public boolean equals(Object o) {

@@ -14,7 +14,7 @@ import java.util.Set;
 @Setter
 @Entity
 @Table
-@ToString
+
 public class Orders {
 
     @Id
@@ -59,6 +59,15 @@ public class Orders {
 
     @Column(name = "disscount")
     private Integer disscount;
+
+    @Column(name = "point")
+    private Double point;
+
+    //    employee
+    @ManyToOne
+    @JoinColumn(name = "user_succeed_id")
+    private User userSucceed;
+
 
     @PreRemove
     public void preRemove() {
