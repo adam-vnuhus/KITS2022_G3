@@ -67,11 +67,7 @@ public class ProductController {
         }
     }
 
-    // create a new product rest api
-    @PostMapping("/")
-    public Product createProduct(@RequestBody Product product) {
-        return productRepository.save(product);
-    }
+
 
     // get product by ID rest api
     @GetMapping("/{id}")
@@ -98,17 +94,7 @@ public class ProductController {
 //        return  ResponseEntity.ok(updatedProduct);
 //    }
 
-    // delete product rest api
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Map<String, Boolean>> deleteProduct(@PathVariable Long id) {
-        Product product = productRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException
-                        ("product not exist with id :" + id));
-        productRepository.delete(product);
-        Map<String, Boolean> response = new HashMap<>();
-        response.put("deleted", Boolean.TRUE);
-        return ResponseEntity.ok(response);
-    }
+
 
     //    HOT PRODUCT
     @GetMapping("/hot")
@@ -133,4 +119,6 @@ public class ProductController {
     public List<Product> getProductByCategory(@PathVariable String name) {
         return productRepository.findByCategory_Name(name);
     }
+
+
 }

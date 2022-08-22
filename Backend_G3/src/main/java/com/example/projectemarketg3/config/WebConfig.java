@@ -1,6 +1,8 @@
 package com.example.projectemarketg3.config;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -12,4 +14,5 @@ public class WebConfig implements WebMvcConfigurer {
                 .addMapping("/**")
                 .allowedMethods("GET", "POST", "PUT", "DELETE");
     }
+
 }

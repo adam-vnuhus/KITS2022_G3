@@ -45,32 +45,9 @@ public class OrderController {
         return ResponseEntity.ok(order);
     }
 
-    // update order rest api
-    @PutMapping("/{id}")
-    public ResponseEntity<Orders> updateOrder(@PathVariable Long id, @RequestBody Orders orderDetails) {
-        Orders order = ordersRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException
-                        ("order not found with id :" + id));
 
-        order.setNote(orderDetails.getNote());
-        order.setTotalPrice(orderDetails.getTotalPrice());
-        order.setOrderDetails(orderDetails.getOrderDetails());
-        order.setStatus(orderDetails.getStatus());
-        order.setUser(orderDetails.getUser());
 
-        ordersRepository.save(order);
-        return ResponseEntity.ok(order);
-    }
 
-    // delete order rest api
-    @DeleteMapping("/{id}")
-    public Orders deleteOrder(@PathVariable Long id) {
-        Orders order = ordersRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException
-                        ("order not exist with id :" + id));
-        ordersRepository.delete(order);
-       return order;
-    }
 
     @GetMapping("/user/{id}")
     public  List<Orders> listOrdersByIdUser(@PathVariable Long id){
@@ -128,17 +105,7 @@ public class OrderController {
 //        return  ResponseEntity.ok(updatedorderdetails);
 //    }
 
-    // delete order detail rest api
-    @DeleteMapping("/details/{id}")
-    public ResponseEntity<Map<String, Boolean>> deleteOrderDetails(@PathVariable Long id) {
-        OrderDetail orderdetails = orderDetailRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException
-                        ("orderdetails not exist with id :" + id));
-        orderDetailRepository.delete(orderdetails);
-        Map<String, Boolean> response = new HashMap<>();
-        response.put("deleted", Boolean.TRUE);
-        return ResponseEntity.ok(response);
-    }
+
 
     @GetMapping("/purchases/{id}")
     public long purchasesProductById(@PathVariable Long id) {

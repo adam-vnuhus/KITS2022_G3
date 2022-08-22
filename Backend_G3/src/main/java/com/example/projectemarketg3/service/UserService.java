@@ -92,6 +92,25 @@ public class UserService implements UserDetailsService {
         return userRequest;
     }
 
+    public UserRequest infoUserById(Long id) {
+        User user = userRepository.getUserById(id);
+        UserRequest userRequest = UserRequest.builder()
+                .id(user.getId())
+                .email(user.getEmail())
+                .address(user.getAddress())
+                .dob(user.getDob())
+                .gender(user.getGender())
+                .name(user.getName())
+                .image(user.getImage())
+                .phone(user.getPhone())
+                .point(user.getPoint())
+                .ranking(user.getRanking())
+                .rank_date(user.getRank_date())
+                .build();
+
+        return userRequest;
+    }
+
     public List<UserRequest> findDistinctByRanking_NameOrderByRank_dateDesc(String name) {
         List<UserRequest> userRequestList = new ArrayList<>();
         List<User> userList = userRepository.findDistinctByRanking_NameOrderByRank_dateDesc(name);

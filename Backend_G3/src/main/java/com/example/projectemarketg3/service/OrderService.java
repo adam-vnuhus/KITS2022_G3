@@ -1,4 +1,4 @@
-package com.example.projectemarketg3.request;
+package com.example.projectemarketg3.service;
 
 import com.example.projectemarketg3.dto.DetailDto;
 import com.example.projectemarketg3.entity.CartItem;

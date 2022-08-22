@@ -8,13 +8,11 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
-
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/admin")
 public class FileController {
     @Autowired
-   private UserService userService;
+    private UserService userService;
 
     @Autowired
     private ProductService productService;
@@ -26,8 +24,8 @@ public class FileController {
 //    }
 
     @PostMapping("/product/{id}/upload-file")
-    public String productUpFile(@PathVariable Long id,@ModelAttribute("file") MultipartFile file){
-        return productService.uploadFile(id,file);
+    public String productUpFile(@PathVariable Long id, @ModelAttribute("file") MultipartFile file) {
+        return productService.uploadFile(id, file);
     }
 
     // Xem file
@@ -36,9 +34,9 @@ public class FileController {
 //        return userService.readFile(id, fileId);
 //    }
 
-    @GetMapping(value = "/product/{id}/files/{fileId}",produces = MediaType.IMAGE_JPEG_VALUE)
-    public byte[] readFileProduct(@PathVariable Long id,@PathVariable String fileId){
-        return productService.readFile(id,fileId);
+    @GetMapping(value = "/product/{id}/files/{fileId}", produces = MediaType.IMAGE_JPEG_VALUE)
+    public byte[] readFileProduct(@PathVariable Long id, @PathVariable String fileId) {
+        return productService.readFile(id, fileId);
     }
 
     // Xóa file
@@ -50,8 +48,8 @@ public class FileController {
 
     @DeleteMapping("/product/{id}/files/{fileId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteFileProduct(@PathVariable Long id, @PathVariable String fileId){
-        productService.deleteFile(id,fileId);
+    public void deleteFileProduct(@PathVariable Long id, @PathVariable String fileId) {
+        productService.deleteFile(id, fileId);
     }
 
     // Lấy danh sách file upload
@@ -60,8 +58,5 @@ public class FileController {
 //        return userService.getFiles(id);
 //    }
 
-    @GetMapping("/product/{id}/files")
-    public List<String> getFileProduct(@PathVariable Long id){
-        return productService.getFile(id);
-    }
 }
+

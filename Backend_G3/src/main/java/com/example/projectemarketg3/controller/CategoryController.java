@@ -26,11 +26,11 @@ public class CategoryController {
         return categoryRepository.findAll();
     }
 
-    // create a new category rest api
-    @PostMapping
-    public Category createCategory(@RequestBody Category category) {
-        return categoryRepository.save(category);
-    }
+//    // create a new category rest api
+//    @PostMapping
+//    public Category createCategory(@RequestBody Category category) {
+//        return categoryRepository.save(category);
+//    }
 
     // get category by ID rest api
     @GetMapping("/{id}")
@@ -41,28 +41,28 @@ public class CategoryController {
         return ResponseEntity.ok(category);
     }
 
-    // update category rest api
-    @PutMapping("/{id}")
-    public  ResponseEntity <Category> updatedCategory(@PathVariable Long id, @RequestBody Category categoryDetails){
-        Category category = categoryRepository.findById(id)
-                .orElseThrow (()->new NotFoundException
-                        ("category not exist with id :" + id));
-
-        category.setName(categoryDetails.getName());
-        return  ResponseEntity.ok(categoryRepository.save(category));
-    }
+//    // update category rest api
+//    @PutMapping("/{id}")
+//    public  ResponseEntity <Category> updatedCategory(@PathVariable Long id, @RequestBody Category categoryDetails){
+//        Category category = categoryRepository.findById(id)
+//                .orElseThrow (()->new NotFoundException
+//                        ("category not exist with id :" + id));
+//
+//        category.setName(categoryDetails.getName());
+//        return  ResponseEntity.ok(categoryRepository.save(category));
+//    }
 
     // delete category rest api
-    @DeleteMapping("/{id}")
-    public ResponseEntity <Map<String, Boolean>> deleteCategory(@PathVariable Long id){
-        Category category = categoryRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException
-                        ("category not exist with id :" + id));
-        categoryRepository.delete(category);
-        Map<String, Boolean> response = new HashMap<>();
-        response.put("deleted",Boolean.TRUE);
-        return ResponseEntity.ok(response);
-    }
+//    @DeleteMapping("/{id}")
+//    public ResponseEntity <Map<String, Boolean>> deleteCategory(@PathVariable Long id){
+//        Category category = categoryRepository.findById(id)
+//                .orElseThrow(() -> new NotFoundException
+//                        ("category not exist with id :" + id));
+//        categoryRepository.delete(category);
+//        Map<String, Boolean> response = new HashMap<>();
+//        response.put("deleted",Boolean.TRUE);
+//        return ResponseEntity.ok(response);
+//    }
 
     @GetMapping("/")
     public List<Product> getProductByCategory(@RequestParam("name") String category){

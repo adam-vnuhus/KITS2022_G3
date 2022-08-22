@@ -2,8 +2,11 @@ package com.example.projectemarketg3.service;
 
 import com.example.projectemarketg3.dto.DetailDto;
 import com.example.projectemarketg3.dto.InfoUserShoppingDto;
+import com.example.projectemarketg3.dto.RatingDto;
+import com.example.projectemarketg3.dto.UserIdDto;
 import com.example.projectemarketg3.entity.*;
 import com.example.projectemarketg3.repository.*;
+import com.example.projectemarketg3.request.UserRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -35,6 +38,9 @@ public class ShoppingService {
     private StatusRepository statusRepository;
     @Autowired
     private CartItemRepository cartItemRepository;
+
+    @Autowired
+    private UserService userService;
 
     public CartItem clickAddCart(@RequestBody DetailDto detailDto) {
         //lay ra san pham tu id
@@ -137,9 +143,9 @@ public class ShoppingService {
                 .user(user.get()) //
                 .ship(20000)
                 .disscount(disscount)
-                .addressUser(info.getAddressUser()) //
-                .nameUser(info.getNameUser()) //
-                .phoneUser(info.getPhoneUser()) //
+                .addressUser(info.getAddressUser()==null ? user.get().getAddress() : info.getAddressUser() ) //
+                .nameUser(info.getNameUser() == null ? user.get().getName() : info.getNameUser()) //
+                .phoneUser(info.getPhoneUser() == null ? user.get().getPhone() : info.getPhoneUser()) //
                 .point(info.getPoint()==null ? 0 : info.getPoint())
                 .build();
 
@@ -161,6 +167,7 @@ public class ShoppingService {
 
             user.get().setRanking(ranking.get());
             userRepository.save(user.get());
+
 //            Bat dau tinh ngay tich diem
             if (user.get().getRank_date() == null) {
                 user.get().setRank_date(new Date(System.currentTimeMillis()));
@@ -216,13 +223,38 @@ public class ShoppingService {
         }
     }
     //  NEW DATA RATING ->  DANH GIA DON HANG CHECKING = 0;
-    public Rating ratingProduct(Rating rating) {
-        return null;
+    public Rating ratingProduct(RatingDto ratingDto) {
+
+        Product product = productRepository.getProductById(ratingDto.getProductId());
+        User user = userRepository.getUserById(ratingDto.getUserId());
+
+        Rating rating = Rating.builder()
+                .createAt(new Date(System.currentTimeMillis()))
+                .product(product)
+                .checking(false)
+                .star(ratingDto.getStar())
+                .image(ratingDto.getImage())
+                .note(ratingDto.getNote())
+                .user(user)
+                .build();
+
+        return ratingRepository.save(rating);
     }
 
     //    XAC NHAN DANH GIA CHECKING = 1 -> UPDATE AVG_RATING(product)
 
-    public Rating updateCheckingProduct(Rating rating) {
-        return null;
+    public Rating updateCheckingProduct(UserIdDto id) {
+//        cap nhat trang thai danh gia thanh public
+        Optional<Rating> rating = ratingRepository.findById(id.getId());
+        rating.get().setChecking(true);
+        ratingRepository.save(rating.get());
+
+//        lay ra san pham cap nhat lai avg_rating
+        Product product = rating.get().getProduct();
+        Double ratingD = (rating.get().getStar() + product.getAvgRating())/2;
+        product.setAvgRating(ratingD);
+        productRepository.save(product);
+
+        return rating.get();
     }
 }

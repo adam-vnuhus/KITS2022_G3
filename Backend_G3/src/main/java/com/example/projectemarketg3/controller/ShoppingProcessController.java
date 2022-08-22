@@ -2,11 +2,12 @@ package com.example.projectemarketg3.controller;
 
 import com.example.projectemarketg3.dto.DetailDto;
 import com.example.projectemarketg3.dto.InfoUserShoppingDto;
+import com.example.projectemarketg3.dto.RatingDto;
 import com.example.projectemarketg3.dto.UserIdDto;
 import com.example.projectemarketg3.entity.*;
 import com.example.projectemarketg3.repository.*;
-import com.example.projectemarketg3.request.OrderService;
 import com.example.projectemarketg3.request.StatusOrderRequest;
+import com.example.projectemarketg3.service.OrderService;
 import com.example.projectemarketg3.service.ShoppingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -92,10 +93,9 @@ public class ShoppingProcessController {
 
     //CLICK XOA SAN PHAM TRONG CART
     @DeleteMapping("/detail-delete/{id}")
-    public CartItem clickDeleteOrderDetail(@PathVariable Long id) {
+    public void clickDeleteOrderDetail(@PathVariable Long id) {
         Optional<CartItem> cartItem = cartItemRepository.findById(id);
-        cartItemRepository.delete(cartItem.get());
-        return cartItem.get();
+        cartItem.ifPresent(item -> cartItemRepository.delete(item));
     }
 
     //    UPDATE STATUS ORDER
@@ -111,15 +111,38 @@ public class ShoppingProcessController {
         return ordersRepository.save(orders.get());
     }
 
-//  NEW DATA RATING ->  DANH GIA DON HANG CHECKING = 0;
+    //  NEW DATA RATING ->  DANH GIA DON HANG CHECKING = 0;
     @PostMapping("/rating-product")
-    public Rating ratingProduct(@RequestBody Rating rating){
-        return shoppingService.ratingProduct(rating);
+    public Rating ratingProduct(@RequestBody RatingDto ratingDto) {
+        return shoppingService.ratingProduct(ratingDto);
     }
 
-//    XAC NHAN DANH GIA CHECKING = 1 -> UPDATE AVG_RATING(product)
-@PutMapping("/rating-product")
-public Rating updateCheckingProduct(@RequestBody Rating rating){
-    return shoppingService.updateCheckingProduct(rating);
-}
+    //    XAC NHAN DANH GIA CHECKING = true -> UPDATE AVG_RATING(product)
+    @PutMapping("/rating-product")
+    public Rating updateCheckingProduct(@RequestBody UserIdDto id) {
+        return shoppingService.updateCheckingProduct(id);
+    }
+
+    //    LAY RA DANH GIA CUA SAN PHAM THEO ID VA DA DUOC ADMIN PUBLIC
+    @GetMapping("/rating-product/{id}")
+    public List<Rating> getAllRatingProduct(@PathVariable Long id) {
+        List<Rating> ratings = ratingRepository.findByProduct_IdOrderByCreateAtDesc(id);
+        List<Rating> ratingList = new ArrayList<>();
+        for (Rating r : ratings
+        ) {
+            if (r.getChecking()) {
+                ratingList.add(r);
+            }
+        }
+        return ratingList;
+    }
+
+    //    LAY RA DANH GIA CUA SAN PHAM THEO USER
+    @GetMapping("/rating-user/{id}")
+    public List<Rating> getAllRatingUser(@PathVariable Long id) {
+        return ratingRepository.findByUser_IdOrderByCreateAtDesc(id);
+    }
+
+//    RESET RANK 6 THANG 1 LAN
+
 }
