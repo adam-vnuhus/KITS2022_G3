@@ -28,7 +28,7 @@ function MainContent({table}) {
     const [columns, setColumns] = useState(null);
     const [fields, setFields] = useState(null);
     const [linkAPI, setLinkAPI] = useState('');
-    const [oldValue, setOldValue] = useState(null);
+    const [isLoading, setLoading] = useState(true);
     const [linkSearchAPI, setLinkSearchAPI] = useState('');
     const location = useLocation();
     useEffect(() => {
@@ -39,6 +39,7 @@ function MainContent({table}) {
     useEffect(() => {
         console.log('propsInside', props);
         if (props !== null) {
+            setLoading(true);
             setEntity(props.entity);
             setAddNew(props.havingAddNew);
             setLinkAPI(props.linkAPI);
@@ -55,6 +56,7 @@ function MainContent({table}) {
                     setColumns(data)
                     setFields(data)
                 })
+            setLoading(false);
         }
     }, [props, location.pathname])
 
@@ -80,12 +82,14 @@ function MainContent({table}) {
     useEffect(() => {
         let url = ''
         if (searchTerm.length > 0) {
+            setLoading(true);
             url = linkSearchAPI + +searchTerm;
             fetch(url)
                 .then((response) => response.json())
                 .then((data) => {
                     setItems(data);
                 });
+            setLoading(false);
         }
     }, [searchTerm]);
 
@@ -127,7 +131,7 @@ function MainContent({table}) {
         setSelectedItem(null);
     }
 
-    const body = (items !== null && fields !== null ?
+    const body = (items !== null && fields !== null && !isLoading?
         <tbody>
 
         {items.map((item, index) => (
@@ -185,7 +189,7 @@ function MainContent({table}) {
                 <div className='mainContent_dashboard-content-container'>
                     <div className='mainContent_dashboard-content-header'>
 
-                        <h2>{entity !== null ? entity.toUpperCase() : 'MY'} LIST</h2>
+                        <h2>{entity !== null&&!isLoading ? entity.toUpperCase() : 'MY'} LIST</h2>
                         <div className='mainContent_dashboard-content-search'>
                             <input
                                 type='text'
@@ -209,7 +213,7 @@ function MainContent({table}) {
                         {body}
                     </table>
 
-                    {items !== null ?
+                    {items !== null&&!isLoading ?
                         <div className='mainContent_dashboard-content-footer'>
                             {pagination.map((item, index) => (
                                 <span
