@@ -113,6 +113,7 @@ public class ShoppingService {
                     .product(s.getProduct())
                     .quantity(s.getQuantity())
                     .build());
+
         }
 
 //        Total
@@ -139,7 +140,7 @@ public class ShoppingService {
                 .addressUser(info.getAddressUser()) //
                 .nameUser(info.getNameUser()) //
                 .phoneUser(info.getPhoneUser()) //
-                .point(info.getPoint())
+                .point(info.getPoint()==null ? 0 : info.getPoint())
                 .build();
 
         ordersRepository.save(order);
@@ -155,7 +156,9 @@ public class ShoppingService {
             Long point = (total[0]) / 100;
             user.get().setPoint(user.get().getPoint() + point);
 //            cap nhap rank
-            Optional<Ranking> ranking = updateRank(Long.valueOf(user.get().getPoint() + point));
+            Long idRank = updateRank(Long.valueOf(user.get().getPoint() + point));
+            Optional<Ranking> ranking = rankingRepository.findById(idRank);
+
             user.get().setRanking(ranking.get());
             userRepository.save(user.get());
 //            Bat dau tinh ngay tich diem
@@ -201,15 +204,15 @@ public class ShoppingService {
         return ordersRepository.save(orders.get());
     }
 
-    public Optional<Ranking> updateRank(Long point) {
+    public Long updateRank(Long point) {
         if (point < 100) {
-            return rankingRepository.findById(1L);
+            return 1L;
         } else if (point > 100 && point < 700) {
-            return rankingRepository.findById(2L);
+            return 2L;
         } else if (point > 700 && point < 7000) {
-            return rankingRepository.findById(3L);
+            return 3L;
         } else {
-            return rankingRepository.findById(4L);
+            return 4L;
         }
     }
     //  NEW DATA RATING ->  DANH GIA DON HANG CHECKING = 0;
