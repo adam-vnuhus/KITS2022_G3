@@ -31,17 +31,7 @@ public class Orders {
     @Column(name = "total_price")
     private Long totalPrice;
 
-    @OneToMany(mappedBy = "orders", orphanRemoval = false, cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-    private Set<OrderDetail> orderDetails = new LinkedHashSet<>();
 
-
-    @ManyToOne
-    @JoinColumn(name = "status_id")
-    private Status status;
-
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
 
 //    info User
 
@@ -62,6 +52,17 @@ public class Orders {
 
     @Column(name = "point")
     private Double point;
+    @OneToMany(mappedBy = "orders", orphanRemoval = false, cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    private Set<OrderDetail> orderDetails = new LinkedHashSet<>();
+
+
+    @ManyToOne
+    @JoinColumn(name = "status_id")
+    private Status status;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     //    employee
     @ManyToOne

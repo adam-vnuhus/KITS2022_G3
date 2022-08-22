@@ -10,6 +10,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -27,7 +28,7 @@ import java.util.Objects;
         name = "json",
         typeClass = JsonStringType.class
 )
-public class User implements UserDetails {
+public class User implements UserDetails, Serializable {
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -58,7 +59,7 @@ public class User implements UserDetails {
     private String password;
 
     @Column(name = "point")
-    private String point;
+    private Double point;
 
     @Column(name = "enabled")
     private Boolean enabled = false;

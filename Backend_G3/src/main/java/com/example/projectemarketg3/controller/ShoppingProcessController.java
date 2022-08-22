@@ -10,6 +10,7 @@ import com.example.projectemarketg3.request.StatusOrderRequest;
 import com.example.projectemarketg3.service.OrderService;
 import com.example.projectemarketg3.service.ShoppingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -52,10 +53,12 @@ public class ShoppingProcessController {
 
     //    XEM GIO HANG theo id khach
     @GetMapping("/carts")
-    public List<DetailDto> cartByUserId(@RequestBody UserIdDto id) {
+    public List<DetailDto> cartByUserId() {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
 //        lay ra danh sach san pham co trong gio hang o detail theo id khach
 //        Set<OrderDetail> orderDetails = orderDetailRepository.findByUser_Id(id.getId());
-        List<CartItem> cartItems = cartItemRepository.getByUser_Id(id.getId());
+        List<CartItem> cartItems = cartItemRepository.getByUser_Id(user.getId());
 
 //        tra ve data theo DetailDto
 //        List<DetailDto> detailDtos = new ArrayList<>();
@@ -78,7 +81,7 @@ public class ShoppingProcessController {
     }
 
     //    CLICK HUY DON
-    @PutMapping("/order-bill")
+    @PutMapping("/order-bill/{id}")
     public Orders clickCancelOrder(@PathVariable Long id) {
         return shoppingService.clickCancelOrder(id);
     }
@@ -95,7 +98,9 @@ public class ShoppingProcessController {
     @DeleteMapping("/detail-delete/{id}")
     public void clickDeleteOrderDetail(@PathVariable Long id) {
         Optional<CartItem> cartItem = cartItemRepository.findById(id);
-        cartItem.ifPresent(item -> cartItemRepository.delete(item));
+//        cartItem.ifPresent(item -> cartItemRepository.delete(item));
+
+        cartItemRepository.delete(cartItem.get());
     }
 
     //    UPDATE STATUS ORDER

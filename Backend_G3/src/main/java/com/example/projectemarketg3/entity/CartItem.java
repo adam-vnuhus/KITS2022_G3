@@ -36,7 +36,7 @@ public class CartItem {
     @JoinColumn(name = "product_id")
     private Product product;
 
-    @OneToOne(orphanRemoval = true)
+    @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
 
@@ -51,5 +51,13 @@ public class CartItem {
     @Override
     public int hashCode() {
         return getClass().hashCode();
+    }
+
+
+    @PreRemove
+    public void preRemove() {
+        this.product = null;
+        this.user = null;
+
     }
 }

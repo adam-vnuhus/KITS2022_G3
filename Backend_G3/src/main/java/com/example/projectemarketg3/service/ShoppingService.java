@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import javax.transaction.Transactional;
 import java.sql.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -101,6 +102,7 @@ public class ShoppingService {
         }
     }
 
+    @Transactional
     public Orders clickBuy(@RequestBody InfoUserShoppingDto info) {
 
         Optional<Status> status = statusRepository.findById(1L);
@@ -111,6 +113,7 @@ public class ShoppingService {
 
         List<CartItem> cartItems = cartItemRepository.getByUser_Id(user.get().getId());
         Set<OrderDetail> orderDetails = new HashSet<>();
+
         for (var s : cartItems
         ) {
             orderDetails.add(OrderDetail.builder()
@@ -128,6 +131,7 @@ public class ShoppingService {
         orderDetails.forEach(s -> {
             total[0] += s.getTotal();
         });
+
 //        chiet khau hoa don theo rank
         int disscount = user.get().getRanking() == null ? 0 : user.get().getRanking().getDiscount();
         if (disscount > 0) {
@@ -143,26 +147,29 @@ public class ShoppingService {
                 .user(user.get()) //
                 .ship(20000)
                 .disscount(disscount)
-                .addressUser(info.getAddressUser()==null ? user.get().getAddress() : info.getAddressUser() ) //
+                .addressUser(info.getAddressUser() == null ? user.get().getAddress() : info.getAddressUser()) //
                 .nameUser(info.getNameUser() == null ? user.get().getName() : info.getNameUser()) //
                 .phoneUser(info.getPhoneUser() == null ? user.get().getPhone() : info.getPhoneUser()) //
-                .point(info.getPoint()==null ? 0 : info.getPoint())
+                .point(info.getPoint() == null ? 0 : info.getPoint())
                 .build();
 
         ordersRepository.save(order);
 
 //        tru diem neu khach dung
         if (info.getPoint() > 0) {
-            Double point = Double.valueOf(user.get().getPoint());
-            user.get().setPoint(String.valueOf(point - info.getPoint()));
+            Double point = user.get().getPoint();
+            user.get().setPoint(point - info.getPoint());
         }
 
 //        tich diem cho hoa don tren 200k theo 1%
+        Double userPoint = user.get().getPoint() == null ? 0 : user.get().getPoint();
+
         if (total[0] > 200000) {
             Long point = (total[0]) / 100;
-            user.get().setPoint(user.get().getPoint() + point);
+            user.get().setPoint(userPoint + point);
+
 //            cap nhap rank
-            Long idRank = updateRank(Long.valueOf(user.get().getPoint() + point));
+            Long idRank = updateRank(userPoint + point);
             Optional<Ranking> ranking = rankingRepository.findById(idRank);
 
             user.get().setRanking(ranking.get());
@@ -208,10 +215,16 @@ public class ShoppingService {
 
             productRepository.save(product);
         }
+//        Tru diem khach hang
+        User user = orders.get().getUser();
+        Double point = user.getPoint() -(orders.get().getTotalPrice()/100);
+        user.setPoint(point);
+        userRepository.save(user);
+
         return ordersRepository.save(orders.get());
     }
 
-    public Long updateRank(Long point) {
+    public Long updateRank(Double point) {
         if (point < 100) {
             return 1L;
         } else if (point > 100 && point < 700) {
@@ -222,6 +235,7 @@ public class ShoppingService {
             return 4L;
         }
     }
+
     //  NEW DATA RATING ->  DANH GIA DON HANG CHECKING = 0;
     public Rating ratingProduct(RatingDto ratingDto) {
 
@@ -251,7 +265,7 @@ public class ShoppingService {
 
 //        lay ra san pham cap nhat lai avg_rating
         Product product = rating.get().getProduct();
-        Double ratingD = (rating.get().getStar() + product.getAvgRating())/2;
+        Double ratingD = (rating.get().getStar() + product.getAvgRating()) / 2;
         product.setAvgRating(ratingD);
         productRepository.save(product);
 

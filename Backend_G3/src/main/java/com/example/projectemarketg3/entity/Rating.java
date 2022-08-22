@@ -3,6 +3,7 @@ package com.example.projectemarketg3.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Date;
 
 @Builder
@@ -12,7 +13,7 @@ import java.sql.Date;
 @Setter
 @Entity
 @Table(name = "rating")
-public class Rating {
+public class Rating implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)

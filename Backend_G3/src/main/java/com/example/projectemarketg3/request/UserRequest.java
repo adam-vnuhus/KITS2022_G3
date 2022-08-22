@@ -20,7 +20,7 @@ public class UserRequest {
     private String phone;
     private String address;
     private String image;
-    private String point;
+    private Double point;
     private Ranking ranking;
     private Date rank_date;
 }

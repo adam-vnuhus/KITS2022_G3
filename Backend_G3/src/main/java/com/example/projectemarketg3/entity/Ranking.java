@@ -3,6 +3,7 @@ package com.example.projectemarketg3.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Builder
 @AllArgsConstructor
@@ -11,7 +12,7 @@ import javax.persistence.*;
 @Setter
 @Entity
 @Table
-public class Ranking {
+public class Ranking implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
