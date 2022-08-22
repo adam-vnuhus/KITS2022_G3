@@ -18,10 +18,10 @@ import java.util.List;
 import java.util.Set;
 
 @RestController
-@RequestMapping("/api/v1/metadata/{table}/columns")
+@RequestMapping("/api/v1/metadata/{table}")
 public class TableMetadataController{
 
-    @GetMapping
+    @GetMapping("/columns")
     public List<String> getColumnNames(@PathVariable String table){
 
         Class<?> entity = null;
@@ -41,6 +41,25 @@ public class TableMetadataController{
             }
         }
         System.out.println(Columns);
+        return Columns;
+    }
+
+    @GetMapping("/variables")
+    public List<String> getVariableNames(@PathVariable String table){
+
+        Class<?> entity = null;
+        try {
+            entity = Class.forName("com.example.projectemarketg3.entity."+table);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        List<String> Columns = new ArrayList<String>();
+        assert entity != null;
+        Field[] fields = entity.getDeclaredFields();
+
+        for (Field field : fields) {
+            Columns.add(field.getName());
+        }
         return Columns;
     }
 

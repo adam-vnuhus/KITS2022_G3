@@ -1,5 +1,6 @@
 package com.example.projectemarketg3;
 
+import com.example.projectemarketg3.entity.Product;
 import com.example.projectemarketg3.entity.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,6 @@ class ProjectEMarketG3ApplicationTests {
 
 	@Test
 	public static void main(String[] args) {
-
 	}
 
 
