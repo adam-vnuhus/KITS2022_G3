@@ -7,6 +7,8 @@ import com.example.projectemarketg3.dto.UserIdDto;
 import com.example.projectemarketg3.entity.*;
 import com.example.projectemarketg3.repository.*;
 import com.example.projectemarketg3.request.StatusOrderRequest;
+import com.example.projectemarketg3.security.UpdatePassRequest;
+import com.example.projectemarketg3.service.AuthService;
 import com.example.projectemarketg3.service.OrderService;
 import com.example.projectemarketg3.service.ShoppingService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +45,8 @@ public class ShoppingProcessController {
     private OrderService orderService;
     @Autowired
     private CartItemRepository cartItemRepository;
+    @Autowired
+    private AuthService authService;
 
 
     //    ADD CART
@@ -87,10 +91,10 @@ public class ShoppingProcessController {
     }
 
     //    CLICK TANG/GIAM SO LUONG SAN PHAM (-a -> a)
-    @PutMapping("/quantity-detail/{id}")
-    public CartItem clickUpdateQuantity(@PathVariable Long id, @RequestBody Integer quantity) {
-        Optional<CartItem> orderDetail = cartItemRepository.findById(id);
-        orderDetail.get().setQuantity(orderDetail.get().getQuantity() + quantity);
+    @PutMapping("/quantity-detail")
+    public CartItem clickUpdateQuantity( @RequestBody DetailDto detailDto) {
+        Optional<CartItem> orderDetail = cartItemRepository.findById(detailDto.getCartId());
+        orderDetail.get().setQuantity(orderDetail.get().getQuantity() + detailDto.getQuantity());
         return cartItemRepository.save(orderDetail.get());
     }
 
@@ -150,4 +154,10 @@ public class ShoppingProcessController {
 
 //    RESET RANK 6 THANG 1 LAN
 
+//DOI PASS
+@PostMapping("/update-pass")
+public String updatePass(@RequestBody UpdatePassRequest request){
+    User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    return authService.updatePassword(user, request);
+}
 }

@@ -51,21 +51,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/api/auth/**", "/", "/api/v1/**", "/test/**").permitAll()
-                .antMatchers("/api/admin/**","/api/v1/admin/**").hasRole("ADMIN")
-                .anyRequest().authenticated()
+                    .antMatchers("/api/auth/**", "/", "/test/**").permitAll()
+                    .antMatchers("/api/admin/**","/api/v1/admin/**").hasRole("ADMIN")
+                    .antMatchers("/api/v1/carts","/api/v1/order-bill/**","/api/v1/quantity-detail/**",
+                            "/api/v1/detail-delete/**","/api/v1/rating-product/**","/api/v1/rating-user/**",
+                            "/api/v1/update-pass").hasRole("USER")
+                    .anyRequest().authenticated()
                 .and()
-                .exceptionHandling()
-                .authenticationEntryPoint(authenticationEntryPointCustom)
-                .accessDeniedHandler(accessDeniedHandlerCustom)
+                    .exceptionHandling()
+                    .authenticationEntryPoint(authenticationEntryPointCustom)
+                    .accessDeniedHandler(accessDeniedHandlerCustom)
                 .and()
-                .logout()
-                .logoutUrl("/api/auth/logout")
-                .deleteCookies("MY_SESSION")
-                .logoutSuccessHandler((new HttpStatusReturningLogoutSuccessHandler(HttpStatus.OK)))
-                .permitAll()
+                    .logout()
+                    .logoutUrl("/api/auth/logout")
+                    .deleteCookies("MY_SESSION")
+                    .logoutSuccessHandler((new HttpStatusReturningLogoutSuccessHandler(HttpStatus.OK)))
+                    .permitAll()
                 .and()
-                .addFilterBefore(authorizationFilterCustom, UsernamePasswordAuthenticationFilter.class)
+                    .addFilterBefore(authorizationFilterCustom, UsernamePasswordAuthenticationFilter.class)
         ;
     }
 

@@ -3,18 +3,19 @@ package com.example.projectemarketg3.service;
 
 import com.example.projectemarketg3.entity.Token;
 import com.example.projectemarketg3.entity.User;
+import com.example.projectemarketg3.exception.BadRequestException;
 import com.example.projectemarketg3.repository.TokenRepository;
 import com.example.projectemarketg3.repository.UserRepository;
 import com.example.projectemarketg3.request.LoginRequest;
 import com.example.projectemarketg3.request.RegisterUserRequest;
 import com.example.projectemarketg3.request.UserRequest;
+import com.example.projectemarketg3.security.UpdatePassRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
@@ -45,20 +46,19 @@ public class AuthService {
     private AuthenticationManager authenticationManager;
 
 
-
-//    LOGIN
-    public UserRequest login(LoginRequest loginRequest, HttpSession session){
+    //    LOGIN
+    public UserRequest login(LoginRequest loginRequest, HttpSession session) {
         //tao foi tuong dua tren thong tin xac thuwc
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(loginRequest.getEmail(),loginRequest.getPassword());
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword());
 //        tien hanh xac thuc (@Bean trong config)
         Authentication authentication = authenticationManager.authenticate(token);
 //        luu tru thong tin user dang nhap
         SecurityContextHolder.getContext().setAuthentication(authentication);
 //        luu thong tin trong session -> name minh
-        session.setAttribute("MY_SESSION",authentication.getName());
+        session.setAttribute("MY_SESSION", authentication.getName());
 
 //        "chao mung " + loginRequest.getEmail();
-        return  userService.infoUserByEmail(loginRequest.getEmail());
+        return userService.infoUserByEmail(loginRequest.getEmail());
 
     }
 
@@ -81,9 +81,9 @@ public class AuthService {
         }
 
         // ma hoa password
-        String passwordEncode = passwordEncoder.encode(request.getPassword());
+        String passwordEncodeString = passwordEncoder.encode(request.getPassword());
         //tao user luu vao CSDL
-        User user = new User(request.getName(), request.getEmail(), passwordEncode, new ArrayList<>(List.of("USER")));
+        User user = new User(request.getName(), request.getEmail(), passwordEncodeString, new ArrayList<>(List.of("USER")));
         userRepository.save(user);
 
 
@@ -134,6 +134,28 @@ public class AuthService {
         return "confirm";
     }
 
+    //DOI PASS
+    public String updatePassword(User user, UpdatePassRequest request) {
+//        oldPass dung khong
+        if (!passwordEncoder.matches(request.getOldPass(), user.getPassword())) {
+            throw new BadRequestException("Mat khau cu khong chinh xac");
+        }
+//            newPass != oldPassword
+        if (request.getOldPass().equals(request.getNewPass())) {
+            throw new BadRequestException("Mat khau Cu va Moi trung nhau");
+        }
+//        newPass != newPass2
+        if (!request.getNewPass2().equals(request.getNewPass())) {
+            throw new BadRequestException("Mat khau moi va mat khau xac nhan khong trung nhau");
+        }
 
+        // ma hoa password
+        String passwordEncodeString = passwordEncoder.encode(request.getNewPass());
+
+        user.setPassword(passwordEncodeString);
+        userRepository.save(user);
+
+        return "doi pass thanh cong";
+    }
 
 }

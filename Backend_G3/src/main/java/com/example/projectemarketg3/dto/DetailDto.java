@@ -12,4 +12,5 @@ public class DetailDto {
     private Integer quantity;
     private Long total;
     private Long productId;
+    private Long cartId;
 }
