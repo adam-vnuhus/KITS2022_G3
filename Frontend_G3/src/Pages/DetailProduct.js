@@ -7,7 +7,7 @@ import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import { useParams } from 'react-router-dom';
 import ProductService from '../services/ProductService';
-
+import ReactStars from 'react-rating-stars-component';
 const DetailProduct = () => {
     const params = useParams('');
     const [product, setProduct] = useState([]);
@@ -38,6 +38,25 @@ const DetailProduct = () => {
     }, []);
 
     console.log('>> check product : ', product, 'id : ', params.id);
+    //
+    // const secondExample = {
+    //     size: 40,
+    //     count: 5,
+    //     color: "grey",
+    //     activeColor: "yellow",
+    //     value: 7.5,
+    //     a11y: true,
+    //     isHalf: true,
+    //     emptyIcon: <i className="far fa-star" />,
+    //     halfIcon: <i className="fa fa-star-half-alt" />,
+    //     onChange: (newValue) => {
+    //         console.log(`Example 2: new value is ${newValue}`);
+    //     }
+    // };
+
+    const ratingChanged = (newRating) => {
+        console.log(newRating);
+    };
     return (
         <div >
             {/* Product Details Section Begin */}
@@ -97,14 +116,18 @@ const DetailProduct = () => {
                                 <div className="product__details__text">
                                     <h3>{product.name}</h3>
                                     <div className="product__details__rating">
-                                        <i className="fa fa-star" />
-                                        <i className="fa fa-star" />
-                                        <i className="fa fa-star" />
-                                        <i className="fa fa-star" />
-                                        <i className="fa fa-star-half-o" />
+                                        <ReactStars
+                                            count={5}
+                                            onChange={ratingChanged}
+                                            size={40}
+                                            // a11y={true}
+                                            isHalf={true}
+                                            value={3.7}
+                                            activeColor="#ffd700"
+                                        />
                                         <span>(18 reviews)</span>
                                     </div>
-                                    <div className="product__details__price">${product.sellPrice}</div>
+                                    <div className="product__details__price">{product.sellPrice} Đ</div>
                                     <p>Bí xanh (bí đao) L1 WinEco là loại thực phẩm quen thuộc và phổ biến với người Việt Nam.  Bí xanh có thể chế biến thành nhiều món ăn khác nhau như bí luộc, canh bí hầm xương</p>
                                     {/* data not ok */}
                                     <div className="input-group col-md-6 d-flex mb-3">
