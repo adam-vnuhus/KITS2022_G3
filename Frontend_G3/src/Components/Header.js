@@ -64,7 +64,7 @@ const Header = () => {
                                         </ul>
                                     </div>
                                     <div className="header__top__right__auth">
-                                        <Link to="/"><i className="fa fa-user" /> Login</Link>
+                                        <Link to="/login"><i className="fa fa-user" /> Login</Link>
                                     </div>
                                 </div>
                             </div>

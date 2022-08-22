@@ -4,7 +4,7 @@ import PageHeader from "./PageHeader";
 import AdminEditForm from "./AdminEditForm";
 import DeleteConfirmModal from "./DeleteConfirmModal";
 import TableMetadata from "../TableMetadata";
-import {useParams} from "react-router-dom";
+import {useLocation} from "react-router-dom";
 
 const calculateRange = (data, rowsPerPage) => {
     const range = [];
@@ -28,15 +28,16 @@ function MainContent({table}) {
     const [columns, setColumns] = useState(null);
     const [fields, setFields] = useState(null);
     const [linkAPI, setLinkAPI] = useState('');
+    const [oldValue, setOldValue] = useState(null);
     const [linkSearchAPI, setLinkSearchAPI] = useState('');
-
-    const param = useParams()
-
-        useEffect(() => {
-        TableMetadata({table, setProps})
-    }, [])
+    const location = useLocation();
     useEffect(() => {
+        TableMetadata({table, setProps})
 
+    }, [location.pathname])
+
+    useEffect(() => {
+        console.log('propsInside', props);
         if (props !== null) {
             setEntity(props.entity);
             setAddNew(props.havingAddNew);
@@ -55,7 +56,8 @@ function MainContent({table}) {
                     setFields(data)
                 })
         }
-    }, [props])
+    }, [props, location.pathname])
+
 
     const [isShown, setShown] = useState(false)
     const [showConfirmModal, setShowConfirmModal] = useState(false)
@@ -71,7 +73,7 @@ function MainContent({table}) {
             setPagination(calculateRange(content, 5));
             setItems(sliceData(content, page, 5));
         }
-    }, []);
+    }, [props, content, location.pathname]);
 
     // Search
 
@@ -132,16 +134,26 @@ function MainContent({table}) {
             <>
                 <tr key={index}>
                     {fields.map((field, index) =>
-                        typeof item[field] !== 'object' && Array.isArray(item[field])===false
-                        ?!item[field].toString().includes('https')
-                                ? <td className="text-center" key={index} style={{overflow: 'hidden',whiteSpace: 'nowrap',maxWidth:'40ch',textOverflow: 'ellipsis'}}>
+                        typeof item[field] !== 'object' && Array.isArray(item[field]) === false
+                            ?!String(item[field]).includes('https')
+                                ?<td className="text-center" key={index} style={{
+                                    overflow: 'hidden',
+                                    whiteSpace: 'nowrap',
+                                    maxWidth: '40ch',
+                                    textOverflow: 'ellipsis'
+                                }}>
                                     <span>{item[field]}</span>
                                 </td>
                                 : <td className="text-center" key={index}>
                                     <img className="rounded-circle" src={item[field]} width="80px" height="80px"
                                          alt={item[field]}/>
                                 </td>
-                            : <td className="text-center" key={index} style={{overflow: 'hidden',whiteSpace: 'nowrap',maxWidth:'40ch',textOverflow: 'ellipsis'}}>
+                            : <td className="text-center" key={index} style={{
+                                overflow: 'hidden',
+                                whiteSpace: 'nowrap',
+                                maxWidth: '40ch',
+                                textOverflow: 'ellipsis'
+                            }}>
                                 <span>{JSON.stringify(item[field])}</span>
                             </td>
                     )
