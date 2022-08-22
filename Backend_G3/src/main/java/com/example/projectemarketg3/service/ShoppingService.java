@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.sql.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -32,85 +33,193 @@ public class ShoppingService {
     private OrdersRepository ordersRepository;
     @Autowired
     private StatusRepository statusRepository;
+    @Autowired
+    private CartItemRepository cartItemRepository;
 
-
-    public Orders clickAddCart(@RequestBody DetailDto detailDto) {
+    public CartItem clickAddCart(@RequestBody DetailDto detailDto) {
         //lay ra san pham tu id
         Optional<Product> product = productRepository.findById(detailDto.getProductId());
+        int quantityProduct = product.get().getQuantity();
         Optional<User> user = userRepository.findById(detailDto.getUserId());
 
-//create orderDetail ( product + quantity + total )
-        OrderDetail orderDetail = OrderDetail.builder()
-                .product(product.get())
-                .quantity(detailDto.getQuantity())
-                .total(detailDto.getQuantity() * product.get().getSellPrice())
-                .build();
+//        kiem tra xem trong gio hang da co san pham vua click add cart chua
+        Optional<CartItem> optionalOrderDetail = Optional.ofNullable(cartItemRepository.findByProduct_IdAndUser_Id(detailDto.getProductId(), detailDto.getUserId()));
+// neu chua ton tai va so luong them vao gio phai be hon
+        if (optionalOrderDetail.isEmpty() && detailDto.getQuantity() <= quantityProduct) {
 
-         orderDetailRepository.save(orderDetail);
-
-//         lay ra Order cua user dang nhap (Order_id = User_id)
-        Optional<Orders> orders = ordersRepository.findById(detailDto.getUserId());
-
-//kiem tra xem gio hang co ton tai khong
-        if (orders.isEmpty()) {
-            Set<OrderDetail> newSetOrder = new HashSet<>();
-            newSetOrder.add(orderDetail);
-
-            Orders o = Orders.builder()
-                    .id(detailDto.getUserId())
-                    .orderDetails(newSetOrder)
+            CartItem cartItem = CartItem.builder()
+                    .product(product.get())
+                    .quantity(detailDto.getQuantity())
+                    .total(detailDto.getQuantity() * product.get().getSellPrice())
                     .user(user.get())
                     .build();
 
-//            luu key Order_Id vao OrderDetail
 
-            return ordersRepository.save(o);
-
-        } else { // update them san pham vao gio hang
-
-            //         lay ra cac san pham hien dang co trong gio hang cua User
-            Set<OrderDetail> orderDetailSet = orders.get().getOrderDetails();
-//            cap nhat them product , so luong  vao gio hang
-            if (!orderDetailSet.add(orderDetail)) {
-                for (var s : orderDetailSet
-                ) {
-                    if (orderDetail.getProduct().equals(s.getProduct())) {
-                        s.setQuantity(s.getQuantity() + 1);
-                    }
-                }
-            }
-
-//             cap nhap order cua user
-            orders.get().setOrderDetails(orderDetailSet);
-            return ordersRepository.save(orders.get());
+            return cartItemRepository.save(cartItem);
+            // neu da ton tai va so luong them vao gio phai be hon
+        } else if ((detailDto.getQuantity() + optionalOrderDetail.get().getQuantity()) <= quantityProduct) {
+            optionalOrderDetail.get().setQuantity(detailDto.getQuantity() + optionalOrderDetail.get().getQuantity());
+            optionalOrderDetail.get().setTotal((detailDto.getQuantity() + optionalOrderDetail.get().getQuantity()) * product.get().getSellPrice());
+            return cartItemRepository.save(optionalOrderDetail.get());
+        } else {
+            return null;
         }
+    }
 
+    public OrderDetail clickAddDetail(@RequestBody DetailDto detailDto) {
+        //lay ra san pham tu id
+        Optional<Product> product = productRepository.findById(detailDto.getProductId());
+        int quantityProduct = product.get().getQuantity();
+        Optional<User> user = userRepository.findById(detailDto.getUserId());
+
+//        kiem tra xem trong gio hang da co san pham vua click add cart chua
+        Optional<OrderDetail> optionalOrderDetail = Optional.ofNullable(orderDetailRepository.findByProduct_IdAndUser_Id(detailDto.getProductId(), detailDto.getUserId()));
+// neu chua ton tai va so luong them vao gio phai be hon
+        if (optionalOrderDetail.isEmpty() && detailDto.getQuantity() <= quantityProduct) {
+
+            OrderDetail orderDetail = OrderDetail.builder() //create orderDetail ( product + quantity + total )
+                    .product(product.get())
+                    .quantity(detailDto.getQuantity())
+                    .total(detailDto.getQuantity() * product.get().getSellPrice())
+                    .user(user.get())
+                    .build();
+
+            return orderDetailRepository.save(orderDetail);
+            // neu da ton tai va so luong them vao gio phai be hon
+        } else if ((detailDto.getQuantity() + optionalOrderDetail.get().getQuantity()) <= quantityProduct) {
+            optionalOrderDetail.get().setQuantity(detailDto.getQuantity() + optionalOrderDetail.get().getQuantity());
+            optionalOrderDetail.get().setTotal((detailDto.getQuantity() + optionalOrderDetail.get().getQuantity()) * product.get().getSellPrice());
+            return orderDetailRepository.save(optionalOrderDetail.get());
+        } else {
+            return null;
+        }
     }
 
     public Orders clickBuy(@RequestBody InfoUserShoppingDto info) {
+
         Optional<Status> status = statusRepository.findById(1L);
         Optional<User> user = userRepository.findById(info.getUserId());
-        Set<OrderDetail> orderDetails = new HashSet<>();
 
-        for (Long id_details : info.getOrderDetailsId()
+//        lay ra danh sach san pham hien co trong gio hang theo id khach
+//        Set<OrderDetail> orderDetails = orderDetailRepository.findByUser_Id(user.get().getId());
+
+        List<CartItem> cartItems = cartItemRepository.getByUser_Id(user.get().getId());
+        Set<OrderDetail> orderDetails = new HashSet<>();
+        for (var s : cartItems
         ) {
-            Optional<OrderDetail> productOptional = orderDetailRepository.findById(id_details);
-            orderDetails.add(productOptional.get());
+            orderDetails.add(OrderDetail.builder()
+                    .user(s.getUser())
+                    .total(s.getTotal())
+                    .product(s.getProduct())
+                    .quantity(s.getQuantity())
+                    .build());
+        }
+
+//        Total
+//        Variable used in lambda expression should be final or effectively final
+        final Long[] total = {0L};
+        orderDetails.forEach(s -> {
+            total[0] += s.getTotal();
+        });
+//        chiet khau hoa don theo rank
+        int disscount = user.get().getRanking() == null ? 0 : user.get().getRanking().getDiscount();
+        if (disscount > 0) {
+            total[0] = total[0] - ((total[0] * disscount) / 100);
         }
 
         Orders order = Orders.builder()
                 .createAt(new Date(System.currentTimeMillis()))
-                .totalPrice(info.getTotalPrice())
+                .note(info.getNote())
+                .totalPrice(total[0])
                 .orderDetails(orderDetails) //
                 .status(status.get())
                 .user(user.get()) //
                 .ship(20000)
-                .disscount(user.get().getRanking().getDiscount())
-                .addressUser("") //
-                .nameUser("") //
-                .phoneUser("") //
+                .disscount(disscount)
+                .addressUser(info.getAddressUser()) //
+                .nameUser(info.getNameUser()) //
+                .phoneUser(info.getPhoneUser()) //
+                .point(info.getPoint())
                 .build();
 
-        return ordersRepository.save(order);
+        ordersRepository.save(order);
+
+//        tru diem neu khach dung
+        if (info.getPoint() > 0) {
+            Double point = Double.valueOf(user.get().getPoint());
+            user.get().setPoint(String.valueOf(point - info.getPoint()));
+        }
+
+//        tich diem cho hoa don tren 200k theo 1%
+        if (total[0] > 200000) {
+            Long point = (total[0]) / 100;
+            user.get().setPoint(user.get().getPoint() + point);
+//            cap nhap rank
+            Optional<Ranking> ranking = updateRank(Long.valueOf(user.get().getPoint() + point));
+            user.get().setRanking(ranking.get());
+            userRepository.save(user.get());
+//            Bat dau tinh ngay tich diem
+            if (user.get().getRank_date() == null) {
+                user.get().setRank_date(new Date(System.currentTimeMillis()));
+            }
+        }
+
+//        update lai so luong san pham va luot ban
+        for (var s : orderDetails
+        ) {
+            Product product = productRepository.getProductById(s.getProduct().getId());
+            product.setQuantity(product.getQuantity() - s.getQuantity());
+            product.setSold(product.getSold() + s.getQuantity());
+
+            productRepository.save(product);
+        }
+
+        //        xoa cac detail khi khach click mua hang
+//        orderDetailRepository.deleteAll(orderDetails);
+//        cartItemRepository.deleteAll(cartItems);
+        cartItemRepository.deleteAllCartItem();
+
+        return order;
+    }
+
+
+    public Orders clickCancelOrder(Long id) {
+        Optional<Orders> orders = ordersRepository.findById(id);
+        Optional<Status> status = statusRepository.findById(5L);
+//        chuyen trang thai huy don
+        orders.get().setStatus(status.get());
+//        cap nhat lai so luong san pham
+        Set<OrderDetail> orderDetails = orders.get().getOrderDetails();
+        for (var s : orderDetails
+        ) {
+            Product product = s.getProduct();
+            product.setSold(product.getSold() - s.getQuantity());
+            product.setQuantity(product.getQuantity() + s.getQuantity());
+
+            productRepository.save(product);
+        }
+        return ordersRepository.save(orders.get());
+    }
+
+    public Optional<Ranking> updateRank(Long point) {
+        if (point < 100) {
+            return rankingRepository.findById(1L);
+        } else if (point > 100 && point < 700) {
+            return rankingRepository.findById(2L);
+        } else if (point > 700 && point < 7000) {
+            return rankingRepository.findById(3L);
+        } else {
+            return rankingRepository.findById(4L);
+        }
+    }
+    //  NEW DATA RATING ->  DANH GIA DON HANG CHECKING = 0;
+    public Rating ratingProduct(Rating rating) {
+        return null;
+    }
+
+    //    XAC NHAN DANH GIA CHECKING = 1 -> UPDATE AVG_RATING(product)
+
+    public Rating updateCheckingProduct(Rating rating) {
+        return null;
     }
 }

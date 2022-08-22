@@ -6,11 +6,13 @@ const Header = () => {
 
     let param = window.location.pathname;
     let params = useParams('')
-    const defaultDisplay = (param || params === "/" ? 'block' : 'none')
-    const defaultHeader = (param || params !== "/login" ? 'block' : 'none')
+    const defaultDisplay = (param === "/" || params === "/" ? 'block' : 'none')
+    const defaultHeader = (param !== "/login" || params !== "/login" ? 'block' : 'none')
 
     const [displays, setDisplay] = useState(defaultDisplay);
     const [onlyNav, setOnlyNav] = useState(defaultHeader);
+
+    useEffect(() => setDisplay(defaultDisplay), [param, params])
 
     const haldeAllDe = () => {
         console.log('>>> check ', displays);
@@ -83,7 +85,7 @@ const Header = () => {
                             <nav className="header__menu">
                                 <ul>
                                     <li className="active"><Link to="/">Home</Link></li>
-                                    <li><Link to="/shop">Shop</Link></li>
+                                    <li><Link to="/shop/product">Shop</Link></li>
                                     <li><Link to="/">Pages</Link>
                                         <ul className="header__menu__dropdown">
                                             <li><Link to="/">Shop Details</Link></li>
@@ -130,20 +132,12 @@ const Header = () => {
                                 <ul className={param === "/" ? 'd-block' : `d-${displays}`}  >
                                     {categories != null ?
                                         categories.map((item, index) => {
+
                                             return (
                                                 <>
 
-                                                    <li><Link to="/">{item.name}</Link></li>
-                                                    {/* <li><Link to="/">Vegetables</Link></li>
-                                                    <li><Link to="/">Fruit &amp; Nut Gifts</Link></li>
-                                                    <li><Link to="/">Fresh Berries</Link></li>
-                                                    <li><Link to="/">Ocean Foods</Link></li>
-                                                    <li><Link to="/">Butter &amp; Eggs</Link></li>
-                                                    <li><Link to="/">Fastfood</Link></li>
-                                                    <li><Link to="/">Fresh Onion</Link></li>
-                                                    <li><Link to="/">Papayaya &amp; Crisps</Link></li>
-                                                    <li><Link to="/">Oatmeal</Link></li>
-                                                    <li><Link to="/">Fresh Bananas</Link></li> */}
+                                                    <li key={index + 1}><Link to={"/shop/" + item.name}>{item.name}</Link></li>
+
                                                 </>
                                             )
 
@@ -167,7 +161,7 @@ const Header = () => {
                                             All Categories
                                             <span className="arrow_carrot-down" />
                                         </div>
-                                        <input type="text" placeholder="What do yo u need?" />
+                                        <input type="text" placeholder="What do you need?" />
                                         <button type="submit" className="site-btn">SEARCH</button>
                                     </form>
                                 </div>

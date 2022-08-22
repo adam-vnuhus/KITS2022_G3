@@ -15,23 +15,10 @@ const Categories = () => {
                 if (data.length > 0) {
                     setCategories(data)
                 }
-                console(data)
+
             });
 
     }, [])
-
-    // useEffect(() => {
-    //     let country_url =
-    //         'http://localhost:8080/api/v1/products/category';
-
-    //     fetch(country_url)
-    //         .then((response) => response.json())
-    //         .then((data) => {
-    //             setCategories(data)
-
-    //         });
-
-    // }, []);
     const settings = {
         dots: true,
         centerPadding: "0px",
@@ -42,9 +29,8 @@ const Categories = () => {
         autoplaySpeed: 20000,
         pauseOnHover: true
     };
-    console.log('>>> check categories : ', categories)
     return (
-        <div class="Categories-top">
+        <div className="Categories-top">
             <h4>Top Product</h4>
             <Slider {...settings} >
                 {categories != null ?

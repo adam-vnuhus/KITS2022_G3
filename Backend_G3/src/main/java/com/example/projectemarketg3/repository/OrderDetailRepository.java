@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Set;
 
 @Repository
 
@@ -27,5 +28,11 @@ public interface OrderDetailRepository extends JpaRepository<OrderDetail, Long> 
     long countDistinctByProduct_IdAllIgnoreCase(@Param("id") Long id);
 
     List<OrderDetail> findByOrderByTotalDesc();
+
+    Set<OrderDetail> findByUser_Id(Long id);
+
+    OrderDetail findByProduct_Id(Long id);
+
+    OrderDetail findByProduct_IdAndUser_Id(Long product, Long user);
 
 }
