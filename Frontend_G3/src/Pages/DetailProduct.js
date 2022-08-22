@@ -6,8 +6,10 @@ import 'bootstrap/dist/css/bootstrap.css';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import { useParams } from 'react-router-dom';
+
 import ProductService from '../services/ProductService';
 import ReactStars from 'react-rating-stars-component';
+
 const DetailProduct = () => {
     const params = useParams('');
     const [product, setProduct] = useState([]);
@@ -35,7 +37,7 @@ const DetailProduct = () => {
 
             });
 
-    }, []);
+    }, [params.id]);
 
     console.log('>> check product : ', product, 'id : ', params.id);
     //
@@ -79,8 +81,7 @@ const DetailProduct = () => {
                                                     alt="First slide"
                                                 />
                                                 <Carousel.Caption>
-                                                    <h5>First slide label</h5>
-                                                    <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+
                                                 </Carousel.Caption>
                                             </Carousel.Item>
                                             <Carousel.Item>
@@ -90,8 +91,7 @@ const DetailProduct = () => {
                                                     alt="Second slide"
                                                 />
                                                 <Carousel.Caption>
-                                                    <h5>Second slide label</h5>
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+
                                                 </Carousel.Caption>
                                             </Carousel.Item>
                                             <Carousel.Item>
@@ -101,10 +101,7 @@ const DetailProduct = () => {
                                                     alt="Third slide"
                                                 />
                                                 <Carousel.Caption>
-                                                    <h5>Third slide label</h5>
-                                                    <p>
-                                                        Praesent commodo cursus magna, vel scelerisque nisl consectetur.
-                                                    </p>
+
                                                 </Carousel.Caption>
                                             </Carousel.Item>
                                         </Carousel>

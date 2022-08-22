@@ -39,7 +39,7 @@ const Categories = () => {
 
                             <div className="card" style={{ width: '18rem' }}>
                                 <Link to={'/shop/' + item.name}>
-                                    <img className="" src={require(`./feature-3.jpg`)} alt="" style={{ width: 250 }} />
+                                    <img className="" src={item.url} alt="" style={{ width: 250 }} />
                                     <div className="card-body" style={{ height: 80 }}>
                                         <p className="card-text">{item.name}</p>
                                     </div>
