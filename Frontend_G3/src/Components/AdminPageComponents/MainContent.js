@@ -1,10 +1,10 @@
-import React from 'react';
-import {useEffect, useState} from 'react'
+import React, {useEffect, useState} from 'react';
 import './mainContent.css';
 import PageHeader from "./PageHeader";
-import {Link} from "react-router-dom";
 import AdminEditForm from "./AdminEditForm";
 import DeleteConfirmModal from "./DeleteConfirmModal";
+import TableMetadata from "../TableMetadata";
+import {useParams} from "react-router-dom";
 
 const calculateRange = (data, rowsPerPage) => {
     const range = [];
@@ -19,28 +19,58 @@ const sliceData = (data, page, rowsPerPage) => {
     return data.slice((page - 1) * rowsPerPage, page * rowsPerPage);
 }
 
-function MainContent({Props}) {
-    const entity = Props.entity;
-    const content = Props.content;
-    const columns = Props.columns;
-    const fields = Props.fields;
-    const addNew = Props.addNew;
-    const linkToEdit = Props.linkToEdit;
-    const linkToDelete = Props.linkToDelete;
-    const LinkToSearch = Props.linkToSearch;
+function MainContent({table}) {
 
-    const [isShown,setShown] = useState(false)
-    const [showConfirmModal,setShowConfirmModal] = useState(false)
+    const [props, setProps] = useState(null);
+    const [content, setContent] = useState(null);
+    const [entity, setEntity] = useState(null);
+    const [addNew, setAddNew] = useState(null);
+    const [columns, setColumns] = useState(null);
+    const [fields, setFields] = useState(null);
+    const [linkAPI, setLinkAPI] = useState('');
+    const [linkSearchAPI, setLinkSearchAPI] = useState('');
+
+    const param = useParams()
+
+        useEffect(() => {
+        TableMetadata({table, setProps})
+    }, [])
+    useEffect(() => {
+
+        if (props !== null) {
+            setEntity(props.entity);
+            setAddNew(props.havingAddNew);
+            setLinkAPI(props.linkAPI);
+            setLinkSearchAPI(props.searchLink);
+            fetch(props.linkAPI)
+                .then((response) => response.json())
+                .then(data => {
+                    setContent(data)
+                    setItems(data);
+                })
+            fetch(props.linkField)
+                .then(response => response.json())
+                .then(data => {
+                    setColumns(data)
+                    setFields(data)
+                })
+        }
+    }, [props])
+
+    const [isShown, setShown] = useState(false)
+    const [showConfirmModal, setShowConfirmModal] = useState(false)
     const [searchTerm, setSearchTerm] = useState("")
 
     const [items, setItems] = useState(content);
     const [page, setPage] = useState(1);
     const [pagination, setPagination] = useState([]);
-    const [selectedItem,setSelectedItem] = useState(null);
+    const [selectedItem, setSelectedItem] = useState(null);
 
     useEffect(() => {
-        setPagination(calculateRange(content, 5));
-        setItems(sliceData(content, page, 5));
+        if (content !== null) {
+            setPagination(calculateRange(content, 5));
+            setItems(sliceData(content, page, 5));
+        }
     }, []);
 
     // Search
@@ -48,7 +78,7 @@ function MainContent({Props}) {
     useEffect(() => {
         let url = ''
         if (searchTerm.length > 0) {
-            url = LinkToSearch + + searchTerm;
+            url = linkSearchAPI + +searchTerm;
             fetch(url)
                 .then((response) => response.json())
                 .then((data) => {
@@ -63,50 +93,65 @@ function MainContent({Props}) {
         setItems(sliceData(content, new_page, 5));
     }
 
-    const columnsData = columns.map((column, index) => (<th className="text-center" key={index}>{column}</th>))
+    let columnsData = null;
+    if (columns !== null) columnsData = columns.map((column, index) => (
+        <th className="text-center" key={index}>{column}</th>))
 
     function editButtonHandler(item) {
         setSelectedItem(item);
         setShown(true);
     }
+
     function newButtonHandler(item) {
         setSelectedItem(null);
         setShown(true);
     }
+
     function hideEditForm() {
         setShown(false)
     }
+
     function deleteButtonHandler(item) {
         setSelectedItem(item);
         setShowConfirmModal(true);
     }
+
     function hideConfirmModal() {
 
         setShowConfirmModal(false)
     }
-    function reset(){
+
+    function reset() {
         setSelectedItem(null);
     }
 
-    const body = (items.length !== 0 ?
+    const body = (items !== null && fields !== null ?
         <tbody>
 
         {items.map((item, index) => (
             <>
                 <tr key={index}>
                     {fields.map((field, index) =>
-                        !item[field].includes('https')
-                            ? <td className="text-center" key={index}>
-                                <span>{item[field]}</span>
+                        typeof item[field] !== 'object' && Array.isArray(item[field])===false
+                        ?!item[field].toString().includes('https')
+                                ? <td className="text-center" key={index} style={{overflow: 'hidden',whiteSpace: 'nowrap',maxWidth:'40ch',textOverflow: 'ellipsis'}}>
+                                    <span>{item[field]}</span>
+                                </td>
+                                : <td className="text-center" key={index}>
+                                    <img className="rounded-circle" src={item[field]} width="80px" height="80px"
+                                         alt={item[field]}/>
+                                </td>
+                            : <td className="text-center" key={index} style={{overflow: 'hidden',whiteSpace: 'nowrap',maxWidth:'40ch',textOverflow: 'ellipsis'}}>
+                                <span>{JSON.stringify(item[field])}</span>
                             </td>
-                            : <td className="text-center" key={index}>
-                                <img className="rounded-circle" src={item[field]} width="80px" height="80px"
-                                     alt={item[field]}/>
-                            </td>)
+                    )
                     }
                     <td>
-                        <button type="button" className="btn btn-primary rounded-circle mx-2" onClick={()=>editButtonHandler(item)}><i className={"fa fa-pen-to-square"}></i></button>
-                        <button type="button" className="btn btn-danger rounded-circle mx-2" onClick={()=>deleteButtonHandler(item)}><i className={"fa fa-trash"}></i></button>
+                        <button type="button" className="btn btn-primary rounded-circle mx-2"
+                                onClick={() => editButtonHandler(item)}><i className={"fa fa-pen-to-square"}></i>
+                        </button>
+                        <button type="button" className="btn btn-danger rounded-circle mx-2"
+                                onClick={() => deleteButtonHandler(item)}><i className={"fa fa-trash"}></i></button>
 
                     </td>
                 </tr>
@@ -118,15 +163,17 @@ function MainContent({Props}) {
 
     return (
         <>
-            {showConfirmModal&&<DeleteConfirmModal onCancel={hideConfirmModal} reset={reset}
-                                 selectedID={selectedItem ? selectedItem[fields[0]] : null} linkToAPI={linkToDelete} onshow={showConfirmModal}/>}
+            {showConfirmModal && <DeleteConfirmModal onCancel={hideConfirmModal} reset={reset}
+                                                     selectedID={selectedItem ? selectedItem[fields[0]] : null}
+                                                     linkToAPI={linkAPI} onshow={showConfirmModal}/>}
             <div className='mainContent_ mainContent_dashboard-content'>
                 <PageHeader
                     onClick={newButtonHandler}
                     btnText={addNew === 1 ? "New " + entity : null}/>
                 <div className='mainContent_dashboard-content-container'>
                     <div className='mainContent_dashboard-content-header'>
-                        <h2>{entity.toUpperCase()} LIST</h2>
+
+                        <h2>{entity !== null ? entity.toUpperCase() : 'MY'} LIST</h2>
                         <div className='mainContent_dashboard-content-search'>
                             <input
                                 type='text'
@@ -136,17 +183,21 @@ function MainContent({Props}) {
                                 onChange={e => setSearchTerm(e.target.value)}/>
                         </div>
                     </div>
-                    {isShown&& <AdminEditForm columns={columns} fields={fields} entity={entity} itemSelected={selectedItem}
-                                              linkToAPI={linkToEdit} selectedID={selectedItem?selectedItem[fields[0]]:null} onCancel={hideEditForm} reset={reset}/>}
+                    {isShown &&
+                        <AdminEditForm columns={columns} fields={fields} entity={entity} itemSelected={selectedItem}
+                                       linkToAPI={linkAPI} selectedID={selectedItem ? selectedItem[fields[0]] : null}
+                                       onCancel={hideEditForm} reset={reset}/>}
 
                     <table>
                         <thead>
-                        <tr>{columnsData}<th className={"text-center"}>ACTIONS</th></tr>
+                        <tr>{columnsData}
+                            <th className={"text-center"}>ACTIONS</th>
+                        </tr>
                         </thead>
                         {body}
                     </table>
 
-                    {items.length !== 0 ?
+                    {items !== null ?
                         <div className='mainContent_dashboard-content-footer'>
                             {pagination.map((item, index) => (
                                 <span
@@ -168,4 +219,5 @@ function MainContent({Props}) {
 
     )
 }
+
 export default MainContent;
