@@ -1,11 +1,9 @@
 package com.example.projectemarketg3.controller;
 
-import com.example.projectemarketg3.entity.Category;
-import com.example.projectemarketg3.entity.OrderDetail;
-import com.example.projectemarketg3.entity.Orders;
-import com.example.projectemarketg3.entity.Product;
+import com.example.projectemarketg3.entity.*;
 import com.example.projectemarketg3.exception.NotFoundException;
 import com.example.projectemarketg3.repository.*;
+import com.example.projectemarketg3.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +26,11 @@ public class AdminController {
     private StatusRepository statusRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private RankingRepository rankingRepository;
+
+    @Autowired
+    private UserService userService;
 
 
 //=========================== CATEGORY ===============================================
@@ -124,5 +127,9 @@ public Product createProduct(@RequestBody Product product) {
         return ResponseEntity.ok(response);
     }
 
-
+//====================================== RANK =========================================
+@PostMapping
+public Ranking createNewRanking(@RequestBody Ranking ranking){
+    return rankingRepository.save(ranking);
+}
 }

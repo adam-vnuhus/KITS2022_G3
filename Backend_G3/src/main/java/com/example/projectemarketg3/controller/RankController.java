@@ -29,10 +29,7 @@ public class RankController {
         return rankingRepository.findAll();
     }
 
-    @PostMapping
-    public Ranking createNewRanking(@RequestBody Ranking ranking){
-       return rankingRepository.save(ranking);
-    }
+
 
     @PutMapping("/{id}")
     public Ranking updateRankingById(@PathVariable Long id,@RequestParam Integer discount){
