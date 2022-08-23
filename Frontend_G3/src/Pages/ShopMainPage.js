@@ -31,7 +31,7 @@ export default function ShopMainPage() {
 
 
     // Nơi sản Xuất
-    const [addProduct, setAddProdct] = useState('')
+    const [addProduct, setAddProduct] = useState('')
 
 
 
@@ -169,7 +169,7 @@ export default function ShopMainPage() {
 
     const handleOrigin = (event) => {
 
-        setAddProdct(event.origin)
+        setAddProduct(event.origin)
 
         console.log('>>check event', addProduct)
 
