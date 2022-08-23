@@ -4,8 +4,8 @@ const PRODUCT_API_BASE_URL = 'http://localhost:8080/api/v1/products';
 
 class ProductService {
 
-    getProduct() {
-        let data = axios.get(PRODUCT_API_BASE_URL);
+    getProduct(name, origin, category, start, end) {
+        let data = axios.get(PRODUCT_API_BASE_URL + '?name=' + name + '&origin=' + origin + '&category=' + category + '&start=' + start + '&end=' + end);
         return data;
     }
 

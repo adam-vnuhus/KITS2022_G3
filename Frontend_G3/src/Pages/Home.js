@@ -8,7 +8,7 @@ const Home = () => {
     const [product, setProduct] = useState([]);
 
     useEffect(() => {
-        ProductService.getProduct()
+        ProductService.getProduct('', '', '', '', '')
             .then(response => response.data)
             .then((data) => {
                 if (data.length > 0) {
@@ -17,7 +17,7 @@ const Home = () => {
             });
 
     }, [])
-    // console.log('>>> check dataProduct : ', product);
+    console.log('>>> check dataProduct : ', product);
     return (
         <>
 

@@ -35,6 +35,8 @@ export default function ShopMainPage() {
 
     console.log('>> check param', param.name.includes('search='))
 
+
+    // sửa API
     const getData = async () => {
 
         let res;
@@ -45,7 +47,7 @@ export default function ShopMainPage() {
             res = await ProductService.getProductCategoriesName(param.name, minToPrice, maxToPrice, addProduct)
 
         } else {
-            res = await ProductService.getProduct()
+            res = await ProductService.getProduct('', '', '', '', '')
             if (maxToPrice !== '' || minToPrice !== '') {
                 res = await ProductService.getProductPriceSlider(minToPrice, maxToPrice)
             }
@@ -93,7 +95,7 @@ export default function ShopMainPage() {
 
     //Product
     useEffect(() => {
-        ProductService.getProduct()
+        ProductService.getProduct('', '', '', '', '')
             .then(response => response.data)
             .then((data) => {
                 if (data.length > 0) {
