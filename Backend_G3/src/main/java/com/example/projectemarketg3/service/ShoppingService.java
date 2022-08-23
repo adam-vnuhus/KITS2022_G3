@@ -189,8 +189,12 @@ public class ShoppingService {
         for (var s : orderDetails
         ) {
             Product product = productRepository.getProductById(s.getProduct().getId());
-            product.setQuantity(product.getQuantity() - s.getQuantity());
+            product.setQuantity(Math.max(product.getQuantity() - s.getQuantity(), 0));
             product.setSold(product.getSold() + s.getQuantity());
+
+            if(product.getQuantity() - s.getQuantity() <=0){
+                product.setStatsusSell(false);
+            }
 
             productRepository.save(product);
         }
@@ -209,13 +213,14 @@ public class ShoppingService {
         Optional<Status> status = statusRepository.findById(5L);
 //        chuyen trang thai huy don
         orders.get().setStatus(status.get());
-//        cap nhat lai so luong san pham
+//        cap nhat lai so luong san pham va status sell
         Set<OrderDetail> orderDetails = orders.get().getOrderDetails();
         for (var s : orderDetails
         ) {
             Product product = s.getProduct();
             product.setSold(product.getSold() - s.getQuantity());
             product.setQuantity(product.getQuantity() + s.getQuantity());
+            product.setStatsusSell(true);
 
             productRepository.save(product);
         }
