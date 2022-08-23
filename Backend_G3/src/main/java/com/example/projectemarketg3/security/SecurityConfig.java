@@ -51,11 +51,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                    .antMatchers("/api/auth/**", "/", "/test/**").permitAll()
+                    .antMatchers("/api/auth/**", "/", "/test/**","/api/v1/**").permitAll()
                     .antMatchers("/api/admin/**","/api/v1/admin/**").hasRole("ADMIN")
-                    .antMatchers("/api/v1/carts","/api/v1/order-bill/**","/api/v1/quantity-detail/**",
-                            "/api/v1/detail-delete/**","/api/v1/rating-product/**","/api/v1/rating-user/**",
-                            "/api/v1/update-pass").hasRole("USER")
+                    .antMatchers("/api/user/carts","/api/user/order-bill/**","/api/user/quantity-detail/**",
+                            "/api/user/detail-delete/**","/api/user/rating-product/**","/api/user/rating-user/**",
+                            "/api/user/update-pass").hasRole("USER")
                     .anyRequest().authenticated()
                 .and()
                     .exceptionHandling()
