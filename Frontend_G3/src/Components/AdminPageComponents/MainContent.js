@@ -20,7 +20,6 @@ const sliceData = (data, page, rowsPerPage) => {
 }
 
 function MainContent({table}) {
-
     const [props, setProps] = useState(null);
     const [content, setContent] = useState(null);
     const [entity, setEntity] = useState(null);
@@ -31,36 +30,6 @@ function MainContent({table}) {
     const [isLoading, setLoading] = useState(true);
     const [linkSearchAPI, setLinkSearchAPI] = useState('');
     const location = useLocation();
-    useEffect(() => {
-        TableMetadata({table, setProps})
-
-    }, [location.pathname])
-
-    useEffect(() => {
-        console.log('propsInside', props);
-        if (props !== null) {
-            setLoading(true);
-            setEntity(props.entity);
-            setAddNew(props.havingAddNew);
-            setLinkAPI(props.linkAPI);
-            setLinkSearchAPI(props.searchLink);
-            fetch(props.linkAPI)
-                .then((response) => response.json())
-                .then(data => {
-                    setContent(data)
-                    setItems(data);
-                })
-            fetch(props.linkField)
-                .then(response => response.json())
-                .then(data => {
-                    setColumns(data)
-                    setFields(data)
-                })
-            setLoading(false);
-        }
-    }, [props, location.pathname])
-
-
     const [isShown, setShown] = useState(false)
     const [showConfirmModal, setShowConfirmModal] = useState(false)
     const [searchTerm, setSearchTerm] = useState("")
@@ -71,25 +40,60 @@ function MainContent({table}) {
     const [selectedItem, setSelectedItem] = useState(null);
 
     useEffect(() => {
-        if (content !== null) {
-            setPagination(calculateRange(content, 5));
-            setItems(sliceData(content, page, 5));
+        TableMetadata({table, setProps})
+        setLoading(true);
+    }, [location.pathname])
+
+    useEffect(() => {
+        setContent(null);
+        setItems(null);
+        setFields(null);
+        if (props !== null) {
+
+            setEntity(props.entity);
+            setAddNew(props.havingAddNew);
+            setLinkAPI(props.linkAPI);
+            setLinkSearchAPI(props.searchLink);
+            fetch(props.linkAPI)
+                .then((response) => response.json())
+                .then(data => {
+                    setContent(data)
+                    setItems(data);
+                })
+                .then(function wait(param1) {
+                    if (content === null) {
+                        setTimeout(wait, 100, param1)
+                    } else {
+                        setPagination(calculateRange(content, 5));
+                        setItems(sliceData(content, page, 5));
+                    }
+                })
+                .then(() => fetch(props.linkField)
+                    .then(response => response.json())
+                    .then(data => {
+                        setColumns(data)
+                        setFields(data)
+                        setLoading(false);
+                    }))
+
         }
-    }, [props, content, location.pathname]);
+    }, [props, location.pathname])
+
 
     // Search
 
     useEffect(() => {
+        setLoading(true);
         let url = ''
         if (searchTerm.length > 0) {
-            setLoading(true);
             url = linkSearchAPI + +searchTerm;
             fetch(url)
                 .then((response) => response.json())
                 .then((data) => {
-                    setItems(data);
-                });
-            setLoading(false);
+                    setContent(data);
+                })
+                .then(()=>setLoading(false));
+
         }
     }, [searchTerm]);
 
@@ -100,7 +104,7 @@ function MainContent({table}) {
     }
 
     let columnsData = null;
-    if (columns !== null) columnsData = columns.map((column, index) => (
+    if (columns !== null && !isLoading) columnsData = columns.map((column, index) => (
         <th className="text-center" key={index}>{column}</th>))
 
     function editButtonHandler(item) {
@@ -131,7 +135,8 @@ function MainContent({table}) {
         setSelectedItem(null);
     }
 
-    const body = (items !== null && fields !== null && !isLoading?
+    const body = (!isLoading
+        ?
         <tbody>
 
         {items.map((item, index) => (
@@ -139,8 +144,8 @@ function MainContent({table}) {
                 <tr key={index}>
                     {fields.map((field, index) =>
                         typeof item[field] !== 'object' && Array.isArray(item[field]) === false
-                            ?!String(item[field]).includes('https')
-                                ?<td className="text-center" key={index} style={{
+                            ? !String(item[field])?.includes('https')
+                                ? <td className="text-center" key={index} style={{
                                     overflow: 'hidden',
                                     whiteSpace: 'nowrap',
                                     maxWidth: '40ch',
@@ -175,63 +180,65 @@ function MainContent({table}) {
         ))}
 
         </tbody>
-        : null)
+        : 'loading...')
 
     return (
-        <>
-            {showConfirmModal && <DeleteConfirmModal onCancel={hideConfirmModal} reset={reset}
-                                                     selectedID={selectedItem ? selectedItem[fields[0]] : null}
-                                                     linkToAPI={linkAPI} onshow={showConfirmModal}/>}
-            <div className='mainContent_ mainContent_dashboard-content'>
-                <PageHeader
-                    onClick={newButtonHandler}
-                    btnText={addNew === 1 ? "New " + entity : null}/>
-                <div className='mainContent_dashboard-content-container'>
-                    <div className='mainContent_dashboard-content-header'>
+        !isLoading ?
+            <>
+                {showConfirmModal && <DeleteConfirmModal onCancel={hideConfirmModal} reset={reset}
+                                                         selectedID={selectedItem ? selectedItem[fields[0]] : null}
+                                                         linkToAPI={linkAPI} onshow={showConfirmModal}/>}
+                <div className='mainContent_ mainContent_dashboard-content'>
+                    <PageHeader
+                        onClick={newButtonHandler}
+                        btnText={addNew === 1 ? "New " + entity : null}/>
+                    <div className='mainContent_dashboard-content-container'>
+                        <div className='mainContent_dashboard-content-header'>
 
-                        <h2>{entity !== null&&!isLoading ? entity.toUpperCase() : 'MY'} LIST</h2>
-                        <div className='mainContent_dashboard-content-search'>
-                            <input
-                                type='text'
-                                value={searchTerm}
-                                placeholder='Search..'
-                                className='mainContent_dashboard-content-input'
-                                onChange={e => setSearchTerm(e.target.value)}/>
+                            <h2>{entity !== null && !isLoading ? entity.toUpperCase() : 'MY'} LIST</h2>
+                            <div className='mainContent_dashboard-content-search'>
+                                <input
+                                    type='text'
+                                    value={searchTerm}
+                                    placeholder='Search..'
+                                    className='mainContent_dashboard-content-input'
+                                    onChange={e => setSearchTerm(e.target.value)}/>
+                            </div>
                         </div>
-                    </div>
-                    {isShown &&
-                        <AdminEditForm columns={columns} fields={fields} entity={entity} itemSelected={selectedItem}
-                                       linkToAPI={linkAPI} selectedID={selectedItem ? selectedItem[fields[0]] : null}
-                                       onCancel={hideEditForm} reset={reset}/>}
+                        {isShown &&
+                            <AdminEditForm columns={columns} fields={fields} entity={entity} itemSelected={selectedItem}
+                                           linkToAPI={linkAPI}
+                                           selectedID={selectedItem ? selectedItem[fields[0]] : null}
+                                           onCancel={hideEditForm} reset={reset}/>}
 
-                    <table>
-                        <thead>
-                        <tr>{columnsData}
-                            <th className={"text-center"}>ACTIONS</th>
-                        </tr>
-                        </thead>
-                        {body}
-                    </table>
+                        <table>
+                            <thead>
+                            <tr>{columnsData}
+                                <th className={"text-center"}>ACTIONS</th>
+                            </tr>
+                            </thead>
+                            {body}
+                        </table>
 
-                    {items !== null&&!isLoading ?
-                        <div className='mainContent_dashboard-content-footer'>
-                            {pagination.map((item, index) => (
-                                <span
-                                    key={index}
-                                    className={item === page ? 'active-pagination' : 'pagination'}
-                                    onClick={() => __handleChangePage(item)}>
+                        {!isLoading ?
+                            <div className='mainContent_dashboard-content-footer'>
+                                {pagination?.map((item, index) => (
+                                    <span
+                                        key={index}
+                                        className={item === page ? 'active-pagination' : 'pagination'}
+                                        onClick={() => __handleChangePage(item)}>
                                 {item}
                             </span>
-                            ))}
-                        </div>
-                        :
-                        <div className='mainContent_dashboard-content-footer'>
-                            <span className='empty-table'>No data</span>
-                        </div>
-                    }
+                                ))}
+                            </div>
+                            :
+                            <div className='mainContent_dashboard-content-footer'>
+                                <span className='empty-table'>No data</span>
+                            </div>
+                        }
+                    </div>
                 </div>
-            </div>
-        </>
+            </> : 'loading...'
 
     )
 }

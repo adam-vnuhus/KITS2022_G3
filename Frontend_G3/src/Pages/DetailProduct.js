@@ -124,7 +124,7 @@ const DetailProduct = () => {
                                         />
                                         <span>(18 reviews)</span>
                                     </div>
-                                    <div className="product__details__price">{product.sellPrice} Đ</div>
+                                    <div className="product__details__price">{product.sellPrice.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })} </div>
                                     <p>Bí xanh (bí đao) L1 WinEco là loại thực phẩm quen thuộc và phổ biến với người Việt Nam.  Bí xanh có thể chế biến thành nhiều món ăn khác nhau như bí luộc, canh bí hầm xương</p>
                                     {/* data not ok */}
                                     <div className="input-group col-md-6 d-flex mb-3">

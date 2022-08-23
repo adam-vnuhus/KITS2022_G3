@@ -7,7 +7,7 @@ import './Css/profile.css'
 import Home from './Pages/Home';
 
 import ShopMainPage from "./Pages/ShopMainPage";
-import {BrowserRouter, Routes, Route, useParams} from "react-router-dom";
+import { BrowserRouter, Routes, Route, useParams } from "react-router-dom";
 import Layout from './Components/Layout';
 import Cart from "./Pages/Cart";
 import Contact from "./Pages/Contact";
@@ -15,7 +15,7 @@ import Checkout from "./Pages/Checkout";
 
 import AdminLayout from "./Components/AdminPageComponents/AdminLayout";
 import MainContent from "./Components/AdminPageComponents/MainContent";
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import DetailProduct from './Pages/DetailProduct';
 import SignIn from "./Pages/SignIn";
 import Dashboard from "./Components/AdminPageComponents/DashBoard";
@@ -36,9 +36,9 @@ function App() {
                     <Route path="/admin/" element={<Dashboard />} />
                     <Route path="/admin/dashboard" element={<Dashboard />} />
                     <Route path="/admin/orders"
-                        element={<MainContent table={"order"}/>} />
+                        element={<MainContent table={"order"} />} />
                     <Route path="/admin/products"
-                        element={<MainContent table={"product"}/>} />
+                        element={<MainContent table={"product"} />} />
                 </Route>
                 <Route path="/404" element={<Error errorCode={404} message={"WE CAN'T FIND THAT PAGE!"} />} />
                 <Route path="/500" element={<Error errorCode={500} message={"SOMETHING WENT WRONG !"} />} />

@@ -13,7 +13,7 @@ import Slider from 'rsuite/Slider';
 import RangeSlider from 'rsuite/RangeSlider';
 import './StyleShopMain/Slider.less';
 export default function ShopMainPage() {
-    const param = useParams('');
+    const param = useParams();
     const [product, setProduct] = useState([]);
     const [categories, setCategories] = useState([]);
     // const [addressCat, setAddressCat] = useState('');
@@ -23,14 +23,15 @@ export default function ShopMainPage() {
     const [perPage] = useState(16);
     const [pageCount, setPageCount] = useState(0)
     //rating
-    const [rating, setRating] = useState();
+    const [rating, setRating] = useState('');
 
     // Price Min,Max
     const [minToPrice, setMinToPrice] = useState('');
     const [maxToPrice, setMaxToPrice] = useState('');
 
 
-
+    // Nơi sản Xuất
+    const [addProduct, setAddProduct] = useState('')
 
 
 
@@ -38,16 +39,17 @@ export default function ShopMainPage() {
 
         let res;
         if (param.name !== 'product') {
-            res = await ProductService.getProductCategoriesName(param.name)
+            res = await ProductService.getProductCategoriesName(param.name, minToPrice, maxToPrice, addProduct)
 
         } else {
             res = await ProductService.getProduct()
-
+            if (maxToPrice !== '' || minToPrice !== '') {
+                res = await ProductService.getProductPriceSlider(minToPrice, maxToPrice)
+            }
         }
+        console.log(res)
         const data = res.data;
-        if (data.length > 0) {
-            setProduct(data)
-        }
+
         const slice = data.slice(offset, offset + perPage)
         const postData = slice.map(item =>
 
@@ -61,19 +63,20 @@ export default function ShopMainPage() {
                         <h3><a href="/">{item.name}</a></h3>
                         <div className="d-flex">
                             <div className="pricing">
-                                <p className="price"><span className="mr-2 price-dc">{(item.buyPrice + (item.buyPrice * 0.3)).toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</span><span className="price-sale">{item.buyPrice.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</span></p>
+                                <p className="price"><span className="mr-2 price-dc">{(item.sellPrice + (item.sellPrice * 0.3)).toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</span>
+                                    <span className="price-sale">{item.sellPrice.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</span></p>
                             </div>
                         </div>
                         <div className="bottom-area d-flex px-3">
                             <div className="m-auto d-flex">
                                 <Link to={"/detail/" + item.id} className="add-to-cart d-flex justify-content-center align-items-center text-center">
-                                    <span><i class="fa-solid fa-bars"></i></span>
+                                    <span><i className="fa-solid fa-bars"></i></span>
                                 </Link>
                                 <a href="/" className="buy-now d-flex justify-content-center align-items-center mx-1">
-                                    <span><i class="fa-solid fa-cart-shopping"></i></span>
+                                    <span><i className="fa-solid fa-cart-shopping"></i></span>
                                 </a>
                                 <a href="/" className="heart d-flex justify-content-center align-items-center ">
-                                    <span><i class="fa-solid fa-heart"></i></span>
+                                    <span><i className="fa-solid fa-heart"></i></span>
                                 </a>
                             </div>
                         </div>
@@ -84,9 +87,25 @@ export default function ShopMainPage() {
         setData(postData)
         setPageCount(Math.ceil(data.length / perPage))
     }
+
+    //Product
+    useEffect(() => {
+        ProductService.getProduct()
+            .then(response => response.data)
+            .then((data) => {
+                if (data.length > 0) {
+                    setProduct(data)
+                }
+            });
+
+    }, [])
+
+
+
     useEffect(() => {
         getData()
-    }, [offset])
+    }, [offset, minToPrice, maxToPrice, param, addProduct])
+
     const handlePageClick = (e) => {
         const selectedPage = e.selected;
         const offset = selectedPage * perPage
@@ -94,6 +113,7 @@ export default function ShopMainPage() {
         setOffset(offset)
     };
 
+    //catgories
     useEffect(() => {
         CategoriesService.getCategories()
             .then(response => response.data)
@@ -108,7 +128,7 @@ export default function ShopMainPage() {
 
     // origin filter the same element
     const _ = require("lodash");
-    var result = _.uniqWith(product, function (arrVal, othVal) {
+    const result = _.uniqWith(product, function (arrVal, othVal) {
         return arrVal.origin === othVal.origin;
     });
     // console.log(product, result)
@@ -116,15 +136,16 @@ export default function ShopMainPage() {
 
     // rating
     const ratingChanged = (newRating) => {
+        setRating(newRating)
         console.log('>>> check rating : ', newRating)
     };
     // price check
     const handlePrice = (event) => {
-        console.log('>>> check price ', event)
+        // console.log('>>> check price ', event)
         setMinToPrice(event[0])
         setMaxToPrice(event[1])
     }
-    console.log(minToPrice, maxToPrice)
+    // console.log(minToPrice, maxToPrice)
     // maxvaluePrice
     const maxIncome = (userWalletIncomes) => {
         let maxValue = 0;
@@ -139,11 +160,20 @@ export default function ShopMainPage() {
     }
 
     const maxPrice = product.map((item, index) => {
-        return item.buyPrice
+        return item.sellPrice
     })
 
     // console.log(maxIncome({ price: 5, price: 10, price: 20, price: 25, price: 30 }))
     // console.log(maxIncome(maxPrice))
+
+
+    const handleOrigin = (event) => {
+
+        setAddProduct(event.origin)
+
+        console.log('>>check event', addProduct)
+
+    }
     return <div>
         {/* Product Section Begin */}
         <section className="products spad">
@@ -158,14 +188,14 @@ export default function ShopMainPage() {
                                 <h4>Price</h4>
                                 <RangeSlider max={maxIncome(maxPrice)} defaultValue={[29000, 75000]} onChange={handlePrice} />
                                 <br />
-                                <div>Khoảng Giá : {(minToPrice).toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}  - {(maxToPrice).toLocaleString('it-IT', { style: 'currency', currency: 'VND' })} </div>
+                                <div>Khoảng Giá : {(minToPrice)?.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}  - {(maxToPrice)?.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })} </div>
                             </div>
                             <div className="sidebar__item sidebar__item__color--option">
                                 <h4>Nơi sản xuất</h4>
                                 {result.map((item, index) => {
 
                                     return (
-                                        <div className="sidebar__item__color sidebar__item__color--blue">
+                                        <div onClick={() => handleOrigin(item)} className="sidebar__item__color sidebar__item__color--blue">
                                             <label htmlFor="white">
                                                 {item.origin}
                                                 <input type="radio" id="white" />
@@ -183,9 +213,9 @@ export default function ShopMainPage() {
                                     onChange={ratingChanged}
                                     size={26}
                                     isHalf={true}
-                                    emptyIcon={<i class="bi bi-star"></i>}
-                                    halfIcon={<i class="bi bi-star-half"></i>}
-                                    fullIcon={<i class="bi bi-star-fill"></i>}
+                                    emptyIcon={<i className="bi bi-star"></i>}
+                                    halfIcon={<i className="bi bi-star-half"></i>}
+                                    fullIcon={<i className="bi bi-star-fill"></i>}
                                     activeColor="#ffd700"
                                 />
                                 {/* chưa chuyền được dữ liệu */}

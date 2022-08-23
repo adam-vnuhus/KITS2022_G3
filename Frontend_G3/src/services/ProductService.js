@@ -10,11 +10,14 @@ class ProductService {
     }
 
 
-    getProductCategoriesName(categoryName) {
-        let dataCategories = axios.get(PRODUCT_API_BASE_URL + '?category=' + categoryName);
+    getProductCategoriesName(categoryName, start, end, origin) {
+        let dataCategories = axios.get(PRODUCT_API_BASE_URL + '?category=' + categoryName + '&start=' + start + '&end=' + end + '&name=' + origin);
         return dataCategories;
     }
-
+    getProductPriceSlider(start, end) {
+        let dataCategories = axios.get(PRODUCT_API_BASE_URL + '?start=' + start + '&end=' + end);
+        return dataCategories;
+    }
 
     createProduct(product) {
         return axios.post(PRODUCT_API_BASE_URL, product);

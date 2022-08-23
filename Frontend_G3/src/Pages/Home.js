@@ -51,19 +51,20 @@ const Home = () => {
                                                 <h3><a href="/">{item.name}</a></h3>
                                                 <div className="d-flex">
                                                     <div className="pricing">
-                                                        <p className="price"><span className="mr-2 price-dc">${item.buyPrice + (item.buyPrice * 0.3)}</span><span className="price-sale">${item.buyPrice}</span></p>
+                                                        <p className="price"><span className="mr-2 price-dc">{(item.sellPrice + (item.sellPrice * 0.3)).toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</span>
+                                                            <span className="price-sale">{item.sellPrice.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</span></p>
                                                     </div>
                                                 </div>
                                                 <div className="bottom-area d-flex px-3">
                                                     <div className="m-auto d-flex">
                                                         <Link to={"/detail/" + item.id} className="add-to-cart d-flex justify-content-center align-items-center text-center">
-                                                            <span><i class="fa-solid fa-bars"></i></span>
+                                                            <span><i className="fa-solid fa-bars"></i></span>
                                                         </Link>
                                                         <a href="/" className="buy-now d-flex justify-content-center align-items-center mx-1">
-                                                            <span><i class="fa-solid fa-cart-shopping"></i></span>
+                                                            <span><i className="fa-solid fa-cart-shopping"></i></span>
                                                         </a>
                                                         <a href="/" className="heart d-flex justify-content-center align-items-center ">
-                                                            <span><i class="fa-solid fa-heart"></i></span>
+                                                            <span><i className="fa-solid fa-heart"></i></span>
                                                         </a>
                                                     </div>
                                                 </div>
