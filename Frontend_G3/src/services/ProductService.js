@@ -19,6 +19,10 @@ class ProductService {
         return dataCategories;
     }
 
+    SearchProduct(product, start, end) {
+        return axios.get(PRODUCT_API_BASE_URL + '?name=' + product + '&start=' + start + '&end=' + end);
+    }
+
     createProduct(product) {
         return axios.post(PRODUCT_API_BASE_URL, product);
     }

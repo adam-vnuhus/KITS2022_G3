@@ -33,12 +33,15 @@ export default function ShopMainPage() {
     // Nơi sản Xuất
     const [addProduct, setAddProduct] = useState('')
 
-
+    console.log('>> check param', param.name.includes('search='))
 
     const getData = async () => {
 
         let res;
-        if (param.name !== 'product') {
+        if (param.name.includes('search=')) {
+            res = await ProductService.SearchProduct(param.name.slice(7,), minToPrice, maxToPrice)
+        }
+        else if (param.name !== 'product') {
             res = await ProductService.getProductCategoriesName(param.name, minToPrice, maxToPrice, addProduct)
 
         } else {
@@ -47,7 +50,7 @@ export default function ShopMainPage() {
                 res = await ProductService.getProductPriceSlider(minToPrice, maxToPrice)
             }
         }
-        console.log(res)
+        console.log('>> check res', res)
         const data = res.data;
 
         const slice = data.slice(offset, offset + perPage)
@@ -137,8 +140,8 @@ export default function ShopMainPage() {
     // rating
     const ratingChanged = (newRating) => {
         setRating(newRating)
+        console.log('>>> check rating : ', newRating)
     };
-    console.log('>>> check rating : ', rating)
     // price check
     const handlePrice = (event) => {
         // console.log('>>> check price ', event)

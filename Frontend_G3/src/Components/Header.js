@@ -12,6 +12,8 @@ const Header = () => {
     const [displays, setDisplay] = useState(defaultDisplay);
     const [onlyNav, setOnlyNav] = useState(defaultHeader);
 
+    // Search
+    const [search, setSearch] = useState('')
     useEffect(() => setDisplay(defaultDisplay), [param, params])
 
     const haldeAllDe = () => {
@@ -31,6 +33,7 @@ const Header = () => {
 
     }, [])
     // console.log('>>> check categories :', categories)
+    console.log(search)
     return (
         <>
             {/* Header Section Begin */}
@@ -156,14 +159,16 @@ const Header = () => {
                         <div className="col-lg-9">
                             <div className="hero__search">
                                 <div className="hero__search__form">
+                                    {/* Search */}
                                     <form action="/">
                                         <div className="hero__search__categories">
                                             All Categories
                                             <span className="arrow_carrot-down" />
                                         </div>
-                                        <input type="text" placeholder="What do you need?" />
-                                        <button type="submit" className="site-btn">SEARCH</button>
+                                        <input type="text" value={search} onChange={(event) => setSearch(event.target.value)} placeholder="What do you need?" />
+                                        <Link to={'/shop/search=' + search}><button className="site-btn">SEARCH</button></Link>
                                     </form>
+                                    {/* end search */}
                                 </div>
                                 <div className="hero__search__phone">
                                     <div className="hero__search__phone__icon">
