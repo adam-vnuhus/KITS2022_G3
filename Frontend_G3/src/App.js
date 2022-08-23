@@ -5,9 +5,8 @@ import './Css/owl-carousel-min.css';
 
 import './Css/profile.css'
 import Home from './Pages/Home';
-
 import ShopMainPage from "./Pages/ShopMainPage";
-import { BrowserRouter, Routes, Route, useParams } from "react-router-dom";
+import {BrowserRouter, Routes, Route, useParams, useLocation, Navigate} from "react-router-dom";
 import Layout from './Components/Layout';
 import Cart from "./Pages/Cart";
 import Contact from "./Pages/Contact";
@@ -23,24 +22,52 @@ import ProfileCustomer from './Pages/ProfileCustomer';
 import DetailOrder from './Pages/ProfileComponent/DetailOrder';
 import DeleteConfirmModal from "./Components/AdminPageComponents/DeleteConfirmModal";
 import Error from "./Pages/ErrorPage";
-import AdminLogin from "./Components/AdminPageComponents/adminLoginForm";
+import AuthService from "./services/AuthService";
+
+
+
 
 
 
 function App() {
+    const [isAdmin,setAdminRole] = useState(false);
+    const [isUser,setUserRole] = useState(false)
+    const [user,setUser] = useState(null);
+
+    const onLogin=()=>{
+        setUser(localStorage.getItem('user'));
+        console.log(user)
+        if(user.includes('ADMIN')){
+            setAdminRole(true);
+        }
+        setUserRole(true);
+    }
+
+    const logout=()=>{
+        setAdminRole(false);
+        setUserRole(false);
+        localStorage.removeItem('user')
+        AuthService.logout().then(r => {
+            return <Navigate to={'/'}/>
+        });
+
+    }
+    console.log('isAdmin',isAdmin)
+    useEffect(() => {
+        logout();
+    },[setTimeout(()=>{console.log('logged out')},300000)])
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/admin/login" element={<AdminLogin />} />
-                <Route path="/admin/" element={<AdminLayout />}>
-                    <Route path="/admin/" element={<Dashboard />} />
+                <Route path="/admin/" element={!isAdmin ?<Navigate to={'/login'}/>:<AdminLayout onSignOut={logout}/>}>
+                    <Route path="/admin/" element={isAdmin ?<Navigate to={'/login'}/>:<Dashboard />} />
                     <Route path="/admin/dashboard" element={<Dashboard />} />
                     <Route path="/admin/orders"
                         element={<MainContent table={"order"} />} />
                     <Route path="/admin/products"
                         element={<MainContent table={"product"} />} />
                 </Route>
-                <Route path="/404" element={<Error errorCode={404} message={"WE CAN'T FIND THAT PAGE!"} />} />
+                <Route path="/404" element={<Error errorCode={404} message={"WE CAN'T FIND THAT PAGE!"} />}/>
                 <Route path="/500" element={<Error errorCode={500} message={"SOMETHING WENT WRONG !"} />} />
 
                 <Route path="/" element={<Layout />}>
@@ -50,7 +77,7 @@ function App() {
                     <Route path="/cart" element={<Cart />} />
                     <Route path="/contact" element={<Contact />} />
                     <Route path="/checkout" element={<Checkout />} />
-                    <Route path="/login" element={<SignIn />} />
+                    <Route path="/login" element={<SignIn onLogin={onLogin} />} />
                     <Route path="/detail/:id" element={<DetailProduct />} />
                     <Route path="/profile" element={<ProfileCustomer />} />
                     <Route path="/testdetail" element={<DetailOrder />} />

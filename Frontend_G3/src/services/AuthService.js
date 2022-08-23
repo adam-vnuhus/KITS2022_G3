@@ -14,17 +14,18 @@ class AuthService {
     }
 
     logout() {
-        localStorage.removeItem('user')
+        return axios.get(AUTH_API_BASE_URL + '/logout').then(()=> {
+            console.log('get out');
+        },() => console.log('logout failed'))
     }
 
-    register(email, password) {
-        return axios.post(AUTH_API_BASE_URL + '/register', email, password)
+    register(credentials) {
+        return axios.post(AUTH_API_BASE_URL + '/register',credentials)
     }
 
     getCurrentUser() {
-        return axios.get(AUTH_API_BASE_URL + '/logout')
-            .then(() => JSON.parse(localStorage.getItem('user')))
+        JSON.parse(localStorage.getItem('user'))
     }
 }
 
-export default new AuthService
+export default new AuthService()

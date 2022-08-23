@@ -46,7 +46,7 @@ const SideBarItem = ({ item, active }) => {
 }
 
 
-export default function AdminSideBar(){
+export default function AdminSideBar({onSignOut}){
         const location = useLocation();
 
         const [active, setActive] = useState(1);
@@ -82,8 +82,8 @@ export default function AdminSideBar(){
                             ))}
                         </div>
 
-                        <div className='admin_sidebar-footer'>
-                            <span className='admin_sidebar-item-label'>Logout</span>
+                        <div className='admin_sidebar-footer' onClick={onSignOut}>
+                            <span className='admin_sidebar-item-label' >Logout</span>
                             <i className="fa-solid fa-right-from-bracket"/>
                         </div>
                     </div>

@@ -137,8 +137,8 @@ export default function ShopMainPage() {
     // rating
     const ratingChanged = (newRating) => {
         setRating(newRating)
-        console.log('>>> check rating : ', newRating)
     };
+    console.log('>>> check rating : ', rating)
     // price check
     const handlePrice = (event) => {
         // console.log('>>> check price ', event)
