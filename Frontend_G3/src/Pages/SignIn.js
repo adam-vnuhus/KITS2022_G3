@@ -12,7 +12,7 @@ async function registerUser(credentials) {
     await AuthService.register(credentials)
 }
 
-export default function SignIn({onLogin,from}){
+export default function SignIn({from}){
 
     const[isHidden,SetHidden] = useState(`${styles["is-hidden"]}`);
     const[isNotHidden,SetNotHidden] = useState("");
@@ -33,7 +33,6 @@ export default function SignIn({onLogin,from}){
             password
 
         }).then(()=> {
-            onLogin();
             if(!from)Navigation('/');else Navigation(from);
         },() => window.alert('Đăng nhập thất bại, vui lòng thử lại'));
         }

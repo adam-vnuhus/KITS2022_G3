@@ -30,20 +30,12 @@ import AuthService from "./services/AuthService";
 
 
 function App() {
-    const [isAdmin,setAdminRole] = useState(false);
-    const [isUser,setUserRole] = useState(false)
+    const [isAdmin,setAdminRole] = useState(localStorage.getItem('user')?.includes('ADMIN'));
+    const [isUser,setUserRole] = useState(localStorage.getItem('user')?.includes('USER'))
     const [user,setUser] = useState(null);
-
-    const onLogin=()=>{
-        setUser(localStorage.getItem('user'));
-        console.log(user)
-        if(user.includes('ADMIN')){
-            setAdminRole(true);
-        }
-        setUserRole(true);
-    }
-
+    
     const logout=()=>{
+        console.log('dung co tu chay')
         setAdminRole(false);
         setUserRole(false);
         localStorage.removeItem('user')
@@ -52,15 +44,14 @@ function App() {
         });
 
     }
-    console.log('isAdmin',isAdmin)
-    useEffect(() => {
-        logout();
-    },[setTimeout(()=>{console.log('logged out')},300000)])
+
+    console.log(isAdmin);
+
     return (
         <BrowserRouter>
             <Routes>
                 <Route path="/admin/" element={!isAdmin ?<Navigate to={'/login'}/>:<AdminLayout onSignOut={logout}/>}>
-                    <Route path="/admin/" element={isAdmin ?<Navigate to={'/login'}/>:<Dashboard />} />
+                    <Route path="/admin/" element={<Dashboard />} />
                     <Route path="/admin/dashboard" element={<Dashboard />} />
                     <Route path="/admin/orders"
                         element={<MainContent table={"order"} />} />
@@ -77,7 +68,7 @@ function App() {
                     <Route path="/cart" element={<Cart />} />
                     <Route path="/contact" element={<Contact />} />
                     <Route path="/checkout" element={<Checkout />} />
-                    <Route path="/login" element={<SignIn onLogin={onLogin} />} />
+                    <Route path="/login" element={<SignIn />} />
                     <Route path="/detail/:id" element={<DetailProduct />} />
                     <Route path="/profile" element={<ProfileCustomer />} />
                     <Route path="/testdetail" element={<DetailOrder />} />
