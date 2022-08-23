@@ -49,7 +49,7 @@ export default function ShopMainPage() {
         } else {
             res = await ProductService.getProduct('', '', '', '', '')
             if (maxToPrice !== '' || minToPrice !== '') {
-                res = await ProductService.getProductPriceSlider(minToPrice, maxToPrice)
+                res = await ProductService.getProduct('', '', '', minToPrice, maxToPrice)
             }
         }
         console.log('>> check res', res)
