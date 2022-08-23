@@ -70,13 +70,13 @@ export default function ShopMainPage() {
                         <div className="bottom-area d-flex px-3">
                             <div className="m-auto d-flex">
                                 <Link to={"/detail/" + item.id} className="add-to-cart d-flex justify-content-center align-items-center text-center">
-                                    <span><i class="fa-solid fa-bars"></i></span>
+                                    <span><i className="fa-solid fa-bars"></i></span>
                                 </Link>
                                 <a href="/" className="buy-now d-flex justify-content-center align-items-center mx-1">
-                                    <span><i class="fa-solid fa-cart-shopping"></i></span>
+                                    <span><i className="fa-solid fa-cart-shopping"></i></span>
                                 </a>
                                 <a href="/" className="heart d-flex justify-content-center align-items-center ">
-                                    <span><i class="fa-solid fa-heart"></i></span>
+                                    <span><i className="fa-solid fa-heart"></i></span>
                                 </a>
                             </div>
                         </div>
@@ -213,9 +213,9 @@ export default function ShopMainPage() {
                                     onChange={ratingChanged}
                                     size={26}
                                     isHalf={true}
-                                    emptyIcon={<i class="bi bi-star"></i>}
-                                    halfIcon={<i class="bi bi-star-half"></i>}
-                                    fullIcon={<i class="bi bi-star-fill"></i>}
+                                    emptyIcon={<i className="bi bi-star"></i>}
+                                    halfIcon={<i className="bi bi-star-half"></i>}
+                                    fullIcon={<i className="bi bi-star-fill"></i>}
                                     activeColor="#ffd700"
                                 />
                                 {/* chưa chuyền được dữ liệu */}
