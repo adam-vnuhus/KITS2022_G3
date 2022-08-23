@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/KITS2022_G3.iml" filepath="$PROJECT_DIR$/.idea/KITS2022_G3.iml" />
       <module fileurl="file://$PROJECT_DIR$/Backend_G3/Project_eMarket_G3.iml" filepath="$PROJECT_DIR$/Backend_G3/Project_eMarket_G3.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Backend_G3/projectemarketg3.iml" filepath="$PROJECT_DIR$/Backend_G3/projectemarketg3.iml" />
     </modules>
   </component>
 </project>
