@@ -71,22 +71,22 @@ public class ProductController {
     public List<Product> searchProductByKeyword(@RequestParam(required = false) String name,
                                                 @RequestParam(required = false) String origin,
                                                 @RequestParam(required = false) String category,
-                                                @RequestParam(required = false) Optional<Long> start,
-                                                @RequestParam(required = false) Optional<Long> end) {
-        if(start.isEmpty()){
-            start = Optional.of(0L);
+                                                @RequestParam(required = false) Long start,
+                                                @RequestParam(required = false) Long end) {
+        if(start==null){
+            start = 0L;
         }
-        if (end.isEmpty()){
+        if (end== null){
             List<Product> products = productRepository.findAll();
-            end = Optional.of(0L);
+            end = 0L;
             for (Product p : products
                  ) {
-                if(end.get() < p.getSellPrice()){
-                    end = Optional.ofNullable(p.getBuyPrice());
+                if(end < p.getSellPrice()){
+                    end = p.getSellPrice();
                 }
             }
         }
-        return productRepository.searchProductByKeyword(name, origin, category, start.get(), end.get());
+        return productRepository.searchProductByKeyword(name, origin, category, start, end);
     }
 
     @GetMapping("/product-star/{star}")
