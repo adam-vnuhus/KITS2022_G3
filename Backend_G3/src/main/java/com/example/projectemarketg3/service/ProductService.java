@@ -57,6 +57,7 @@ public class ProductService {
                         .stream()
                         .filter(s -> s.getName().toLowerCase().contains(name.toLowerCase())
                                 || s.getSupplier().getName().toLowerCase().contains(name.toLowerCase())
+                                || s.getOrigin().toLowerCase().contains(name.toLowerCase())
                                 || s.getDescription().toLowerCase().contains(name.toLowerCase()))
                         .toList();
 
@@ -76,6 +77,7 @@ public class ProductService {
                 List<Product> p = getProduct().stream()
                         .filter(s -> s.getName().toLowerCase().contains(name.toLowerCase())
                                 || s.getSupplier().getName().toLowerCase().contains(name.toLowerCase())
+                                || s.getOrigin().toLowerCase().contains(name.toLowerCase())
                                 || s.getDescription().toLowerCase().contains(name.toLowerCase()))
                         .toList();
                 return p.stream()
@@ -86,6 +88,7 @@ public class ProductService {
                 List<Product> nameProducts = getProduct().stream()
                         .filter(s -> s.getName().toLowerCase().contains(name.toLowerCase())
                                 || s.getSupplier().getName().toLowerCase().contains(name.toLowerCase())
+                                || s.getOrigin().toLowerCase().contains(name.toLowerCase())
                                 || s.getDescription().toLowerCase().contains(name.toLowerCase()))
                         .toList();
                 List<Product> categoryProducts = nameProducts.stream().filter(s -> s.getCategory().getName().equals(category)).toList();
@@ -97,6 +100,7 @@ public class ProductService {
                 List<Product> nameProduct = getProduct().stream()
                         .filter(s -> s.getName().toLowerCase().contains(name.toLowerCase())
                                 || s.getSupplier().getName().toLowerCase().contains(name.toLowerCase())
+                                || s.getOrigin().toLowerCase().contains(name.toLowerCase())
                                 || s.getDescription().toLowerCase().contains(name.toLowerCase()))
                         .toList();
                 return nameProduct.stream()

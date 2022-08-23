@@ -63,6 +63,9 @@ public class Product implements Serializable {
     @Transient
     private MultipartFile file;
 
+    @Column(name = "statsus_sell")
+    private Boolean statsusSell;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

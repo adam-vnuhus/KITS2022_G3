@@ -28,6 +28,8 @@ public class OrderDetail implements Serializable {
     @Column(name = "total")
     private Long total;
 
+    @Column(name = "product_image")
+    private String productImage;
 
     @ManyToOne
     @JsonIgnore

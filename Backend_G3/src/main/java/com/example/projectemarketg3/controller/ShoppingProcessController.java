@@ -58,6 +58,7 @@ public class ShoppingProcessController {
     //    XEM GIO HANG theo id khach
     @GetMapping("/carts")
     public List<DetailDto> cartByUserId() {
+//        lay ra user
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
 //        lay ra danh sach san pham co trong gio hang o detail theo id khach
@@ -94,7 +95,14 @@ public class ShoppingProcessController {
     @PutMapping("/quantity-detail")
     public CartItem clickUpdateQuantity( @RequestBody DetailDto detailDto) {
         Optional<CartItem> orderDetail = cartItemRepository.findById(detailDto.getCartId());
-        orderDetail.get().setQuantity(orderDetail.get().getQuantity() + detailDto.getQuantity());
+        Product product = orderDetail.get().getProduct();
+        int num = 0;
+        if(detailDto.getQuantity()<0){
+         num = Math.max(orderDetail.get().getQuantity() + detailDto.getQuantity(), 0);}
+        else {
+            num = orderDetail.get().getQuantity() + detailDto.getQuantity() > product.getQuantity() ? product.getQuantity() : orderDetail.get().getQuantity() + detailDto.getQuantity();
+        }
+        orderDetail.get().setQuantity(num);
         return cartItemRepository.save(orderDetail.get());
     }
 
@@ -126,30 +134,14 @@ public class ShoppingProcessController {
         return shoppingService.ratingProduct(ratingDto);
     }
 
-    //    XAC NHAN DANH GIA CHECKING = true -> UPDATE AVG_RATING(product)
-    @PutMapping("/rating-product")
-    public Rating updateCheckingProduct(@RequestBody UserIdDto id) {
-        return shoppingService.updateCheckingProduct(id);
-    }
 
-    //    LAY RA DANH GIA CUA SAN PHAM THEO ID VA DA DUOC ADMIN PUBLIC
-    @GetMapping("/rating-product/{id}")
-    public List<Rating> getAllRatingProduct(@PathVariable Long id) {
-        List<Rating> ratings = ratingRepository.findByProduct_IdOrderByCreateAtDesc(id);
-        List<Rating> ratingList = new ArrayList<>();
-        for (Rating r : ratings
-        ) {
-            if (r.getChecking()) {
-                ratingList.add(r);
-            }
-        }
-        return ratingList;
-    }
+
 
     //    LAY RA DANH GIA CUA SAN PHAM THEO USER
-    @GetMapping("/rating-user/{id}")
-    public List<Rating> getAllRatingUser(@PathVariable Long id) {
-        return ratingRepository.findByUser_IdOrderByCreateAtDesc(id);
+    @GetMapping("/rating-user")
+    public List<Rating> getAllRatingUser() {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return ratingRepository.findByUser_IdOrderByCreateAtDesc(user.getId());
     }
 
 //    RESET RANK 6 THANG 1 LAN

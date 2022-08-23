@@ -14,6 +14,7 @@ public class OrderService {
                 .total(orderDetail.getTotal())
                 .productId(orderDetail.getProduct().getId())
                 .userId(orderDetail.getUser().getId())
+                .productImage(orderDetail.getProductImage())
                 .build();
     }
 
@@ -24,6 +25,8 @@ public class OrderService {
                 .total(orderDetail.getTotal())
                 .productId(orderDetail.getProduct().getId())
                 .userId(orderDetail.getUser().getId())
+                .productImage(orderDetail.getProductImage())
+                .cartId(orderDetail.getId())
                 .build();
     }
 }

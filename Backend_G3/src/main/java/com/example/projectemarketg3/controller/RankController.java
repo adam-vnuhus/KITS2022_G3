@@ -31,17 +31,6 @@ public class RankController {
 
 
 
-    @PutMapping("/{id}")
-    public Ranking updateRankingById(@PathVariable Long id,@RequestParam Integer discount){
-        Optional<Ranking> rankingOptional = rankingRepository.findById(id);
-        if(rankingOptional.isEmpty()) throw new RuntimeException("not found Ranking id = " + id);
-
-        Ranking rankingNew = rankingOptional.get();
-        rankingNew.setDiscount(discount);
-        rankingRepository.save(rankingNew);
-        return rankingNew;
-    }
-
     @GetMapping("/users/{name}")
     public List<UserRequest> getAllUserByRank(@PathVariable String name){
         return userService.findDistinctByRanking_NameOrderByRank_dateDesc(name);

@@ -40,6 +40,9 @@ public class CartItem {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @Column(name = "product_image")
+    private String productImage;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

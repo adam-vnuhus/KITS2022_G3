@@ -8,6 +8,7 @@ import com.example.projectemarketg3.entity.*;
 import com.example.projectemarketg3.repository.*;
 import com.example.projectemarketg3.request.UserRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -47,10 +48,10 @@ public class ShoppingService {
         //lay ra san pham tu id
         Optional<Product> product = productRepository.findById(detailDto.getProductId());
         int quantityProduct = product.get().getQuantity();
-        Optional<User> user = userRepository.findById(detailDto.getUserId());
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
 //        kiem tra xem trong gio hang da co san pham vua click add cart chua
-        Optional<CartItem> optionalOrderDetail = Optional.ofNullable(cartItemRepository.findByProduct_IdAndUser_Id(detailDto.getProductId(), detailDto.getUserId()));
+        Optional<CartItem> optionalOrderDetail = Optional.ofNullable(cartItemRepository.findByProduct_IdAndUser_Id(detailDto.getProductId(), user.getId()));
 // neu chua ton tai va so luong them vao gio phai be hon
         if (optionalOrderDetail.isEmpty() && detailDto.getQuantity() <= quantityProduct) {
 
@@ -58,7 +59,8 @@ public class ShoppingService {
                     .product(product.get())
                     .quantity(detailDto.getQuantity())
                     .total(detailDto.getQuantity() * product.get().getSellPrice())
-                    .user(user.get())
+                    .user(user)
+                    .productImage(product.get().getImage())
                     .build();
 
 
@@ -77,10 +79,11 @@ public class ShoppingService {
         //lay ra san pham tu id
         Optional<Product> product = productRepository.findById(detailDto.getProductId());
         int quantityProduct = product.get().getQuantity();
-        Optional<User> user = userRepository.findById(detailDto.getUserId());
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
 
 //        kiem tra xem trong gio hang da co san pham vua click add cart chua
-        Optional<OrderDetail> optionalOrderDetail = Optional.ofNullable(orderDetailRepository.findByProduct_IdAndUser_Id(detailDto.getProductId(), detailDto.getUserId()));
+        Optional<OrderDetail> optionalOrderDetail = Optional.ofNullable(orderDetailRepository.findByProduct_IdAndUser_Id(detailDto.getProductId(), user.getId()));
 // neu chua ton tai va so luong them vao gio phai be hon
         if (optionalOrderDetail.isEmpty() && detailDto.getQuantity() <= quantityProduct) {
 
@@ -88,7 +91,7 @@ public class ShoppingService {
                     .product(product.get())
                     .quantity(detailDto.getQuantity())
                     .total(detailDto.getQuantity() * product.get().getSellPrice())
-                    .user(user.get())
+                    .user(user)
                     .build();
 
             return orderDetailRepository.save(orderDetail);
@@ -106,12 +109,13 @@ public class ShoppingService {
     public Orders clickBuy(@RequestBody InfoUserShoppingDto info) {
 
         Optional<Status> status = statusRepository.findById(1L);
-        Optional<User> user = userRepository.findById(info.getUserId());
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
 
 //        lay ra danh sach san pham hien co trong gio hang theo id khach
 //        Set<OrderDetail> orderDetails = orderDetailRepository.findByUser_Id(user.get().getId());
 
-        List<CartItem> cartItems = cartItemRepository.getByUser_Id(user.get().getId());
+        List<CartItem> cartItems = cartItemRepository.getByUser_Id(user.getId());
         Set<OrderDetail> orderDetails = new HashSet<>();
 
         for (var s : cartItems
@@ -133,7 +137,7 @@ public class ShoppingService {
         });
 
 //        chiet khau hoa don theo rank
-        int disscount = user.get().getRanking() == null ? 0 : user.get().getRanking().getDiscount();
+        int disscount = user.getRanking() == null ? 0 : user.getRanking().getDiscount();
         if (disscount > 0) {
             total[0] = total[0] - ((total[0] * disscount) / 100);
         }
@@ -144,12 +148,12 @@ public class ShoppingService {
                 .totalPrice(total[0])
                 .orderDetails(orderDetails) //
                 .status(status.get())
-                .user(user.get()) //
+                .user(user) //
                 .ship(20000)
                 .disscount(disscount)
-                .addressUser(info.getAddressUser() == null ? user.get().getAddress() : info.getAddressUser()) //
-                .nameUser(info.getNameUser() == null ? user.get().getName() : info.getNameUser()) //
-                .phoneUser(info.getPhoneUser() == null ? user.get().getPhone() : info.getPhoneUser()) //
+                .addressUser(info.getAddressUser() == null ? user.getAddress() : info.getAddressUser()) //
+                .nameUser(info.getNameUser() == null ? user.getName() : info.getNameUser()) //
+                .phoneUser(info.getPhoneUser() == null ? user.getPhone() : info.getPhoneUser()) //
                 .point(info.getPoint() == null ? 0 : info.getPoint())
                 .build();
 
@@ -157,27 +161,27 @@ public class ShoppingService {
 
 //        tru diem neu khach dung
         if (info.getPoint() > 0) {
-            Double point = user.get().getPoint();
-            user.get().setPoint(point - info.getPoint());
+            Double point = user.getPoint();
+            user.setPoint(point - info.getPoint());
         }
 
 //        tich diem cho hoa don tren 200k theo 1%
-        Double userPoint = user.get().getPoint() == null ? 0 : user.get().getPoint();
+        Double userPoint = user.getPoint() == null ? 0 : user.getPoint();
 
         if (total[0] > 200000) {
             Long point = (total[0]) / 100;
-            user.get().setPoint(userPoint + point);
+            user.setPoint(userPoint + point);
 
 //            cap nhap rank
             Long idRank = updateRank(userPoint + point);
             Optional<Ranking> ranking = rankingRepository.findById(idRank);
 
-            user.get().setRanking(ranking.get());
-            userRepository.save(user.get());
+            user.setRanking(ranking.get());
+            userRepository.save(user);
 
 //            Bat dau tinh ngay tich diem
-            if (user.get().getRank_date() == null) {
-                user.get().setRank_date(new Date(System.currentTimeMillis()));
+            if (user.getRank_date() == null) {
+                user.setRank_date(new Date(System.currentTimeMillis()));
             }
         }
 
@@ -193,8 +197,8 @@ public class ShoppingService {
 
         //        xoa cac detail khi khach click mua hang
 //        orderDetailRepository.deleteAll(orderDetails);
-//        cartItemRepository.deleteAll(cartItems);
-        cartItemRepository.deleteAllCartItem();
+        cartItemRepository.deleteAll(cartItems);
+//        cartItemRepository.deleteAllCartItem();
 
         return order;
     }
@@ -240,7 +244,7 @@ public class ShoppingService {
     public Rating ratingProduct(RatingDto ratingDto) {
 
         Product product = productRepository.getProductById(ratingDto.getProductId());
-        User user = userRepository.getUserById(ratingDto.getUserId());
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         Rating rating = Rating.builder()
                 .createAt(new Date(System.currentTimeMillis()))
@@ -257,9 +261,9 @@ public class ShoppingService {
 
     //    XAC NHAN DANH GIA CHECKING = 1 -> UPDATE AVG_RATING(product)
 
-    public Rating updateCheckingProduct(UserIdDto id) {
+    public Rating updateCheckingProduct(Long id) {
 //        cap nhat trang thai danh gia thanh public
-        Optional<Rating> rating = ratingRepository.findById(id.getId());
+        Optional<Rating> rating = ratingRepository.findById(id);
         rating.get().setChecking(true);
         ratingRepository.save(rating.get());
 
