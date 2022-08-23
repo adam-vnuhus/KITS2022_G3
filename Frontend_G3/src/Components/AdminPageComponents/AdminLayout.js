@@ -1,7 +1,7 @@
 import React from 'react';
-import { Outlet } from "react-router-dom";
-import AdminFooter from './AdminFooter';
+import {Outlet, useNavigate} from "react-router-dom";
 import AdminSideBar from "./AdminSideBar";
+
 
 
 const AdminLayout = () => {

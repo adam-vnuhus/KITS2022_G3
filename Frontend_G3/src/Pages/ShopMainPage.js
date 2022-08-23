@@ -13,7 +13,7 @@ import Slider from 'rsuite/Slider';
 import RangeSlider from 'rsuite/RangeSlider';
 import './StyleShopMain/Slider.less';
 export default function ShopMainPage() {
-    const param = useParams('');
+    const param = useParams();
     const [product, setProduct] = useState([]);
     const [categories, setCategories] = useState([]);
     // const [addressCat, setAddressCat] = useState('');
