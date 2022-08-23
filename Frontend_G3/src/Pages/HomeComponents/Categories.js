@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import CategoriesService from '../../services/CategoriesService';
 import ProductService from '../../services/ProductService';
 import { Link, useParams } from "react-router-dom";
+
 const Categories = () => {
     const [categories, setCategories] = useState([]);
 
