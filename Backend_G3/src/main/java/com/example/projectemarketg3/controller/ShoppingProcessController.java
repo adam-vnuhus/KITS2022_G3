@@ -115,18 +115,7 @@ public class ShoppingProcessController {
         cartItemRepository.delete(cartItem.get());
     }
 
-    //    UPDATE STATUS ORDER
-    @PutMapping("/update-status-order")
-    public Orders clickUpdateOrderStaus(@RequestBody StatusOrderRequest request) {
-        Optional<Orders> orders = ordersRepository.findById(request.getOrderId());
-        Optional<Status> status = statusRepository.findById(request.getStatusId());
-        Optional<User> user = userRepository.findById(request.getUserId());
 
-        orders.get().setStatus(status.get());
-        orders.get().setUserSucceed(user.get());
-
-        return ordersRepository.save(orders.get());
-    }
 
     //  NEW DATA RATING ->  DANH GIA DON HANG CHECKING = 0;
     @PostMapping("/rating-product")

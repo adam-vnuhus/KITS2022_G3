@@ -4,6 +4,7 @@ import com.example.projectemarketg3.entity.Ranking;
 import lombok.*;
 
 import java.sql.Date;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -23,4 +24,5 @@ public class UserRequest {
     private Double point;
     private Ranking ranking;
     private Date rank_date;
+    private List<String> role;
 }

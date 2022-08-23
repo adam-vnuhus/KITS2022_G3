@@ -14,7 +14,7 @@ public interface OrdersRepository extends JpaRepository<Orders, Long> {
 
     List<Orders> findByUser_Id(Long id);
 
-//@Query(nativeQuery = true,value = "SELECT * FROM orders o WHERE o.create_at LIKE '%-:month-%'")
-//    List<Orders> getOrdersByMonth(int month);
+@Query(value = "SELECT * FROM orders o WHERE o.create_at LIKE %/?1/% ",nativeQuery = true)
+    List<Orders> getOrdersByMonth(int month);
 
 }

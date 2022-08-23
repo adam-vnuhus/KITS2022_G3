@@ -87,6 +87,7 @@ public class UserService implements UserDetailsService {
                 .point(user.getPoint())
                 .ranking(user.getRanking())
                 .rank_date(user.getRank_date())
+                .role(user.getRole())
                 .build();
 
         return userRequest;
@@ -106,6 +107,7 @@ public class UserService implements UserDetailsService {
                 .point(user.getPoint())
                 .ranking(user.getRanking())
                 .rank_date(user.getRank_date())
+                .role(user.getRole())
                 .build();
 
         return userRequest;

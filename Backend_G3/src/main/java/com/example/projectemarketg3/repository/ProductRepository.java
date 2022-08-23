@@ -4,6 +4,7 @@ import com.example.projectemarketg3.entity.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -38,5 +39,27 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> findProductByCategoryAndNameAndPrice(String name, Long categoryId, Long start, Long end);
 
     List<Product> findByCategory_Id(Long id);
+
+    List<Product> findByAvgRatingBetweenOrderByAvgRatingDesc(Double avgRatingStart, Double avgRatingEnd);
+
+
+
+@Query(nativeQuery = true,value = "SELECT DISTINCT *\n" +
+        "FROM product p \n" +
+        "INNER JOIN category c ON c.id = p.category_id \n" +
+        "INNER JOIN supplier s ON s.id = p.supplier_id\n" +
+        "WHERE\n" +
+        "(p.name LIKE %:name% OR p.description LIKE %:name% OR s.name LIKE %:name%)\n" +
+        "AND (c.name LIKE %:category%)\n" +
+        "AND (p.origin LIKE %:origin%)\n" +
+        "AND (p.sell_price BETWEEN :start AND :end)\n" +
+        "ORDER BY p.sell_price")
+    List<Product> searchProductByKeyword(@Param("name") String name,
+                                         @Param("origin") String origin,
+                                         @Param("category") String category,
+                                         @Param("start") Long start,
+                                         @Param("end") Long end);
+
+
 
 }

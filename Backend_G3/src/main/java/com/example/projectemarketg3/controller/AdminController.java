@@ -1,14 +1,15 @@
 package com.example.projectemarketg3.controller;
 
 import com.example.projectemarketg3.dto.RatingDto;
-import com.example.projectemarketg3.dto.UserIdDto;
 import com.example.projectemarketg3.entity.*;
 import com.example.projectemarketg3.exception.NotFoundException;
 import com.example.projectemarketg3.repository.*;
+import com.example.projectemarketg3.request.StatusOrderRequest;
 import com.example.projectemarketg3.service.ShoppingService;
 import com.example.projectemarketg3.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
@@ -136,6 +137,15 @@ public class AdminController {
         return ResponseEntity.ok(response);
     }
 
+//    nhap them hang
+    @PutMapping("/api/admin/products/{id}")
+    public Product updateQuantityProduct(@PathVariable Long id, @RequestParam Integer quantity) {
+        Product product = productRepository.getProductById(id);
+        product.setQuantity(product.getQuantity() + quantity);
+        product.setStatsusSell(true);
+        return productRepository.save(product);
+    }
+
     //====================================== RANK =========================================
     @PostMapping("/api/admin/rank")
     public Ranking createNewRanking(@RequestBody Ranking ranking) {
@@ -260,10 +270,33 @@ public class AdminController {
         return ResponseEntity.ok(updatedUser);
     }
 
-//    ========================================= PURCHASES =================================
+    //    ========================================= PURCHASES =================================
 //    lay ra cac oder trong thang
     @GetMapping("/api/admin/purchases/{month}")
-public List<Orders> getOrdersByCreateAt_Month(@PathVariable Integer month){
-        return null;
-}
+    public List<Orders> getOrdersByCreateAt_Month(@PathVariable Integer month) {
+        return ordersRepository.getOrdersByMonth(month);
+    }
+
+//    ================================= Shopping ======================================================
+
+    //    UPDATE STATUS ORDER
+    @PutMapping("/api/admin/update-status-order")
+    public String clickUpdateOrderStaus(@RequestBody StatusOrderRequest request) {
+        Optional<Orders> orders = ordersRepository.findById(request.getOrderId());
+        Optional<Status> status = statusRepository.findById(request.getStatusId());
+
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (orders.get().getUserSucceed() == null || orders.get().getUserSucceed().getId().equals(user.getId())) {
+
+            orders.get().setStatus(status.get());
+            orders.get().setUserSucceed(user);
+             ordersRepository.save(orders.get());
+             return "Cap nhat trang thai don hang thanh cong ";
+        } else {
+           return "Don hang chi duoc xac nhan boi 1 Admin";
+        }
+
+
+    }
 }

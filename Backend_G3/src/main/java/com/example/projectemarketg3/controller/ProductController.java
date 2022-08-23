@@ -9,11 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
+import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/products")
@@ -28,11 +26,13 @@ public class ProductController {
 
 
     // Get all products rest api
-    @GetMapping
+    @GetMapping("/search")
     public List<Product> getAllProduct(@RequestParam Optional<String> name,
+                                       @RequestParam Optional<Long> origin,
                                        @RequestParam Optional<String> category,
                                        @RequestParam Optional<Long> start,
-                                       @RequestParam Optional<Long> end) {
+                                       @RequestParam Optional<Long> end
+    ) {
 //        return productService.searchProduct(name.get(), category.get(), start.get(), end.get());
 
         //        name
@@ -62,11 +62,37 @@ public class ProductController {
 //        category price
         else if (category.isPresent() && name.isEmpty() && start.isPresent() && end.isPresent()) {
             return productService.caseSearch(7, null, category.get(), start.get(), end.get());
-        }else {
+        } else {
             return productService.caseSearch(0, null, null, null, null);
         }
     }
 
+    @GetMapping
+    public List<Product> searchProductByKeyword(@RequestParam(required = false) String name,
+                                                @RequestParam(required = false) String origin,
+                                                @RequestParam(required = false) String category,
+                                                @RequestParam(required = false) Optional<Long> start,
+                                                @RequestParam(required = false) Optional<Long> end) {
+        if(start.isEmpty()){
+            start = Optional.of(0L);
+        }
+        if (end.isEmpty()){
+            List<Product> products = productRepository.findAll();
+            end = Optional.of(0L);
+            for (Product p : products
+                 ) {
+                if(end.get() < p.getSellPrice()){
+                    end = Optional.ofNullable(p.getBuyPrice());
+                }
+            }
+        }
+        return productRepository.searchProductByKeyword(name, origin, category, start.get(), end.get());
+    }
+
+    @GetMapping("/product-star/{star}")
+    public List<Product> findproductByStar(@PathVariable Double star) {
+        return productRepository.findByAvgRatingBetweenOrderByAvgRatingDesc(star, 5.0);
+    }
 
 
     // get product by ID rest api
@@ -93,7 +119,6 @@ public class ProductController {
 //
 //        return  ResponseEntity.ok(updatedProduct);
 //    }
-
 
 
     //    HOT PRODUCT
