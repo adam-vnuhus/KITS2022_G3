@@ -8,6 +8,7 @@ class ProductService {
         let data = axios.get(PRODUCT_API_BASE_URL + '?name=' + name + '&origin=' + origin + '&category=' + category + '&start=' + start + '&end=' + end);
         return data;
     }
+
     getProductRating(rating) {
         let data = axios.get(PRODUCT_API_BASE_URL + '/product-star/' + rating);
         return data;
@@ -17,6 +18,7 @@ class ProductService {
         let dataCategories = axios.get(PRODUCT_API_BASE_URL + '?category=' + categoryName + '&start=' + start + '&end=' + end + '&name=' + origin);
         return dataCategories;
     }
+
     getProductPriceSlider(start, end) {
         let dataCategories = axios.get(PRODUCT_API_BASE_URL + '?start=' + start + '&end=' + end);
         return dataCategories;
@@ -26,6 +28,8 @@ class ProductService {
         return axios.get(PRODUCT_API_BASE_URL + '?name=' + product + '&start=' + start + '&end=' + end);
     }
 
+
+    //chua dung
     createProduct(product) {
         return axios.post(PRODUCT_API_BASE_URL, product);
     }

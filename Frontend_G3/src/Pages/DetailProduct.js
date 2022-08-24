@@ -26,20 +26,33 @@ const DetailProduct = () => {
 
     // }, []);
 
+    // useEffect(() => {
+    //     let country_url =
+    //         'http://localhost:8080/api/v1/products/' + params.id;
+
+    //     fetch(country_url)
+    //         .then((response) => response.json())
+    //         .then((data) => {
+    //             setProduct(data)
+
+    //         });
+
+    // }, [params.id]);
+
+    async function fetchData() {
+        let res = await ProductService.getProduct(params.name, '', '', '', '')
+        let data = res.data;
+        setProduct(data)
+        console.log('>> check data', data);
+    }
+
+
     useEffect(() => {
-        let country_url =
-            'http://localhost:8080/api/v1/products/' + params.id;
+        fetchData()
 
-        fetch(country_url)
-            .then((response) => response.json())
-            .then((data) => {
-                setProduct(data)
+    }, [])
 
-            });
-
-    }, [params.id]);
-
-    console.log('>> check product : ', product, 'id : ', params.id);
+    console.log('>> check product : ', product, 'name : ', params.name);
     //
     // const secondExample = {
     //     size: 40,
@@ -59,13 +72,15 @@ const DetailProduct = () => {
     const ratingChanged = (newRating) => {
         console.log(newRating);
     };
+
+    if (product[0]) console.log('>> check name : ', product[0].name)
     return (
         <div >
             {/* Product Details Section Begin */}
             <section className="product-details spad">
                 <div className="container">
 
-                    {product != null ?
+                    {product[0] ?
 
                         <div className="row">
                             <div className="col-lg-6 col-md-6">
@@ -77,7 +92,7 @@ const DetailProduct = () => {
                                                 <img
                                                     className="d-block w-100"
                                                     // src={require(`../img/product/details/product-details-1.jpg`)}
-                                                    src={product.image}
+                                                    src={product[0].image}
                                                     alt="First slide"
                                                 />
                                                 <Carousel.Caption>
@@ -111,7 +126,7 @@ const DetailProduct = () => {
                             </div>
                             <div className="col-lg-6 col-md-6">
                                 <div className="product__details__text">
-                                    <h3>{product.name}</h3>
+                                    <h3>{product[0].name}</h3>
                                     <div className="product__details__rating">
                                         <ReactStars
                                             count={5}
@@ -124,7 +139,7 @@ const DetailProduct = () => {
                                         />
                                         <span>(18 reviews)</span>
                                     </div>
-                                    <div className="product__details__price">{product.sellPrice.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })} </div>
+                                    <div className="product__details__price">{product[0].sellPrice} </div>
                                     <p>Bí xanh (bí đao) L1 WinEco là loại thực phẩm quen thuộc và phổ biến với người Việt Nam.  Bí xanh có thể chế biến thành nhiều món ăn khác nhau như bí luộc, canh bí hầm xương</p>
                                     {/* data not ok */}
                                     <div className="input-group col-md-6 d-flex mb-3">
@@ -162,8 +177,8 @@ const DetailProduct = () => {
                                 <div className="product__details__tab">
                                     <Tabs defaultActiveKey="second">
                                         <Tab eventKey="first" title="Mô tả">
-                                            <h6>{product.name}</h6>
-                                            <p>{product.description}</p>
+                                            <h6>{product[0].name}</h6>
+                                            <p>{product[0].description}</p>
 
                                         </Tab>
                                         <Tab eventKey="second" title="Setting">

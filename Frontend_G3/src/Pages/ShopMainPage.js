@@ -33,7 +33,6 @@ export default function ShopMainPage() {
     const [addProduct, setAddProduct] = useState('')
 
 
-    // sửa API
     const getData = async () => {
 
         let res;
