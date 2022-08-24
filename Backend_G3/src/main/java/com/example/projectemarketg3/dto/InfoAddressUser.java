@@ -12,6 +12,7 @@ import java.util.List;
 @Setter
 @Builder
 public class InfoAddressUser {
+    private Long idUser;
     private String name;
     private Date dob;
     private String gender;

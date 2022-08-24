@@ -27,8 +27,8 @@ public class UserController {
 // Sửa thông tin User
     @PutMapping("/update-info")
     public InfoAddressUser updateUser(@RequestBody InfoAddressUser infoUser) {
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
+//        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+User user = userRepository.getUserById(infoUser.getIdUser());
         user.setName(infoUser.getName() == null ? user.getName() : infoUser.getName());
         user.setDob(infoUser.getDob() == null ? user.getDob() : infoUser.getDob());
         user.setGender(infoUser.getGender() == null ? user.getGender() : infoUser.getGender());
@@ -40,16 +40,18 @@ public class UserController {
         return infoUser;
     }
 
-    @GetMapping("/order-history")
-    public List<Orders> historyOrderUser() {
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    @GetMapping("/order-history/{id}")
+    public List<Orders> historyOrderUser(@PathVariable Long id) {
+//        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userRepository.getUserById(id);
+
         return ordersRepository.getByUser_IdOrderByCreateAtDesc(user.getId());
     }
 
-    @GetMapping("/my-info")
-    public User myInfo(){
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return user;
+    @GetMapping("/my-info/{id}")
+    public User myInfo(@PathVariable Long id){
+//        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return userRepository.getUserById(id);
     }
 
 }

@@ -56,10 +56,12 @@ public class ShoppingProcessController {
     }
 
     //    XEM GIO HANG theo id khach
-    @GetMapping("/carts")
-    public List<DetailDto> cartByUserId() {
+    @GetMapping("/carts/{id}")
+    public List<DetailDto> cartByUserId(@PathVariable Long id) {
 //        lay ra user
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userRepository.getUserById(id);
+
 
 //        lay ra danh sach san pham co trong gio hang o detail theo id khach
 //        Set<OrderDetail> orderDetails = orderDetailRepository.findByUser_Id(id.getId());
