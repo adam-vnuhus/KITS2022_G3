@@ -34,7 +34,12 @@ function App() {
     const [isUser, setUserRole] = useState(localStorage.getItem('user')?.includes('USER'))
     const [user, setUser] = useState(null);
 
-    const logout = () => {
+    const Login = () => {
+        setAdminRole(localStorage.getItem('user')?.includes('ADMIN'));
+        setUserRole(true);
+    }
+
+    const Logout = () => {
         setAdminRole(false);
         setUserRole(false);
         localStorage.removeItem('user')
@@ -47,7 +52,7 @@ function App() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/admin/" element={!isAdmin ? <Navigate to={'/login'} /> : <AdminLayout onSignOut={logout} />}>
+                <Route path="/admin/" element={!isAdmin ? <Navigate to={'/login'} state={"/admin"} replace={true}/> : <AdminLayout onSignOut={Logout} />}>
                     <Route path="/admin/" element={<Dashboard />} />
                     <Route path="/admin/dashboard" element={<Dashboard />} />
                     <Route path="/admin/orders"
@@ -62,10 +67,10 @@ function App() {
                     <Route index element={<Home />} />
                     <Route path="/shop/:name" element={<ShopMainPage />} />
                     <Route path="/shop" element={<ShopMainPage />} />
-                    <Route path="/cart" element={!isUser ? <Navigate to={'/login'} />:<Cart />} />
+                    <Route path="/cart" element={!isUser ? <Navigate to={'/login'} state={"/cart"} replace={true}/>:<Cart />} />
                     <Route path="/contact" element={<Contact />} />
                     <Route path="/checkout" element={<Checkout />} />
-                    <Route path="/login" element={<SignIn from={"/"}/>} />
+                    <Route path="/login" element={<SignIn onLogin={Login}/>} />
                     <Route path="/detail/:id" element={<DetailProduct />} />
                     <Route path="/profile" element={<ProfileCustomer />} />
                     <Route path="/testdetail" element={<DetailOrder />} />
