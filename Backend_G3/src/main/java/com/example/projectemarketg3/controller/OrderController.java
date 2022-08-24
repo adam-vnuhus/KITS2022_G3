@@ -1,16 +1,17 @@
 package com.example.projectemarketg3.controller;
 
-import com.example.projectemarketg3.dto.DetailDto;
-import com.example.projectemarketg3.dto.OrderDto;
-import com.example.projectemarketg3.entity.*;
+import com.example.projectemarketg3.entity.OrderDetail;
+import com.example.projectemarketg3.entity.Orders;
 import com.example.projectemarketg3.exception.NotFoundException;
 import com.example.projectemarketg3.repository.*;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.*;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/orders")
@@ -34,25 +35,14 @@ public class OrderController {
         return ordersRepository.findAll();
     }
 
-
-
-    // get order by ID rest api
-    @GetMapping("/{id}")
-    public ResponseEntity<Orders> getOrderById(@PathVariable Long id) {
-        Orders order = ordersRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException
-                        ("order not exist with id :" + id));
-        return ResponseEntity.ok(order);
-    }
-
-
-
-
-
-    @GetMapping("/user/{id}")
-    public  List<Orders> listOrdersByIdUser(@PathVariable Long id){
-        return ordersRepository.getByUser_IdOrderByCreateAtDesc(id);
-    }
+//    // get order by ID rest api
+//    @GetMapping("/{id}")
+//    public ResponseEntity<Orders> getOrderById(@PathVariable Long id) {
+//        Orders order = ordersRepository.findById(id)
+//                .orElseThrow(() -> new NotFoundException
+//                        ("order not exist with id :" + id));
+//        return ResponseEntity.ok(order);
+//    }
 
 
     //----------------------------------------------- DETAILS-----------------------------------------------------------
@@ -104,7 +94,6 @@ public class OrderController {
 //
 //        return  ResponseEntity.ok(updatedorderdetails);
 //    }
-
 
 
     @GetMapping("/purchases/{id}")

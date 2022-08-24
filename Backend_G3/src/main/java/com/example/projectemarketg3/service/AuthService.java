@@ -106,7 +106,7 @@ public class AuthService {
 
 //        GUI MAIL
         String link = "https://market-g3.herokuapp.com/api/auth/confirm?" + tokenString;
-        mailService.send(user.getEmail(), "Chúc mừng bạn đã đăng kí tài khoản thành công , Link xác thực : ", link);
+        mailService.send(user.getEmail(), "Chúc mừng bạn đã đăng kí tài khoản G3Mart thành công ","Link xác thực : " + link);
         return link;
     }
 

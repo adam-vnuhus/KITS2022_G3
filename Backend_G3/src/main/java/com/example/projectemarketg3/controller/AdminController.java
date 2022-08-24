@@ -6,6 +6,7 @@ import com.example.projectemarketg3.exception.NotFoundException;
 import com.example.projectemarketg3.repository.*;
 import com.example.projectemarketg3.request.PurchasesRequest;
 import com.example.projectemarketg3.request.StatusOrderRequest;
+import com.example.projectemarketg3.request.UserRequest;
 import com.example.projectemarketg3.service.ShoppingService;
 import com.example.projectemarketg3.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 public class AdminController {
@@ -41,8 +43,7 @@ public class AdminController {
     @Autowired
     private SupplierRepository supplierRepository;
 
-//=========================== CATEGORY ===============================================
-
+    //=========================== CATEGORY ===============================================
     // create a new category rest api
     @PostMapping("/api/admin/category")
     public Category createCategory(@RequestBody Category category) {
@@ -72,7 +73,15 @@ public class AdminController {
         return ResponseEntity.ok(response);
     }
 
-//================================= ORDER =====================================
+    //================================= ORDER =====================================
+    // lấy order theo id order
+    @GetMapping("/api/admin/orders/{id}")
+    public ResponseEntity<Orders> getOrderById(@PathVariable Long id) {
+        Orders order = ordersRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException
+                        ("order not exist with id :" + id));
+        return ResponseEntity.ok(order);
+    }
 
     // update order rest api
     @PutMapping("/api/admin/orders/{id}")
@@ -249,24 +258,6 @@ public class AdminController {
         return ResponseEntity.ok(response);
     }
 
-    //    =============================== USER ====================================
-// Sửa thông tin User
-    @PutMapping("/api/user/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User userDetails) {
-        User User = userRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("User not exist with id :" + id));
-
-        if (userDetails.getName() != null) User.setName(userDetails.getName());
-        if (userDetails.getDob() != null) User.setDob(userDetails.getDob());
-        if (userDetails.getEmail() != null) User.setEmail(userDetails.getEmail());
-        if (userDetails.getGender() != null) User.setGender(userDetails.getGender());
-        if (userDetails.getPhone() != null) User.setPhone(userDetails.getPhone());
-        if (userDetails.getAddress() != null) User.setAddress(userDetails.getAddress());
-        if (userDetails.getImage() != null) User.setImage(userDetails.getImage());
-        if (userDetails.getPassword() != null) User.setPassword(userDetails.getPassword());
-        User updatedUser = userRepository.save(User);
-        return ResponseEntity.ok(updatedUser);
-    }
 
     //    ========================================= PURCHASES =================================
 //    lay ra cac oder trong thang
@@ -288,7 +279,7 @@ public class AdminController {
                 //            lay ra user
                 idUser.add(o.getUser().getId());
 //                lay ra don huy
-                if(o.getStatus().getId() == 5){
+                if (o.getStatus().getId() == 5) {
                     orderCancel.add(o);
 //                    lay ra don hoan thanh
                 } else {
@@ -297,7 +288,7 @@ public class AdminController {
             }
         }
 
-        PurchasesRequest request = new PurchasesRequest(ordersMonth.size(),orderCancel.size(), idUser.size());
+        PurchasesRequest request = new PurchasesRequest(ordersMonth.size(), orderCancel.size(), idUser.size());
         return request;
     }
 
@@ -326,7 +317,28 @@ public class AdminController {
         } else {
             return "Don hang chi duoc xac nhan boi 1 Admin";
         }
+    }
 
+//    ===================================== USER =================================================
 
+    @GetMapping("/api/admin/user")
+    public List<User> getCustomer(@RequestParam Optional<String> name) {
+        if (name.isPresent()) {
+            List<User> getCustomer = userRepository.findByNameStartsWithIgnoreCaseOrderByNameAsc(name.get());
+            return getCustomer.stream().filter(s -> !s.getRole().contains("ADMIN")).collect(Collectors.toList());
+        } else {
+            return userRepository.findAll();
+        }
+    }
+
+    @GetMapping("/api/admin/user/{email}")
+    public UserRequest infoUser(@PathVariable String email) {
+        return userService.infoUserByEmail(email);
+    }
+
+    //Tìm kiếm theo name, address, phone, email, username
+    @GetMapping("/api/admin/user/search")
+    public List<User> findNameUser(@RequestParam("searchterm") String searchterm) {
+        return userRepository.searchUser(searchterm);
     }
 }

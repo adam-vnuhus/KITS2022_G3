@@ -25,6 +25,6 @@ public class TestController {
 
     @GetMapping("/sendmail")
     public void sendMail(){
-        mailService.send("14thuhang@gmail.com", "test mail",null);
+        mailService.send("hangthu14mail@gmail.com", "test mail","content");
     }
 }
