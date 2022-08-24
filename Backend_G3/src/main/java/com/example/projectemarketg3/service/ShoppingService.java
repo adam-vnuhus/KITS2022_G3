@@ -201,7 +201,7 @@ public class ShoppingService {
             product.setSold(product.getSold() + s.getQuantity());
 
             if(product.getQuantity() - s.getQuantity() <=0){
-                product.setStatsusSell(false);
+                product.setAvailable(false);
             }
 
             productRepository.save(product);
@@ -228,7 +228,7 @@ public class ShoppingService {
             Product product = s.getProduct();
             product.setSold(product.getSold() - s.getQuantity());
             product.setQuantity(product.getQuantity() + s.getQuantity());
-            product.setStatsusSell(true);
+            product.setAvailable(true);
 
             productRepository.save(product);
         }
