@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {Link, useParams} from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { Link, useParams } from "react-router-dom";
 import CategoriesService from '../services/CategoriesService';
 import ProductService from '../services/ProductService';
 import ReactPaginate from 'react-paginate';
@@ -22,7 +22,7 @@ export default function ShopMainPage() {
     const [perPage] = useState(16);
     const [pageCount, setPageCount] = useState(0)
     //rating
-    const [rating, setRating] = useState('');
+    const [rating, setRating] = useState(1);
 
     // Price Min,Max
     const [minToPrice, setMinToPrice] = useState('');
@@ -37,6 +37,9 @@ export default function ShopMainPage() {
     const getData = async () => {
 
         let res;
+        // if (rating == 1) {
+        //     res = await ProductService.getProductRating(rating)
+        // }
         if (param.name.includes('search=')) {
             res = await ProductService.getProduct(param.name.slice(7,), addProduct, '', minToPrice, maxToPrice)
         } else if (param.name !== 'product') {
@@ -44,7 +47,7 @@ export default function ShopMainPage() {
 
         } else {
             res = await ProductService.getProduct('', '', '', '', '')
-            if (maxToPrice !== '' || minToPrice !== '' || addProduct !== '') {
+            if (maxToPrice !== '' || minToPrice !== '' || addProduct !== '' || rating !== '') {
                 res = await ProductService.getProduct('', addProduct, '', minToPrice, maxToPrice)
             }
         }
@@ -57,9 +60,9 @@ export default function ShopMainPage() {
             <div key={item.id} className="col-lg-3 col-md-6 col-sm-8">
                 <div className="product">
                     <a href="/" className="img-prod"><img className="img-fluid" src={item.image}
-                                                          alt="Colorlib Template"/>
+                        alt="Colorlib Template" />
 
-                        <div className="overlay"/>
+                        <div className="overlay" />
                     </a>
                     <div className=" text py-3 pb-4 px-3 text-center">
                         <h3><a href="/">{item.name}</a></h3>
@@ -67,9 +70,9 @@ export default function ShopMainPage() {
                             <div className="pricing">
                                 <p className="price"><span
                                     className="mr-2 price-dc">{(item.sellPrice + (item.sellPrice * 0.3)).toLocaleString('it-IT', {
-                                    style: 'currency',
-                                    currency: 'VND'
-                                })}</span>
+                                        style: 'currency',
+                                        currency: 'VND'
+                                    })}</span>
                                     <span className="price-sale">{item.sellPrice.toLocaleString('it-IT', {
                                         style: 'currency',
                                         currency: 'VND'
@@ -79,7 +82,7 @@ export default function ShopMainPage() {
                         <div className="bottom-area d-flex px-3">
                             <div className="m-auto d-flex">
                                 <Link to={"/detail/" + item.id}
-                                      className="add-to-cart d-flex justify-content-center align-items-center text-center">
+                                    className="add-to-cart d-flex justify-content-center align-items-center text-center">
                                     <span><i className="fa-solid fa-bars"></i></span>
                                 </Link>
                                 <a href="/" className="buy-now d-flex justify-content-center align-items-center mx-1">
@@ -113,7 +116,7 @@ export default function ShopMainPage() {
 
     useEffect(() => {
         getData()
-    }, [offset, minToPrice, maxToPrice, param, addProduct])
+    }, [offset, minToPrice, maxToPrice, param, addProduct, rating])
 
     const handlePageClick = (e) => {
         const selectedPage = e.selected;
@@ -146,6 +149,7 @@ export default function ShopMainPage() {
     const ratingChanged = (newRating) => {
         setRating(newRating)
     };
+    console.log(rating)
     // price check
     const handlePrice = (event) => {
         setMinToPrice(event[0])
@@ -169,7 +173,8 @@ export default function ShopMainPage() {
     })
 
 
-    const handleOrigin = (e,origin) => {
+    const handleOrigin = (e, origin) => {
+
         e.preventDefault();
         if (origin !== "Việt Nam") {
             setAddProduct(origin)
@@ -190,8 +195,8 @@ export default function ShopMainPage() {
                             <div className="sidebar__item">
                                 <h4>Price</h4>
                                 <RangeSlider max={maxIncome(maxPrice)} defaultValue={[29000, 75000]}
-                                             onChange={handlePrice}/>
-                                <br/>
+                                    onChange={handlePrice} />
+                                <br />
                                 <div>Khoảng Giá : {(minToPrice)?.toLocaleString('it-IT', {
                                     style: 'currency',
                                     currency: 'VND'
@@ -205,18 +210,18 @@ export default function ShopMainPage() {
                                 {result.map((item, index) => {
 
                                     return (
-                                        <div key ={index} onClick={(e) => handleOrigin(e,item.origin)}
-                                             className="sidebar__item__color sidebar__item__color--blue">
+                                        <div key={index} onClick={(e) => handleOrigin(e, item.origin)}
+                                            className="sidebar__item__color sidebar__item__color--blue">
                                             <label htmlFor="white">
                                                 {item.origin}
-                                                <input type="radio" id="white"/>
+                                                <input type="radio" id="white" />
                                             </label>
                                         </div>
                                     )
                                 })}
                             </div>
 
-                            <div className="sidebar__item">
+                            {/* <div className="sidebar__item">
                                 <h4>Đánh giá</h4>
                                 <ReactStars
                                     value={2} // số ngôi sao
@@ -229,8 +234,8 @@ export default function ShopMainPage() {
                                     fullIcon={<i className="bi bi-star-fill"></i>}
                                     activeColor="#ffd700"
                                 />
-                                {/* chưa chuyền được dữ liệu */}
-                            </div>
+                                
+                            </div> */}
 
                         </div>
                     </div>
@@ -254,8 +259,8 @@ export default function ShopMainPage() {
                                 </div>
                                 <div className="col-lg-4 col-md-3">
                                     <div className="filter__option">
-                                        <span className="icon_grid-2x2"/>
-                                        <span className="icon_ul"/>
+                                        <span className="icon_grid-2x2" />
+                                        <span className="icon_ul" />
                                     </div>
                                 </div>
 
@@ -276,7 +281,7 @@ export default function ShopMainPage() {
                                 onPageChange={handlePageClick}
                                 containerClassName={"pagination"}
                                 subContainerClassName={"pages pagination"}
-                                activeClassName={"active"}/>
+                                activeClassName={"active"} />
                         </div>
 
                     </div>
