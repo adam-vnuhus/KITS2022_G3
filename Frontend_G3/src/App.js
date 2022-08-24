@@ -6,7 +6,7 @@ import './Css/owl-carousel-min.css';
 import './Css/profile.css'
 import Home from './Pages/Home';
 import ShopMainPage from "./Pages/ShopMainPage";
-import {BrowserRouter, Routes, Route, useParams, useLocation, Navigate} from "react-router-dom";
+import { BrowserRouter, Routes, Route, useParams, useLocation, Navigate } from "react-router-dom";
 import Layout from './Components/Layout';
 import Cart from "./Pages/Cart";
 import Contact from "./Pages/Contact";
@@ -30,27 +30,27 @@ import AuthService from "./services/AuthService";
 
 
 function App() {
-    const [isAdmin,setAdminRole] = useState(localStorage.getItem('user')?.includes('ADMIN'));
-    const [isUser,setUserRole] = useState(localStorage.getItem('user')?.includes('USER'))
-    const [user,setUser] = useState(null);
-    
-    const logout=()=>{
+    const [isAdmin, setAdminRole] = useState(localStorage.getItem('user')?.includes('ADMIN'));
+    const [isUser, setUserRole] = useState(localStorage.getItem('user')?.includes('USER'))
+    const [user, setUser] = useState(null);
+
+    const logout = () => {
         console.log('dung co tu chay')
         setAdminRole(false);
         setUserRole(false);
         localStorage.removeItem('user')
         AuthService.logout().then(r => {
-            return <Navigate to={'/'}/>
+            return <Navigate to={'/'} />
         });
 
     }
 
-    console.log(isAdmin);
+    // console.log(isAdmin);
 
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/admin/" element={!isAdmin ?<Navigate to={'/login'}/>:<AdminLayout onSignOut={logout}/>}>
+                <Route path="/admin/" element={!isAdmin ? <Navigate to={'/login'} /> : <AdminLayout onSignOut={logout} />}>
                     <Route path="/admin/" element={<Dashboard />} />
                     <Route path="/admin/dashboard" element={<Dashboard />} />
                     <Route path="/admin/orders"
@@ -58,7 +58,7 @@ function App() {
                     <Route path="/admin/products"
                         element={<MainContent table={"product"} />} />
                 </Route>
-                <Route path="/404" element={<Error errorCode={404} message={"WE CAN'T FIND THAT PAGE!"} />}/>
+                <Route path="/404" element={<Error errorCode={404} message={"WE CAN'T FIND THAT PAGE!"} />} />
                 <Route path="/500" element={<Error errorCode={500} message={"SOMETHING WENT WRONG !"} />} />
 
                 <Route path="/" element={<Layout />}>

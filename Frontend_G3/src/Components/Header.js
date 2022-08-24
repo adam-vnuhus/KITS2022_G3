@@ -17,7 +17,7 @@ const Header = () => {
     useEffect(() => setDisplay(defaultDisplay), [param, params])
 
     const haldeAllDe = () => {
-        console.log('>>> check ', displays);
+        // console.log('>>> check ', displays);
         setDisplay(displays === 'block' ? 'none' : 'block');
     }
     const [categories, setCategories] = useState([]);
@@ -33,7 +33,7 @@ const Header = () => {
 
     }, [])
     // console.log('>>> check categories :', categories)
-    console.log(search)
+    // console.log(search)
     return (
         <>
             {/* Header Section Begin */}

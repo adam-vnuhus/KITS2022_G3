@@ -33,7 +33,7 @@ export default function ShopMainPage() {
     // Nơi sản Xuất
     const [addProduct, setAddProduct] = useState('')
 
-    console.log('>> check param', param.name.includes('search='))
+    // console.log('>> check param', param.name.includes('search='))
 
 
     // sửa API
@@ -174,7 +174,7 @@ export default function ShopMainPage() {
 
     const handleOrigin = (event) => {
 
-        setAddProduct(event)
+        setAddProduct(event.origin)
 
         console.log('>>check event', addProduct)
 
