@@ -4,6 +4,7 @@ import com.example.projectemarketg3.dto.RatingDto;
 import com.example.projectemarketg3.entity.*;
 import com.example.projectemarketg3.exception.NotFoundException;
 import com.example.projectemarketg3.repository.*;
+import com.example.projectemarketg3.request.PurchasesRequest;
 import com.example.projectemarketg3.request.StatusOrderRequest;
 import com.example.projectemarketg3.service.ShoppingService;
 import com.example.projectemarketg3.service.UserService;
@@ -273,9 +274,18 @@ public class AdminController {
     //    ========================================= PURCHASES =================================
 //    lay ra cac oder trong thang
     @GetMapping("/api/admin/purchases/{month}")
-    public List<Orders> getOrdersByCreateAt_Month(@PathVariable Integer month) {
-        return ordersRepository.getOrdersByMonth(month);
+    public PurchasesRequest getOrdersByCreateAt_Month(@PathVariable Integer month) {
+        List<Product> products = productRepository.findAll();
+
+        for (Product p : products
+             ) {
+        }
+
+//        List<Orders> orders = ordersRepository.findById()
+        return null;
     }
+
+
 
 //    ================================= Shopping ======================================================
 
