@@ -17,7 +17,7 @@ const Home = () => {
             });
 
     }, [])
-    console.log('>>> check dataProduct : ', product);
+    // console.log('>>> check dataProduct : ', product);
     return (
         <>
 
