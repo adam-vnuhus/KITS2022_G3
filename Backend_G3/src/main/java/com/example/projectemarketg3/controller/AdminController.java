@@ -14,10 +14,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 public class AdminController {
@@ -138,7 +135,7 @@ public class AdminController {
         return ResponseEntity.ok(response);
     }
 
-//    nhap them hang
+    //    nhap them hang
     @PutMapping("/api/admin/products/{id}")
     public Product updateQuantityProduct(@PathVariable Long id, @RequestParam Integer quantity) {
         Product product = productRepository.getProductById(id);
@@ -275,16 +272,39 @@ public class AdminController {
 //    lay ra cac oder trong thang
     @GetMapping("/api/admin/purchases/{month}")
     public PurchasesRequest getOrdersByCreateAt_Month(@PathVariable Integer month) {
-        List<Product> products = productRepository.findAll();
 
-        for (Product p : products
-             ) {
+        List<Orders> orders = ordersRepository.findAll();
+
+        List<Orders> ordersMonth = new ArrayList<>();
+        List<Orders> orderCancel = new ArrayList<>();
+        Set<Long> idUser = new HashSet<>();
+
+        for (Orders o : orders
+        ) {
+
+//            Loc ra theo thang
+            Date date = o.getCreateAt();
+            if (date.getMonth() + 1 == month) {
+                //            lay ra user
+                idUser.add(o.getUser().getId());
+//                lay ra don huy
+                if(o.getStatus().getId() == 5){
+                    orderCancel.add(o);
+//                    lay ra don hoan thanh
+                } else {
+                    ordersMonth.add(o);
+                }
+            }
         }
 
-//        List<Orders> orders = ordersRepository.findById()
-        return null;
+        PurchasesRequest request = new PurchasesRequest(ordersMonth.size(),orderCancel.size(), idUser.size());
+        return request;
     }
 
+    @GetMapping("/api/admin/orders-status/{id}")
+    public List<Orders> getOrdersByCategory(@PathVariable Long id) {
+        return ordersRepository.findByStatus_IdOrderByCreateAtDesc(id);
+    }
 
 
 //    ================================= Shopping ======================================================
@@ -301,10 +321,10 @@ public class AdminController {
 
             orders.get().setStatus(status.get());
             orders.get().setUserSucceed(user);
-             ordersRepository.save(orders.get());
-             return "Cap nhat trang thai don hang thanh cong ";
+            ordersRepository.save(orders.get());
+            return "Cap nhat trang thai don hang thanh cong ";
         } else {
-           return "Don hang chi duoc xac nhan boi 1 Admin";
+            return "Don hang chi duoc xac nhan boi 1 Admin";
         }
 
 

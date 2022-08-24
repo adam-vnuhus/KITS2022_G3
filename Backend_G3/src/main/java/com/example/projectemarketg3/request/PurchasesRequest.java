@@ -10,6 +10,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PurchasesRequest {
-    private Long purchases;
-    private Long quantityUser;
+    private Integer purchases;
+    private Integer cancel;
+    private Integer quantityUser;
 }

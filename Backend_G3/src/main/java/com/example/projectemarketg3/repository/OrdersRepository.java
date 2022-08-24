@@ -17,4 +17,8 @@ public interface OrdersRepository extends JpaRepository<Orders, Long> {
 @Query(value = "SELECT * FROM orders o WHERE o.create_at LIKE %/?1/% ",nativeQuery = true)
     List<Orders> getOrdersByMonth(int month);
 
+    List<Orders> findByStatus_IdOrderByCreateAtDesc(Long id);
+
+
+
 }
