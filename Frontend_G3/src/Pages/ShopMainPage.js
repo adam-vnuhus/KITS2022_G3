@@ -87,9 +87,7 @@ export default function ShopMainPage() {
                                 <a href="/" className="buy-now d-flex justify-content-center align-items-center mx-1">
                                     <span><i className="fa-solid fa-cart-shopping"></i></span>
                                 </a>
-                                <a href="/" className="heart d-flex justify-content-center align-items-center ">
-                                    <span><i className="fa-solid fa-heart"></i></span>
-                                </a>
+
                             </div>
                         </div>
                     </div>

@@ -105,7 +105,7 @@ const Header = () => {
                         <div className="col-lg-3">
                             <div className="header__cart">
                                 <ul>
-                                    <li><Link to="/"><i className="fa fa-heart" /> <span>1</span></Link></li>
+
                                     <li><Link to="/cart"><i className="fa fa-shopping-bag" /> <span>3</span></Link></li>
                                 </ul>
                                 <div className="header__cart__price">item: <span>$150.00</span></div>

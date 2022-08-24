@@ -38,7 +38,7 @@ const Categories = () => {
                     categories.map((item, index) => {
                         return (
 
-                            <div className="card" style={{ width: '18rem' }}>
+                            <div key={index + 1} className="card" style={{ width: '18rem' }}>
                                 <Link to={'/shop/' + item.name}>
                                     <img className="" src={item.url} alt="" style={{ width: 250 }} />
                                     <div className="card-body" style={{ height: 80 }}>

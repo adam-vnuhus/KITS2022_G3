@@ -70,7 +70,7 @@ function App() {
                     <Route path="/cart" element={!isUser ? <Navigate to={'/login'} replace={true} /> : <Cart />} />
                     <Route path="/contact" element={<Contact />} />
                     <Route path="/checkout" element={<Checkout />} />
-                    <Route path="/login" element={!isUser ? <SignIn onLogin={Login} /> : <Home />} />
+                    <Route path="/login" element={<SignIn onLogin={Login} />} />
                     <Route path="/detail/:name" element={<DetailProduct />} />
                     <Route path="/profile" element={!isUser ? <Navigate to={'/login'} state={"/profile"} replace={true} /> : <ProfileCustomer />} />
                     <Route path="/testdetail" element={<DetailOrder />} />
