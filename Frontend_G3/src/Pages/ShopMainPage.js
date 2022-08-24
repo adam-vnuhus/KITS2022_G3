@@ -41,18 +41,18 @@ export default function ShopMainPage() {
 
         let res;
         if (param.name.includes('search=')) {
-            res = await ProductService.SearchProduct(param.name.slice(7,), minToPrice, maxToPrice)
+            res = await ProductService.getProduct(param.name.slice(7,), addProduct, '', minToPrice, maxToPrice)
         }
         else if (param.name !== 'product') {
-            res = await ProductService.getProductCategoriesName(param.name, minToPrice, maxToPrice, addProduct)
+            res = await ProductService.getProduct('', addProduct, param.name, minToPrice, maxToPrice)
 
         } else {
             res = await ProductService.getProduct('', '', '', '', '')
-            if (maxToPrice !== '' || minToPrice !== '') {
-                res = await ProductService.getProduct('', '', '', minToPrice, maxToPrice)
+            if (maxToPrice !== '' || minToPrice !== '' || addProduct !== '') {
+                res = await ProductService.getProduct('', addProduct, '', minToPrice, maxToPrice)
             }
         }
-        console.log('>> check res', res)
+        // console.log('>> check res', res)
         const data = res.data;
 
         const slice = data.slice(offset, offset + perPage)
@@ -174,7 +174,7 @@ export default function ShopMainPage() {
 
     const handleOrigin = (event) => {
 
-        setAddProduct(event.origin)
+        setAddProduct(event)
 
         console.log('>>check event', addProduct)
 
