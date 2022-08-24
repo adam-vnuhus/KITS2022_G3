@@ -64,8 +64,6 @@ public class User implements UserDetails, Serializable {
     @Column(name = "enabled")
     private Boolean enabled = false;
 
-
-
     @Type(type = "json")
     @Column(name = "role", columnDefinition = "json")
     private List<String> role;
@@ -132,5 +130,11 @@ public class User implements UserDetails, Serializable {
         this.email = email;
         this.password = password;
         this.role = role;
+    }
+
+
+    @PreRemove
+    public void preRemove() {
+
     }
 }

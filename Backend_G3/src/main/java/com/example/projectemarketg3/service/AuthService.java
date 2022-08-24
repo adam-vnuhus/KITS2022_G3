@@ -105,8 +105,8 @@ public class AuthService {
         tokenRepository.save(token);
 
 //        GUI MAIL
-        String link = "TOKEN = " + tokenString;
-        mailService.send(user.getEmail(), "xac thuc tai khoan ", link);
+        String link = "https://market-g3.herokuapp.com/api/auth/confirm?" + tokenString;
+        mailService.send(user.getEmail(), "Chúc mừng bạn đã đăng kí tài khoản thành công , Link xác thực : ", link);
         return link;
     }
 
