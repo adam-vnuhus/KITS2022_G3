@@ -34,23 +34,25 @@ function App() {
     const [isUser, setUserRole] = useState(localStorage.getItem('user')?.includes('USER'))
     const [user, setUser] = useState(null);
 
-    const logout = () => {
-        console.log('dung co tu chay')
+    const Login = () => {
+        setAdminRole(localStorage.getItem('user')?.includes('ADMIN'));
+        setUserRole(true);
+    }
+
+    const Logout = () => {
         setAdminRole(false);
         setUserRole(false);
         localStorage.removeItem('user')
-        AuthService.logout().then(r => {
-            return <Navigate to={'/'} />
+        localStorage.removeItem('uid')
+        AuthService.logout().then(() => {
+            console.log('You have been logged out !!');
         });
 
     }
-
-    // console.log(isAdmin);
-
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/admin/" element={!isAdmin ? <Navigate to={'/login'} /> : <AdminLayout onSignOut={logout} />}>
+                <Route path="/admin/" element={!isAdmin ? <Navigate to={'/login'} state={"/admin"} replace={true}/> : <AdminLayout onSignOut={Logout} />}>
                     <Route path="/admin/" element={<Dashboard />} />
                     <Route path="/admin/dashboard" element={<Dashboard />} />
                     <Route path="/admin/orders"
@@ -65,12 +67,12 @@ function App() {
                     <Route index element={<Home />} />
                     <Route path="/shop/:name" element={<ShopMainPage />} />
                     <Route path="/shop" element={<ShopMainPage />} />
-                    <Route path="/cart" element={<Cart />} />
+                    <Route path="/cart" element={!isUser ? <Navigate to={'/login'} replace={true}/>:<Cart />} />
                     <Route path="/contact" element={<Contact />} />
                     <Route path="/checkout" element={<Checkout />} />
-                    <Route path="/login" element={<SignIn />} />
+                    <Route path="/login" element={!isUser ?<SignIn onLogin={Login}/>:<Home />} />
                     <Route path="/detail/:id" element={<DetailProduct />} />
-                    <Route path="/profile" element={<ProfileCustomer />} />
+                    <Route path="/profile" element={!isUser ? <Navigate to={'/login'} state={"/profile"} replace={true}/>:<ProfileCustomer />} />
                     <Route path="/testdetail" element={<DetailOrder />} />
                     <Route path="/test" element={<DeleteConfirmModal />} />
 

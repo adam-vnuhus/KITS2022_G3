@@ -8,15 +8,14 @@ class AuthService {
             .then((response) => {
                 if (response.data) {
                     localStorage.setItem('user', JSON.stringify(response.data))
+                    localStorage.setItem('uid', JSON.stringify(response.data.id))
                 }
                 return response.data
             })
     }
 
     logout() {
-        return axios.get(AUTH_API_BASE_URL + '/logout').then(()=> {
-            console.log('get out');
-        },() => console.log('logout failed'))
+        return axios.get(AUTH_API_BASE_URL + '/logout');
     }
 
     register(credentials) {

@@ -60,9 +60,9 @@ const Home = () => {
                                                         <Link to={"/detail/" + item.id} className="add-to-cart d-flex justify-content-center align-items-center text-center">
                                                             <span><i className="fa-solid fa-bars"></i></span>
                                                         </Link>
-                                                        <a href="/" className="buy-now d-flex justify-content-center align-items-center mx-1">
+                                                        <Link to="/cart" className="buy-now d-flex justify-content-center align-items-center mx-1">
                                                             <span><i className="fa-solid fa-cart-shopping"></i></span>
-                                                        </a>
+                                                        </Link>
                                                         <a href="/" className="heart d-flex justify-content-center align-items-center ">
                                                             <span><i className="fa-solid fa-heart"></i></span>
                                                         </a>

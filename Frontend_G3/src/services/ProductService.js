@@ -8,7 +8,10 @@ class ProductService {
         let data = axios.get(PRODUCT_API_BASE_URL + '?name=' + name + '&origin=' + origin + '&category=' + category + '&start=' + start + '&end=' + end);
         return data;
     }
-
+    getProductRating(rating) {
+        let data = axios.get(PRODUCT_API_BASE_URL + '/product-star/' + rating);
+        return data;
+    }
 
     getProductCategoriesName(categoryName, start, end, origin) {
         let dataCategories = axios.get(PRODUCT_API_BASE_URL + '?category=' + categoryName + '&start=' + start + '&end=' + end + '&name=' + origin);
