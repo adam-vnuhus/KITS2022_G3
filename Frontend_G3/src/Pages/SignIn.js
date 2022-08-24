@@ -13,7 +13,6 @@ async function registerUser(credentials) {
 
 export default function SignIn({onLogin}) {
     const {state} = useLocation();
-    console.log(1,state)
     const [isHidden, SetHidden] = useState(`${styles["is-hidden"]}`);
     const [isNotHidden, SetNotHidden] = useState("");
     const [isTxr, SetTxr] = useState(`${styles["is-txr"]}`);
@@ -37,8 +36,7 @@ export default function SignIn({onLogin}) {
                 onLogin();
             }, () => window.alert('Đăng nhập thất bại, vui lòng thử lại'))
             .then(() => {
-                console.log(2,state)
-                if (!state) Navigation('/'); else Navigation(state);
+                if (!state) Navigation('/'); else Navigation(`${state}`);
             });
     }
 

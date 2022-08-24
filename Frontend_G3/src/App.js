@@ -67,12 +67,12 @@ function App() {
                     <Route index element={<Home />} />
                     <Route path="/shop/:name" element={<ShopMainPage />} />
                     <Route path="/shop" element={<ShopMainPage />} />
-                    <Route path="/cart" element={!isUser ? <Navigate to={'/login'} state={"/cart"} replace={true}/>:<Cart />} />
+                    <Route path="/cart" element={!isUser ? <Navigate to={'/login'} replace={true}/>:<Cart />} />
                     <Route path="/contact" element={<Contact />} />
                     <Route path="/checkout" element={<Checkout />} />
-                    <Route path="/login" element={<SignIn onLogin={Login}/>} />
+                    <Route path="/login" element={!isUser ?<SignIn onLogin={Login}/>:<Home />} />
                     <Route path="/detail/:id" element={<DetailProduct />} />
-                    <Route path="/profile" element={<ProfileCustomer />} />
+                    <Route path="/profile" element={!isUser ? <Navigate to={'/login'} state={"/profile"} replace={true}/>:<ProfileCustomer />} />
                     <Route path="/testdetail" element={<DetailOrder />} />
                     <Route path="/test" element={<DeleteConfirmModal />} />
 
