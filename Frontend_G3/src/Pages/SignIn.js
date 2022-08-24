@@ -13,7 +13,6 @@ async function registerUser(credentials) {
 }
 
 export default function SignIn({from}){
-
     const[isHidden,SetHidden] = useState(`${styles["is-hidden"]}`);
     const[isNotHidden,SetNotHidden] = useState("");
     const[isTxr,SetTxr] = useState(`${styles["is-txr"]}`);
@@ -33,7 +32,7 @@ export default function SignIn({from}){
             password
 
         }).then(()=> {
-            if(!from)Navigation('/');else Navigation(from);
+            if(from!==null) Navigation(`${from}`); else Navigation('/')
         },() => window.alert('Đăng nhập thất bại, vui lòng thử lại'));
         }
 

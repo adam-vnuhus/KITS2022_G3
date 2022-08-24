@@ -35,18 +35,15 @@ function App() {
     const [user, setUser] = useState(null);
 
     const logout = () => {
-        console.log('dung co tu chay')
         setAdminRole(false);
         setUserRole(false);
         localStorage.removeItem('user')
-        AuthService.logout().then(r => {
-            return <Navigate to={'/'} />
+        localStorage.removeItem('uid')
+        AuthService.logout().then(() => {
+            console.log('You have been logged out !!');
         });
 
     }
-
-    // console.log(isAdmin);
-
     return (
         <BrowserRouter>
             <Routes>
@@ -65,10 +62,10 @@ function App() {
                     <Route index element={<Home />} />
                     <Route path="/shop/:name" element={<ShopMainPage />} />
                     <Route path="/shop" element={<ShopMainPage />} />
-                    <Route path="/cart" element={<Cart />} />
+                    <Route path="/cart" element={!isUser ? <Navigate to={'/login'} />:<Cart />} />
                     <Route path="/contact" element={<Contact />} />
                     <Route path="/checkout" element={<Checkout />} />
-                    <Route path="/login" element={<SignIn />} />
+                    <Route path="/login" element={<SignIn from={"/"}/>} />
                     <Route path="/detail/:id" element={<DetailProduct />} />
                     <Route path="/profile" element={<ProfileCustomer />} />
                     <Route path="/testdetail" element={<DetailOrder />} />
