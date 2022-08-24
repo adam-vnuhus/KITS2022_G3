@@ -30,9 +30,4 @@ public class RankController {
     }
 
 
-
-    @GetMapping("/users/{name}")
-    public List<UserRequest> getAllUserByRank(@PathVariable String name){
-        return userService.findDistinctByRanking_NameOrderByRank_dateDesc(name);
-    }
 }

@@ -27,9 +27,11 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query("select distinct u from User u where u.ranking.name = ?1 order by u.rank_date DESC")
     List<User> findDistinctByRanking_NameOrderByRank_dateDesc(String name);
 
+    List<User> findByNameLikeIgnoreCaseOrderByRanking_IdDesc(String name);
 
-    @Query("select u from User u where u.name like %:name% or u.email like %:name% or u.phone like %:name% or u.address like %:name%")
-    List<User> searchUser(String name);
+    List<User> findByNameContainsIgnoreCaseOrderByRanking_IdDesc(String name);
+
+
 
     List<User> findByNameStartsWithIgnoreCaseOrderByNameAsc(String name);
 

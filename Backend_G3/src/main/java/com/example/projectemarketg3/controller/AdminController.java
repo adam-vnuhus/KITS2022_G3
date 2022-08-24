@@ -170,6 +170,12 @@ public class AdminController {
         return rankingNew;
     }
 
+    //lấy ra danh sách khách có cùng rank theo tên rank
+    @GetMapping("/api/admin/rank-users/{name}")
+    public List<UserRequest> getAllUserByRank(@PathVariable String name) {
+        return userService.findDistinctByRanking_NameOrderByRank_dateDesc(name);
+    }
+
     //    ====================================== RATING =======================================
 // create a new rating rest api
     @PostMapping("/api/user/rating")
@@ -192,23 +198,22 @@ public class AdminController {
     }
 
 
-    // update rating rest api
-    @PutMapping("/api/user/rating/{id}")
-    public ResponseEntity<Rating> updateRating(@PathVariable Long id, @RequestBody Boolean check) {
+    // xác nhận rating nếu là true cập nhật false và ngược lại
+    @PutMapping("/api/admin/user-rating/{id}")
+    public ResponseEntity<Rating> updateRating(@PathVariable Long id) {
         Rating rating = ratingRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException
                         ("rating not exist with id :" + id));
 
         rating.setCreateAt(new Date(System.currentTimeMillis()));
-        rating.setChecking(check);
+        rating.setChecking(!rating.getChecking());
 
         ratingRepository.save(rating);
 
         return ResponseEntity.ok(ratingRepository.save(rating));
     }
 
-    // delete rating rest api
-    @DeleteMapping("/api/admin/rating/{id}")
+    // xóa rrating    @DeleteMapping("/api/admin/rating/{id}")
     public ResponseEntity<Map<String, Boolean>> deleteRating(@PathVariable Long id) {
         Rating rating = ratingRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException
@@ -336,9 +341,9 @@ public class AdminController {
         return userService.infoUserByEmail(email);
     }
 
-    //Tìm kiếm theo name, address, phone, email, username
-    @GetMapping("/api/admin/user/search")
-    public List<User> findNameUser(@RequestParam("searchterm") String searchterm) {
-        return userRepository.searchUser(searchterm);
+    //Tìm kiếm theo name user
+    @GetMapping("/api/admin/user-search")
+    public List<User> findNameUser(@RequestParam("name") String name) {
+        return userRepository.findByNameContainsIgnoreCaseOrderByRanking_IdDesc(name);
     }
 }

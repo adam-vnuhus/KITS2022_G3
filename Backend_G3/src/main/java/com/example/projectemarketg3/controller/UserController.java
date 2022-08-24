@@ -46,4 +46,10 @@ public class UserController {
         return ordersRepository.getByUser_IdOrderByCreateAtDesc(user.getId());
     }
 
+    @GetMapping("/my-info")
+    public User myInfo(){
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return user;
+    }
+
 }
