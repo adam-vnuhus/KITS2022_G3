@@ -174,11 +174,16 @@ export default function ShopMainPage() {
 
     const handleOrigin = (event) => {
 
-        setAddProduct(event.origin)
 
-        console.log('>>check event', addProduct)
+        console.log('>>check event', event)
+        if (event.origin != "Việt Nam") {
+            setAddProduct(event.origin)
+        } else {
+            setAddProduct(event.origin)
+        }
 
     }
+    console.log('>>check add', addProduct)
     return <div>
         {/* Product Section Begin */}
         <section className="products spad">
