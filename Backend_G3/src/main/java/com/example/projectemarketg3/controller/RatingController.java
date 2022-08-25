@@ -78,8 +78,8 @@ public class RatingController {
     }
 
 
-    @GetMapping("/userinnerjoinrating/{nameProduct}")
-    public List<Rating> getUserInnerJoinRating(@PathVariable String nameProduct){
+    @GetMapping("/userrating/{nameProduct}")
+    public List<Rating> getUserRating(@PathVariable String nameProduct){
         return ratingRepository.getUserRating(nameProduct);
     }
 }

@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import {useParams} from 'react-router-dom';
-
+import {useCart} from 'react-use-cart';
 import ProductService from '../services/ProductService';
 import ReactStars from 'react-stars';
 
@@ -15,7 +15,8 @@ const DetailProduct = () => {
     const [product, setProduct] = useState([]);
     const [avgStarProduct, setAvgStarProduct] = useState(0);
     const [countReviewProduct, setCountReviewProduct] = useState(0);
-    const [userInnerJoinRating, setUserInnerJoinRating] = useState([]);
+    const [userRating, setUserRating] = useState([]);
+    const [quantity, setQuantity] = useState(1)
 
 
     async function fetchData() {
@@ -24,7 +25,7 @@ const DetailProduct = () => {
         setProduct(data)
 
     }
-
+    const { addItem } = useCart();
 
     useEffect(() => {
         fetchData()
@@ -52,11 +53,11 @@ const DetailProduct = () => {
     });
 
     useEffect(() => {
-        let user_inner_join_rating = 'http://localhost:8080/api/v1/rating/userinnerjoinrating/' + params.name;
-        fetch(user_inner_join_rating)
+        let user_rating = 'http://localhost:8080/api/v1/rating/userrating/' + params.name;
+        fetch(user_rating)
             .then((response) => response.json())
             .then((data) => {
-                setUserInnerJoinRating(data)
+                setUserRating(data)
             })
     }, []);
 
@@ -125,47 +126,52 @@ const DetailProduct = () => {
                                             />
                                             <span>({countReviewProduct} reviews)</span>
                                         </div>
-                                        <div className="product__details__price">{product[0].sellPrice} </div>
+                                        <div className="product__details__price">{product[0].price.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })} </div>
                                         <p>Bí xanh (bí đao) L1 WinEco là loại thực phẩm quen thuộc và phổ biến với người
                                             Việt Nam. Bí xanh có thể chế biến thành nhiều món ăn khác nhau như bí luộc,
                                             canh bí hầm xương</p>
                                         {/* data not ok */}
                                         <div className="input-group col-md-6 d-flex mb-3">
                                         <span className="input-group-btn mr-2">
-                                            <button type="button" className="fa-solid fa-chevron-left" data-type="minus"
-                                                    data-field>
+                                            <button type="button" className="fa-solid fa-chevron-left"
+                                                    data-type="minus"
+                                                    data-field
+                                                    onClick={() => quantity>1?setQuantity(quantity-1):setQuantity(1)}>
                                                 <i className="ion-ios-remove"/>
                                             </button>
                                         </span>
                                             <input type="text" id="quantity" name="quantity"
-                                                   className="form-control input-number" defaultValue={1} min={1}
-                                                   max={100}/>
+                                                   className="form-control input-number col-md-5" defaultValue={1} value={quantity}
+                                                   onChange={(e) =>
+                                                       setQuantity(eval(e.target.value)<product[0].quantity&&eval(e.target.value)>1
+                                                           ?eval(e.target.value)
+                                                           :eval(e.target.value)>product[0].quantity
+                                                               ?product[0].quantity:1)}/>
                                             <span className="input-group-btn ml-2">
-                                            <button type="button" className="fa-solid fa-angle-right" data-type="plus"
-                                                    data-field>
+                                            <button type="button" className="fa-solid fa-angle-right"
+                                                    data-type="plus"
+                                                    data-fiel
+                                                    onClick={() => setQuantity(quantity<product[0].quantity?quantity+1:product[0].quantity)}>
                                                 <i className="ion-ios-add"/>
                                             </button>
                                         </span>
                                         </div>
+                                            <button
+                                                style={{fontSize:'20px',
+                                                    border: '1px solid blue',
+                                                    borderRadius: '5px',
+                                                    padding: '5px'
+                                                }}
+                                                onClick={() => addItem(product[0], quantity)}>
+                                                ADD TO CARD
+                                            </button>
 
-                                        <a href="/" className="primary-btn">ADD TO CARD</a>
 
-                                        <ul>
-                                            <li><b>Availability</b> <span>In Stock</span></li>
-                                            <li><b>Shipping</b>
-                                                <span>01 day shipping. <samp>Free pickup today</samp></span></li>
-                                            <li><b>Weight</b> <span>0.5 kg</span></li>
-                                            <li><b>Share on</b>
-                                                <div className="share">
-                                                    <Link to="/"><i className="fa-brands fa-facebook"></i></Link>
-                                                    <Link to="/"><i className="fa-brands fa-twitter"></i></Link>
-                                                    <Link to="/"><i className="fa-brands fa-linkedin-in"></i></Link>
-                                                    <Link to="/"><i className="fa-brands fa-pinterest-p"></i></Link>
-                                                </div>
-                                            </li>
-                                        </ul>
+
                                     </div>
+
                                 </div>
+
                                 <div className="col-lg-12">
                                     <div className="product__details__tab">
                                         <Tabs defaultActiveKey="second">
@@ -270,7 +276,7 @@ const DetailProduct = () => {
                 <div className="container">
                     <div className="be-comment-block">
                         <h1 className="comments-title">Comments ({countReviewProduct})</h1>
-                        {userInnerJoinRating.map((item, index) => <>
+                        {userRating.map((item, index) => <>
 
                             <div className="be-comment">
                                 <div className="be-img-comment">
