@@ -66,15 +66,15 @@ public class RatingController {
     }
 
     //    Get AVG star of product
-    @GetMapping("/avg/{id}")
-    public Double getAVGStarOfProduct(@PathVariable Long id){
-        return ratingRepository.getAVGStarOfProduct(id);
+    @GetMapping("/avg/{nameProduct}")
+    public String getAVGStarOfProduct(@PathVariable String nameProduct){
+        return ratingRepository.getAVGStarOfProduct(nameProduct);
     }
 
     //    Get Count star of products
-    @GetMapping("/count/{id}")
-    public Integer getCountStarOfProduct(@PathVariable Long id){
-        return ratingRepository.getCountStarOfProduct(id);
+    @GetMapping("/count/{nameProduct}")
+    public String getCountStarOfProduct(@PathVariable String nameProduct){
+        return ratingRepository.getCountStarOfProduct(nameProduct);
     }
 
 
