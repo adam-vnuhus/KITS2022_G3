@@ -80,7 +80,7 @@ export default function ShopMainPage() {
                         </div>
                         <div className="bottom-area d-flex px-3">
                             <div className="m-auto d-flex">
-                                <Link to={"/detail/" + item.id}
+                                <Link to={"/detail/" + item.name}
                                     className="add-to-cart d-flex justify-content-center align-items-center text-center">
                                     <span><i className="fa-solid fa-bars"></i></span>
                                 </Link>

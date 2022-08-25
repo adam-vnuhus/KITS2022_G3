@@ -20,11 +20,16 @@ public interface RatingRepository extends JpaRepository<Rating, Long> {
 //            "from Rating r order by r.createAt DESC")
 //    List<RatingDto> getByOrderByCreateAtDesc();
 
-    @Query("select AVG(r.star) from Rating r where r.checking = true and r.productID = :id")
-    Double getAVGStarOfProduct(Long id);
+    @Query("select AVG(r.star) from Rating r inner join Product p\n" +
+            "                           on p.id = r.productID\n" +
+            "                           where r.checking = true and p.name = :nameProduct")
+    String getAVGStarOfProduct(String nameProduct);
 
-    @Query("select COUNT(r.star) from Rating r where r.checking = true and r.productID = :id")
-    Integer getCountStarOfProduct(Long id);
+
+    @Query("select COUNT(r.star) from Rating r inner join Product p\n" +
+            "                           on p.id = r.productID\n" +
+            "                           where r.checking = true and p.name = :nameProduct")
+    String getCountStarOfProduct(String nameProduct);
 
     @Query(value = "SELECT */*u.name, u.image,r.star,r.note*/ FROM user u INNER JOIN rating r " +
             "ON u.id = r.user_id " +
