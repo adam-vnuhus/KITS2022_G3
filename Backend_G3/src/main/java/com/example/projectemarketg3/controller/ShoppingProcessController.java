@@ -7,6 +7,7 @@ import com.example.projectemarketg3.dto.UserIdDto;
 import com.example.projectemarketg3.entity.*;
 import com.example.projectemarketg3.repository.*;
 import com.example.projectemarketg3.request.StatusOrderRequest;
+import com.example.projectemarketg3.request.UserRequest;
 import com.example.projectemarketg3.security.UpdatePassRequest;
 import com.example.projectemarketg3.service.AuthService;
 import com.example.projectemarketg3.service.OrderService;
@@ -56,11 +57,12 @@ public class ShoppingProcessController {
     }
 
     //    XEM GIO HANG theo id khach
-    @GetMapping("/carts/{id}")
-    public List<DetailDto> cartByUserId(@PathVariable Long id) {
+    @GetMapping("/carts")
+    public List<DetailDto> cartByUserId() {
 //        lay ra user
-//        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User user = userRepository.getUserById(id);
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+//        User user = userRepository.getUserById(id);
 
 
 //        lay ra danh sach san pham co trong gio hang o detail theo id khach

@@ -5,6 +5,7 @@ import com.example.projectemarketg3.entity.Orders;
 import com.example.projectemarketg3.entity.User;
 import com.example.projectemarketg3.repository.OrdersRepository;
 import com.example.projectemarketg3.repository.UserRepository;
+import com.example.projectemarketg3.request.UserRequest;
 import com.example.projectemarketg3.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -40,18 +41,18 @@ User user = userRepository.getUserById(infoUser.getIdUser());
         return infoUser;
     }
 
-    @GetMapping("/order-history/{id}")
-    public List<Orders> historyOrderUser(@PathVariable Long id) {
-//        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User user = userRepository.getUserById(id);
+    @GetMapping("/order-history")
+    public List<Orders> historyOrderUser() {
+        UserRequest user = (UserRequest) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        User user = userRepository.getUserById(id);
 
         return ordersRepository.getByUser_IdOrderByCreateAtDesc(user.getId());
     }
 
-    @GetMapping("/my-info/{id}")
-    public User myInfo(@PathVariable Long id){
-//        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return userRepository.getUserById(id);
+    @GetMapping("/my-info")
+    public UserRequest myInfo(){
+        UserRequest user = (UserRequest) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return user;
     }
 
 }

@@ -4,6 +4,7 @@ import com.example.projectemarketg3.dto.RatingDto;
 import com.example.projectemarketg3.entity.*;
 import com.example.projectemarketg3.exception.NotFoundException;
 import com.example.projectemarketg3.repository.*;
+import com.example.projectemarketg3.request.OrderOffRequest;
 import com.example.projectemarketg3.request.PurchasesRequest;
 import com.example.projectemarketg3.request.StatusOrderRequest;
 import com.example.projectemarketg3.request.UserRequest;
@@ -110,6 +111,18 @@ public class AdminController {
         return order;
     }
 
+//    ORDER OFF LINE
+    @PostMapping("/api/admin/order-off")
+    public Orders orderOffLine(@RequestBody OrderOffRequest request){
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        Orders orders = Orders.builder()
+
+                .build();
+
+        return orders;
+    }
+
 //======================= DETAILS ORDER ============================
 
     // delete order detail rest api
@@ -149,7 +162,7 @@ public class AdminController {
     public Product updateQuantityProduct(@PathVariable Long id, @RequestParam Integer quantity) {
         Product product = productRepository.getProductById(id);
         product.setQuantity(product.getQuantity() + quantity);
-        product.setStatsusSell(true);
+        product.setAvailable(true);
         return productRepository.save(product);
     }
 

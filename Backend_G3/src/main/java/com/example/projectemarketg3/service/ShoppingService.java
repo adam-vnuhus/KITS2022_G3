@@ -49,8 +49,8 @@ public class ShoppingService {
         Optional<Product> product = productRepository.findById(detailDto.getProductId());
         int quantityProduct = product.get().getQuantity();
 //        lay ra user
-//        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User user = userRepository.getUserById(detailDto.getUserId());
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        User user = userRepository.getUserById(detailDto.getUserId());
 
 
 //        kiem tra xem trong gio hang da co san pham vua click add cart chua
@@ -83,8 +83,8 @@ public class ShoppingService {
         Optional<Product> product = productRepository.findById(detailDto.getProductId());
         int quantityProduct = product.get().getQuantity();
         //        lay ra user
-//        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User user = userRepository.getUserById(detailDto.getUserId());
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        User user = userRepository.getUserById(detailDto.getUserId());
 
 
 //        kiem tra xem trong gio hang da co san pham vua click add cart chua
@@ -116,8 +116,8 @@ public class ShoppingService {
         Optional<Status> status = statusRepository.findById(1L);
 
         //        lay ra user
-//        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User user = userRepository.getUserById(info.getUserId());
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        User user = userRepository.getUserById(info.getUserId());
 
 
 //        lay ra danh sach san pham hien co trong gio hang theo id khach
@@ -259,8 +259,8 @@ public class ShoppingService {
         Product product = productRepository.getProductById(ratingDto.getProductId());
 
 //        lay ra user
-//        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User user = userRepository.getUserById(ratingDto.getUserId());
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        User user = userRepository.getUserById(ratingDto.getUserId());
 
         Rating rating = Rating.builder()
                 .createAt(new Date(System.currentTimeMillis()))

@@ -31,8 +31,6 @@ public class Orders {
     @Column(name = "total_price")
     private Long totalPrice;
 
-
-
 //    info User
 
     @Column(name = "ship")
