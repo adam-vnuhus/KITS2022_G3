@@ -1,10 +1,20 @@
 import React, {useEffect, useState} from 'react';
 import './mainContent.css';
-import PageHeader from "./PageHeader";
+
 import AdminEditForm from "./AdminEditForm";
 import DeleteConfirmModal from "./DeleteConfirmModal";
 import TableMetadata from "../TableMetadata";
 import {useLocation} from "react-router-dom";
+
+export function PageHeader ({ btnText, onClick }) {
+    return(
+        <div className='mainContent_dashboard-header-container'>
+            {btnText &&
+                <button className='mainContent_dashboard-header-btn' type={"button"} onClick={onClick}>{btnText}</button>||<span className=""></span>
+            }
+        </div>
+    )
+}
 
 const calculateRange = (data, rowsPerPage) => {
     const range = [];

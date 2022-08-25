@@ -6,9 +6,9 @@ class AdminService {
         let entity = table;
         let columns, data, havingAddNew
         switch (table) {
-            case 'products':
+            case 'product':
                 columns = axios.get('http://localhost:8080/api/v1/metadata/Product/variables');
-                data = axios.get('http://localhost:8080/api/v1/products')
+                data = axios.get('http://localhost:8080/api/v1/products?name=&origin=&category=&start=&end=')
                 havingAddNew = true;
                 break;
             case 'order':
@@ -30,6 +30,20 @@ class AdminService {
                 return null;
         }
         return [entity, columns, data, havingAddNew]
+    }
+
+    fetchOnlyData(table){
+        let data = null;
+        switch (table) {
+            case 'product':
+                data = axios.get('http://localhost:8080/api/v1/products?name=&origin=&category=&start=&end=')
+                return data;
+            case 'user':
+                data = axios.get('http://localhost:8080/api/admin/user')
+                return data;
+            default:
+                return data;
+        }
     }
 }
 

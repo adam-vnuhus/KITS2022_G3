@@ -31,9 +31,9 @@ public interface RatingRepository extends JpaRepository<Rating, Long> {
             "                           where r.checking = true and p.name = :nameProduct")
     String getCountStarOfProduct(String nameProduct);
 
-    @Query(value = "SELECT */*u.name, u.image,r.star,r.note*/ FROM user u INNER JOIN rating r " +
-            "ON u.id = r.user_id " +
-            "WHERE r.checking = true and r.product_id = :id", nativeQuery = true)
-    List<Rating> getUserRating(Long id);
+    @Query(value = "SELECT * FROM user u INNER JOIN rating r ON u.id = r.user_id\n" +
+            "                    INNER JOIN product p ON p.id = r.product_id\n" +
+            "    WHERE r.checking = true and p.name = :nameProduct", nativeQuery = true)
+    List<Rating> getUserRating(String nameProduct);
 
 }

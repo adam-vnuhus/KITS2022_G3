@@ -14,18 +14,24 @@ const menu = [
     },
     {
         id: 2,
-        icon: <i className="fa-brands fa-product-hunt"/>,
+        icon: <i className="fa-solid fa-file"/>,
         path: '/admin/orders',
         title: 'Orders',
     },
     {
         id: 3,
-        icon: <i className="fa-solid fa-truck"/>,
+        icon: <i className="fa-solid fa-gifts"/>,
         path: '/admin/products',
         title: 'Products',
     },
     {
         id: 4,
+        icon: <i className="fa-solid fa-file-circle-plus"/>,
+        path: '/admin/orders/new',
+        title: 'New Order',
+    },
+    {
+        id: 10,
         icon: <i className="fa-solid fa-user"/>,
         path: '/admin/profile',
         title: 'My account',
@@ -67,10 +73,8 @@ export default function AdminSideBar({onSignOut}){
                 <div className='admin_sidebar-container'>
                     <div className="text-center">
                         <img src="https://img.freepik.com/premium-vector/colorful-market-logo-with-gradient_23-2148472540.jpg?w=2000" className="w-75 mt-3 rounded-circle"/>
-                        {/*<h3 className="text-white">eMarket</h3>*/}
                         <hr/>
                     </div>
-
                     <div className='admin_sidebar-container'>
                         <div className='admin_sidebar-items'>
                             {menu.map((item, index) => (

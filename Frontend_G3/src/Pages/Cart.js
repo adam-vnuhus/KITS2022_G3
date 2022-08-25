@@ -1,8 +1,9 @@
 import React from 'react';
-import { Link } from "react-router-dom";
-import { useCart } from "react-use-cart";
+import {Link} from "react-router-dom";
+import {useCart} from "react-use-cart";
+
 const Cart = () => {
-    const { isEmpty, totalUniqueItems, items, cartTotal, updateItemQuantity, removeItem } = useCart();
+    const {isEmpty, totalUniqueItems, items, cartTotal, updateItemQuantity, removeItem} = useCart();
     return (
 
         <section className="shoping-cart spad">
@@ -12,39 +13,72 @@ const Cart = () => {
                         <div className="shoping__cart__table">
                             <table>
                                 <thead>
-                                    <tr>
-                                        <th className="shoping__product">Products</th>
-                                        <th>Price</th>
-                                        <th>Quantity</th>
-                                        <th>Total</th>
-                                        <th />
-                                    </tr>
+                                <tr>
+
+                                    <th className="shoping__product">Products</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th className={'text-center'}>Total</th>
+                                    <th></th>
+
+                                </tr>
                                 </thead>
                                 {items.map((item, index) => {
                                     return (
-                                        <tbody>
-                                            <tr>
-                                                <td className="shoping__cart__item">
-                                                    <img src="" alt="" />
-                                                    <h5>{item.name}</h5>
-                                                </td>
-                                                <td className="shoping__cart__price">
-                                                    {item.sellPrice}
-                                                </td>
-                                                <td className="shoping__cart__quantity">
-                                                    <div className="quantity">
-                                                        <div className="pro-qty">
-                                                            <input type="text" defaultValue={1} />
-                                                        </div>
+                                        <tbody key={item.id}>
+                                        <tr>
+                                            <td className="shoping__cart__item">
+                                                <img src="" alt=""/>
+                                                <h5>{item.name}</h5>
+                                            </td>
+                                            <td className="shoping__cart__price">
+                                                {item.price.toLocaleString('it-IT', {
+                                                    style: 'currency',
+                                                    currency: 'VND'
+                                                })}
+                                            </td>
+                                            <td className="shoping__cart__quantity">
+                                                <div className="quantity">
+                                                    <button
+                                                        onClick={() =>
+                                                            updateItemQuantity(item.id, item.quantity - 1)
+                                                        }
+                                                        className="btn btn-info ms-2"
+                                                    >
+                                                        -
+                                                    </button>
+                                                    <div className="pro-qty mx-1">
+                                                        {item.quantity}
                                                     </div>
-                                                </td>
-                                                <td className="shoping__cart__total">
-                                                    {item.cartTotal}
-                                                </td>
-                                                <td className="shoping__cart__item__close">
-                                                    <span className="icon_close" />
-                                                </td>
-                                            </tr>
+                                                    <button
+                                                        onClick={() =>
+                                                            updateItemQuantity(item.id, item.quantity + 1)
+                                                        }
+                                                        className="btn btn-info ms-2"
+                                                    >
+
+                                                        +
+                                                    </button>
+
+                                                </div>
+                                            </td>
+                                            <td className="shoping__cart__total">
+                                                <span className={"ms-5"}>{(item.price * item.quantity).toLocaleString('it-IT', {
+                                                    style: 'currency',
+                                                    currency: 'VND'
+                                                })}</span>
+                                            </td>
+                                            <td>
+                                                <button
+                                                    onClick={() => removeItem(item.id)}
+                                                    className="btn btn-danger ms-2"
+                                                >
+                                                    Remove Item
+                                                </button>
+                                            </td>
+                                        </tr>
+
+
                                         </tbody>
                                     )
 
@@ -66,10 +100,27 @@ const Cart = () => {
                         <div className="shoping__checkout">
                             <h5>Cart Total</h5>
                             <ul>
-                                <li>Subtotal <span>$454.98</span></li>
-                                <li>Total <span></span></li>
+                                <li>Subtotal <span>{cartTotal.toLocaleString('it-IT', {
+                                    style: 'currency',
+                                    currency: 'VND'
+                                })}</span></li>
+
+                                <li>Shipping Fee<span>{(20000).toLocaleString('it-IT', {
+                                    style: 'currency',
+                                    currency: 'VND'
+                                })}</span></li>
+
+                                <li>Tax 10%<span>{(cartTotal/10).toLocaleString('it-IT', {
+                                    style: 'currency',
+                                    currency: 'VND'
+                                })}</span></li>
+
+                                <li>Total <span>{(cartTotal+cartTotal/10+20000).toLocaleString('it-IT', {
+                                    style: 'currency',
+                                    currency: 'VND'
+                                })}</span></li>
                             </ul>
-                            <Link to="/" className="primary-btn">PROCEED TO CHECKOUT</Link>
+                            <Link to="/checkout" className="primary-btn">PROCEED TO CHECKOUT</Link>
                         </div>
                     </div>
                 </div>

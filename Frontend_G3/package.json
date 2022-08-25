@@ -25,8 +25,8 @@
     "react-rating-stars-component": "^2.2.0",
     "react-scripts": "^5.0.1",
     "react-slick": "^0.29.0",
-    "react-use-cart": "^1.13.0",
     "react-stars": "^2.2.5",
+    "react-use-cart": "^1.13.0",
     "rsuite": "^5.16.6",
     "slick-carousel": "^1.8.1",
     "web-vitals": "^2.1.4"
