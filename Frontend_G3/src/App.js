@@ -23,6 +23,7 @@ import DetailOrder from './Pages/ProfileComponent/DetailOrder';
 import DeleteConfirmModal from "./Components/AdminPageComponents/DeleteConfirmModal";
 import Error from "./Pages/ErrorPage";
 import AuthService from "./services/AuthService";
+import OrderOff from "./testOrderOff/OrderOff";
 
 
 
@@ -43,7 +44,7 @@ function App() {
         setAdminRole(false);
         setUserRole(false);
         localStorage.removeItem('user')
-        localStorage.removeItem('uid')
+        localStorage.removeItem('id')
         AuthService.logout().then(() => {
             console.log('You have been logged out !!');
         });
@@ -75,6 +76,7 @@ function App() {
                     <Route path="/profile" element={!isUser ? <Navigate to={'/login'} state={"/profile"} replace={true} /> : <ProfileCustomer />} />
                     <Route path="/testdetail" element={<DetailOrder />} />
                     <Route path="/test" element={<DeleteConfirmModal />} />
+                    <Route path="/test-order-off" element={<OrderOff />} />
 
 
 
