@@ -24,6 +24,7 @@ import DeleteConfirmModal from "./Components/AdminPageComponents/DeleteConfirmMo
 import Error from "./Pages/ErrorPage";
 import AuthService from "./services/AuthService";
 import OrderOff from "./testOrderOff/OrderOff";
+import AdminNewOrder from "./Components/AdminPageComponents/AdminNewOrder";
 
 
 
@@ -56,6 +57,8 @@ function App() {
                 <Route path="/admin/" element={!isAdmin ? <Navigate to={'/login'} state={"/admin"} replace={true} /> : <AdminLayout onSignOut={Logout} />}>
                     <Route path="/admin/" element={<Dashboard />} />
                     <Route path="/admin/dashboard" element={<Dashboard />} />
+                    <Route path="/admin/orders/new"
+                        element={<AdminNewOrder />} />
                     <Route path="/admin/orders"
                         element={<MainContent table={"order"} />} />
                     <Route path="/admin/products"

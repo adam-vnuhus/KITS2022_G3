@@ -5,13 +5,6 @@ export default function Checkout() {
     return <>
         <section className="checkout spad">
             <div className="container">
-                <div className="row">
-                    <div className="col-lg-12">
-                        <h6><span className="icon_tag_alt"></span> Have a coupon? <a href="#">Click here</a> to enter
-                            your code
-                        </h6>
-                    </div>
-                </div>
                 <div className="checkout__form">
                     <h4>Chi tiết thanh toán</h4>
                     <form action="#">
