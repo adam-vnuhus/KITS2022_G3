@@ -15,7 +15,6 @@ const AdminEditForm = ({itemSelected, selectedID, linkToAPI, entity, columns, fi
             method = 'PUT';
             id = selectedID;
         }
-
         const requestOptions = {
             method: method,
             headers: {'Content-Type': 'application/json'},
@@ -71,19 +70,26 @@ const AdminEditForm = ({itemSelected, selectedID, linkToAPI, entity, columns, fi
                                     (field, index) => (
                                         <>
                                             <tr key={index} className={"col-12"}>
-                                                {columns[index]!==columns[0]?<>
+                                                {columns[index]!==columns[0]
+                                                    ?<>
                                                     <td className={"mt-3 align-middle"} style={{maxWidth:'fit-content'}}>
                                                         <strong className={" mt-3"}>{columns[index]}</strong>
                                                     </td>
                                                     <td className={"mx-0 text-center col-10"} >
                                                         <input
                                                             type="text"
+                                                            value={item!=null
+                                                                ?item[field]!==null&&typeof item[field]==='object'
+                                                                    ?item[field].id
+                                                                    :JSON.stringify(item[field])
+                                                                :""}
                                                             className="form-control col-xl-8 col-lg-4 col-md-2 col-sm-3 ms-3"
-                                                            value={item!=null?item[field]:""}
                                                             name={field}
+                                                            placeholder={item!=null?item[field]!=='object'&&!Array.isArray(item[field])?item[field]:field+'ID':field}
                                                             onChange={(e) => handleChange(e)}
                                                         />
-                                                    </td></>:null}
+                                                    </td></>
+                                                    :null}
 
                                             </tr>
                                         </>

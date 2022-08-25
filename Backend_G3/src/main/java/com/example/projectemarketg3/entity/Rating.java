@@ -43,5 +43,8 @@ public class Rating implements Serializable {
     private Product product;
 
 
+    @Column(name = "product_id",insertable = false,updatable = false)
+    private Long productID;
+
 
 }

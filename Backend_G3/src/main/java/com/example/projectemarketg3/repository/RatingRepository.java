@@ -2,6 +2,7 @@ package com.example.projectemarketg3.repository;
 
 import com.example.projectemarketg3.entity.Rating;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -19,5 +20,15 @@ public interface RatingRepository extends JpaRepository<Rating, Long> {
 //            "from Rating r order by r.createAt DESC")
 //    List<RatingDto> getByOrderByCreateAtDesc();
 
+    @Query("select AVG(r.star) from Rating r where r.checking = true and r.productID = :id")
+    Double getAVGStarOfProduct(Long id);
+
+    @Query("select COUNT(r.star) from Rating r where r.checking = true and r.productID = :id")
+    Integer getCountStarOfProduct(Long id);
+
+    @Query(value = "SELECT */*u.name, u.image,r.star,r.note*/ FROM user u INNER JOIN rating r " +
+            "ON u.id = r.user_id " +
+            "WHERE r.checking = true and r.product_id = :id", nativeQuery = true)
+    List<Rating> getUserRating(Long id);
 
 }
