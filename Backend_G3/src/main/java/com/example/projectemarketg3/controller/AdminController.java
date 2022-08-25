@@ -149,7 +149,7 @@ public class AdminController {
     public Product updateQuantityProduct(@PathVariable Long id, @RequestParam Integer quantity) {
         Product product = productRepository.getProductById(id);
         product.setQuantity(product.getQuantity() + quantity);
-        product.setStatsusSell(true);
+        product.setAvailable(true);
         return productRepository.save(product);
     }
 

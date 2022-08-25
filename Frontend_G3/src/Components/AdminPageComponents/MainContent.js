@@ -33,7 +33,6 @@ function MainContent({table}) {
     const [isShown, setShown] = useState(false)
     const [showConfirmModal, setShowConfirmModal] = useState(false)
     const [searchTerm, setSearchTerm] = useState("")
-
     const [items, setItems] = useState(content);
     const [page, setPage] = useState(1);
     const [pagination, setPagination] = useState([]);
@@ -92,7 +91,7 @@ function MainContent({table}) {
                 .then((data) => {
                     setContent(data);
                 })
-                .then(()=>setLoading(false));
+                .then(() => setLoading(false));
 
         }
     }, [searchTerm]);
@@ -145,7 +144,8 @@ function MainContent({table}) {
                     {fields.map((field, index) =>
                         typeof item[field] !== 'object' && Array.isArray(item[field]) === false
                             ? !String(item[field])?.includes('https')
-                                ? <td className="text-center" key={index} style={{
+                                ? typeof item[field] === 'boolean'? <td key={index}><span>{String(item[field])}</span></td>
+                                :<td className="text-center" key={index} style={{
                                     overflow: 'hidden',
                                     whiteSpace: 'nowrap',
                                     maxWidth: '40ch',
@@ -157,14 +157,22 @@ function MainContent({table}) {
                                     <img className="rounded-circle" src={item[field]} width="80px" height="80px"
                                          alt={item[field]}/>
                                 </td>
-                            : <td className="text-center" key={index} style={{
-                                overflow: 'hidden',
-                                whiteSpace: 'nowrap',
-                                maxWidth: '40ch',
-                                textOverflow: 'ellipsis'
-                            }}>
-                                <span>{JSON.stringify(item[field])}</span>
-                            </td>
+                            : item[field] !== null
+                                ? <td className="text-center" key={index} style={{
+                                    overflow: 'hidden',
+                                    whiteSpace: 'nowrap',
+                                    maxWidth: '40ch',
+                                    textOverflow: 'ellipsis'
+                                }}>
+                                    <span>
+                                        {JSON.stringify(item[field])}
+                                    </span>
+                                </td>
+                                : <td className="text-center" key={index}>
+                                    <span>
+                                        {JSON.stringify(item[field])}
+                                    </span>
+                                </td>
                     )
                     }
                     <td>

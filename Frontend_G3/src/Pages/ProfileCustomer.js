@@ -1,14 +1,31 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import { Stepper, Step } from 'react-form-stepper';
 
 import DetailOrder from './ProfileComponent/DetailOrder';
+import AuthService from "../services/AuthService";
+
+
+
 const ProfileCustomer = () => {
+
+    const  fetchUserInfo = async () =>{
+        const res = await AuthService.getUserDetails()
+        const data = res.data;
+        console.log(data);
+    }
+
+    useEffect(() => {
+        fetchUserInfo()
+    },[])
+
     const [isOpen, setIsOpen] = useState(false);
     function toggleModal() {
         setIsOpen(!isOpen);
     }
+
+
     return (
         <div className="ProfileCustomer">
             <main>
