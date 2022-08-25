@@ -38,6 +38,9 @@ class AdminService {
             case 'product':
                 data = axios.get('http://localhost:8080/api/v1/products?name=&origin=&category=&start=&end=')
                 return data;
+            case 'user':
+                data = axios.get('http://localhost:8080/api/admin/user')
+                return data;
             default:
                 return data;
         }

@@ -104,7 +104,18 @@ const Cart = () => {
                                     style: 'currency',
                                     currency: 'VND'
                                 })}</span></li>
-                                <li>Total <span>{cartTotal.toLocaleString('it-IT', {
+
+                                <li>Shipping Fee<span>{(20000).toLocaleString('it-IT', {
+                                    style: 'currency',
+                                    currency: 'VND'
+                                })}</span></li>
+
+                                <li>Tax 10%<span>{(cartTotal/10).toLocaleString('it-IT', {
+                                    style: 'currency',
+                                    currency: 'VND'
+                                })}</span></li>
+
+                                <li>Total <span>{(cartTotal+cartTotal/10+20000).toLocaleString('it-IT', {
                                     style: 'currency',
                                     currency: 'VND'
                                 })}</span></li>
