@@ -64,4 +64,22 @@ public class RatingController {
     public List<Rating> getAllByStar(@PathVariable Integer star){
         return ratingRepository.getByStarOrderByCreateAtDesc(star);
     }
+
+    //    Get AVG star of product
+    @GetMapping("/avg/{id}")
+    public Double getAVGStarOfProduct(@PathVariable Long id){
+        return ratingRepository.getAVGStarOfProduct(id);
+    }
+
+    //    Get Count star of products
+    @GetMapping("/count/{id}")
+    public Integer getCountStarOfProduct(@PathVariable Long id){
+        return ratingRepository.getCountStarOfProduct(id);
+    }
+
+
+    @GetMapping("/userinnerjoinrating/{id}")
+    public List<Rating> getUserInnerJoinRating(@PathVariable Long id){
+        return ratingRepository.getUserRating(id);
+    }
 }
