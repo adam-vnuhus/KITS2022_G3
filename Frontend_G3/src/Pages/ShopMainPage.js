@@ -57,35 +57,37 @@ export default function ShopMainPage() {
         const postData = slice.map(item =>
 
             <div key={item.id} className="col-lg-3 col-md-6 col-sm-8">
-                <div className="product">
-                    <a href="/" className="img-prod"><img className="img-fluid" src={item.image}
-                        alt="Colorlib Template" />
+                <Link to={"/detail/" + item.name}>
+                    <div className="product">
+                        <a href="/" className="img-prod"><img className="img-fluid" src={item.image}
+                            alt="Colorlib Template" />
 
-                        <div className="overlay" />
-                    </a>
-                    <div className=" text py-3 pb-4 px-3 text-center">
-                        <h3><a href="/">{item.name}</a></h3>
-                        <div className="d-flex">
-                            <div className="pricing">
-                                <p className="price"><span
-                                    className="mr-2 price-dc">{(item.price + (item.price * 0.3)).toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</span>
-                                    <span className="price-sale">{item.price.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</span></p>
+                            <div className="overlay" />
+                        </a>
+                        <div className=" text py-3 pb-4 px-3 text-center">
+                            <h3><a href="/">{item.name}</a></h3>
+                            <div className="d-flex">
+                                <div className="pricing">
+                                    <p className="price"><span
+                                        className="mr-2 price-dc">{(item.price + (item.price * 0.3)).toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</span>
+                                        <span className="price-sale">{item.price.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</span></p>
+                                </div>
                             </div>
-                        </div>
-                        <div className="bottom-area d-flex px-3">
-                            <div className="m-auto d-flex">
-                                <Link to={"/detail/" + item.name}
-                                    className="add-to-cart d-flex justify-content-center align-items-center text-center">
-                                    <span><i className="fa-solid fa-bars"></i></span>
-                                </Link>
-                                <a href="/" className="buy-now d-flex justify-content-center align-items-center mx-1">
-                                    <span><i className="fa-solid fa-cart-shopping"></i></span>
-                                </a>
+                            <div className="bottom-area d-flex px-3">
+                                <div className="m-auto d-flex">
+                                    <Link to={"/detail/" + item.name}
+                                        className="add-to-cart d-flex justify-content-center align-items-center text-center">
+                                        <span><i className="fa-solid fa-bars"></i></span>
+                                    </Link>
+                                    <a href="/" className="buy-now d-flex justify-content-center align-items-center mx-1">
+                                        <span><i className="fa-solid fa-cart-shopping"></i></span>
+                                    </a>
 
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </Link>
             </div>
         )
         setData(postData)

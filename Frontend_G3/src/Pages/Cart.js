@@ -103,7 +103,7 @@ const Cart = () => {
                                 <li>Subtotal <span>{cartTotal.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</span></li>
                                 <li>Total <span>{cartTotal.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</span></li>
                             </ul>
-                            <Link to="/" className="primary-btn">PROCEED TO CHECKOUT</Link>
+                            <Link to="/checkout" className="primary-btn">PROCEED TO CHECKOUT</Link>
                         </div>
                     </div>
                 </div>

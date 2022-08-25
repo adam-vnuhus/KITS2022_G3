@@ -6,7 +6,7 @@ import { CartProvider, useCart } from 'react-use-cart';
 const Header = () => {
 
     // library cart
-    const { isEmpty, totalUniqueItems, items, updateItemQuantity, removeItem } = useCart();
+    const { isEmpty, totalUniqueItems, items, updateItemQuantity, removeItem, cartTotal } = useCart();
 
 
     let param = window.location.pathname;
@@ -94,15 +94,8 @@ const Header = () => {
                                 <ul>
                                     <li className="active"><Link to="/">Home</Link></li>
                                     <li><Link to="/shop/product">Shop</Link></li>
-                                    <li><Link to="/">Pages</Link>
-                                        <ul className="header__menu__dropdown">
-                                            <li><Link to="/">Shop Details</Link></li>
-                                            <li><Link to="/cart">Shoping Cart</Link></li>
-                                            <li><Link to="/">Check Out</Link></li>
-                                            <li><Link to="/">Blog Details</Link></li>
-                                        </ul>
-                                    </li>
-                                    <li><Link to="/">Blog</Link></li>
+
+                                    <li><Link to="/shop/product">Product</Link></li>
                                     <li><Link to="/contact">Contact</Link></li>
                                 </ul>
                             </nav>
@@ -113,7 +106,7 @@ const Header = () => {
 
                                     <li><Link to="/cart"><i className="fa fa-shopping-bag" /> <span>{(isEmpty) ? 0 : totalUniqueItems}</span></Link></li>
                                 </ul>
-                                <div className="header__cart__price">item: <span>$150.00</span></div>
+                                <div className="header__cart__price">item: <span>{cartTotal.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</span></div>
                             </div>
                         </div>
                     </div>
