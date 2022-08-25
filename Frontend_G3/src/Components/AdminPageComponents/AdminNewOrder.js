@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import ComboBox from "./ComboBox";
 import AdminService from "../../services/AdminService";
+import RangeSlider from "rsuite/RangeSlider";
 
 export default function AdminNewOrder() {
     const [items, setItems] = useState(null)
@@ -13,11 +14,14 @@ export default function AdminNewOrder() {
     const [totalPrice, setTotalPrice] = useState(null);
     const [totalQuantity, setTotalQuantity] = useState(null);
     const [isMember, setIsMember] = useState(false);
+    const [isNewMember, setIsNewMember] = useState(false);
+    const [usePoint, setUsePoint] = useState(false);
+    const [pointUse, setPointUse] = useState(0);
 
     async function setData() {
-        const productData= (await AdminService.fetchOnlyData("product")).data;
+        const productData = (await AdminService.fetchOnlyData("product")).data;
         const userData = (await AdminService.fetchOnlyData("user")).data
-        return {product: productData,user:userData}
+        return {product: productData, user: userData}
     }
 
     useEffect(() => {
@@ -25,12 +29,13 @@ export default function AdminNewOrder() {
             setListProduct(data.product)
             setListUser(data.user)
         })
-    },[])
+    }, [])
 
     async function onSelectProduct(e, item) {
         e.preventDefault();
         await setSelectedItem(item)
     }
+
     async function onSelectUser(e, item) {
         e.preventDefault();
         await setSelectedUser(item)
@@ -49,9 +54,9 @@ export default function AdminNewOrder() {
                 name: item?.name,
                 quantity: sign === '+' ?
                     ((CurrentProducts.get(item?.id).quantity) + quantity)
-                    :sign === '-' ? ((CurrentProducts.get(item?.id).quantity) - quantity) >= 0
+                    : sign === '-' ? ((CurrentProducts.get(item?.id).quantity) - quantity) >= 0
                         ? ((CurrentProducts.get(item?.id).quantity) - quantity)
-                        :0:0
+                        : 0 : 0
                 ,
                 price: item?.price
             }))
@@ -67,7 +72,7 @@ export default function AdminNewOrder() {
         setTotalPrice(tPrice)
         setTotalQuantity(tQuantity)
     }
-    
+
     async function AddProductHandler(e) {
         await e.preventDefault();
         await setQuantity(eval(e.target.parentElement.children[1].value))
@@ -75,10 +80,10 @@ export default function AdminNewOrder() {
     }
 
     return listProduct !== null
-        ? <div className={'mainContent_ mainContent_dashboard-content'}>
+        ? <div className={'mainContent_ mainContent_dashboard-content container'}>
             <div className={'container my-5 mx-auto'}>
                 <div className={'container row'}>
-                    <ComboBox list={listProduct} onSelect={onSelectProduct}/>
+                    <ComboBox list={listProduct} placeholder={"Products"} onSelect={onSelectProduct}/>
                     <input type='text' className={'col rounded-3 text-center mx-1'}
                            onChange={e => setQuantity(eval(e.target.value) > 0 ? eval(e.target.value) : 1)}
                            value={quantity}/>
@@ -146,7 +151,7 @@ export default function AdminNewOrder() {
                                                     <td>
                                                         <button
                                                             onClick={() => {
-                                                                onAdjust(item, 0, 1).then(() => console.log('increment'))
+                                                                onAdjust(item, 0, 0).then(() => console.log('remove'))
                                                             }}
                                                             className="btn btn-danger ms-2">
                                                             Remove Item
@@ -161,36 +166,111 @@ export default function AdminNewOrder() {
                             </div>
                         </div>
                         <div className="row">
-                            <div className="col-lg-6 me-5 border rounded border-primary">
+                            <div className="col-lg-5 me-5 border rounded border-primary">
                                 <h4 className={'text-center border-2 border-bottom pb-3 border-black'}>
                                     Thông tin khách hàng
                                 </h4>
                                 <div className={'container row'}>
-                                    {!isMember&&<ComboBox list={listUser} onSelect={onSelectUser}/>}
+                                    {isMember &&
+                                        <ComboBox list={listUser} placeholder={"Members"} onSelect={onSelectUser}/>}
                                     <div className={'col align-middle'}>
-                                        <input type="checkbox" id="member" name="member" value="Bike" onChange={()=>setIsMember(!isMember)}/>
-                                        <label  className={'h5 mx-1'} htmlFor="member">Thành viên ?</label>
+                                        <input type="checkbox" id="member" name="member" value="member"
+                                               onChange={() => setIsMember(!isMember)}/>
+                                        <label className={'h5 mx-1'} htmlFor="member">Thành viên ?</label>
                                     </div>
+                                    {!isMember && <div className={'col align-middle'}>
+                                        <input type="checkbox" id="newMember" name="newMember" value="newMember"
+                                               onChange={() => setIsNewMember(!isNewMember)}/>
+                                        <label className={'h5 mx-1'} htmlFor="newMember">Đăng ký thành viên ?</label>
+                                    </div>}
                                 </div>
+                                {!isMember && !isNewMember && <div className={'container text-center'}>
+                                    <span className='align-middle text-center display-1 fw-bolder'>Khách lẻ</span>
+                                </div>}
+                                {isMember && <table className='mt-5'>
+                                    <thead>
+                                    <tr>
+                                        <th>Họ tên</th>
+                                        <td>{selectedUser?.name}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Hạng</th>
+                                        <td>{selectedUser?.ranking?.name}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            Điểm hiện có
+                                            <div>
+                                                {usePoint && <>
+                                                    <span>0</span>
+                                                    <input type="range" min="0" max={`${selectedUser?.point}`}
+                                                           className="slider" id="pointRange" value={pointUse}
+                                                           onChange={e => setPointUse(e.target.value)}/>
+                                                    <span>{pointUse}</span></>}
+                                            </div>
+                                        </th>
+                                        <td>{selectedUser?.point || 0}
+                                            {selectedUser?.point > 100000 ? <><input className='ms-3' type="checkbox"
+                                                                                   id="member" name="member"
+                                                                                   value="member"
+                                                                                   onChange={() => setUsePoint(!usePoint)}/>
+                                                <label className={'mx-1'} htmlFor="member">Dùng điểm ?</label></> : ''}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Điểm tích luỹ từ đơn hàng</th>
+                                        <td>{totalPrice / 100}</td>
+                                    </tr>
+
+                                    </thead>
+                                </table>}
                             </div>
-                            <div className="col-lg-5 ms-2  border rounded border-primary">
+                            <div className="col-lg-6 ms-2  border rounded border-primary">
                                 <h4 className={'text-center border-2 border-bottom pb-3 border-black'}>Thông tin đơn
                                     hàng</h4>
                                 <div className="shoping__checkout ">
-                                    <h5>Cart Total <span className={'float-end text-primary'}>{totalQuantity?totalQuantity + ' sản phẩm':null}</span></h5>
+                                    <h5>Tổng đơn hàng <span
+                                        className={'float-end text-primary'}>{totalQuantity ? totalQuantity + ' sản phẩm' : null}</span>
+                                    </h5>
                                     <ul>
-                                        <li>Subtotal <span>{totalPrice?.toLocaleString('it-IT', {
+                                        <li>Tạm tính <span>{totalPrice?.toLocaleString('it-IT', {
+                                            style: 'currency',
+                                            currency: 'VND'
+                                        }) || '0 VND'}</span></li>
+                                        <li>Thuế VAT 10%<span>{(totalPrice / 10).toLocaleString('it-IT', {
                                             style: 'currency',
                                             currency: 'VND'
                                         })}</span></li>
-                                        <li>Tax 10%<span>{(totalPrice / 10).toLocaleString('it-IT', {
-                                            style: 'currency',
-                                            currency: 'VND'
-                                        })}</span></li>
-                                        <li>Total <span>{(totalPrice + totalPrice / 10).toLocaleString('it-IT', {
-                                            style: 'currency',
-                                            currency: 'VND'
-                                        })}</span></li>
+                                        {isMember && selectedUser && <li>
+                                            Khấu trừ thành viên
+                                            - {selectedUser?.ranking?.name} (- {selectedUser?.ranking?.discount}%)
+                                            <span>{(selectedUser?.ranking?.discount / 100 * totalPrice).toLocaleString('it-IT', {
+                                                style: 'currency',
+                                                currency: 'VND'
+                                            })}</span></li>}
+                                        {usePoint && pointUse > 0 && <li>
+                                            Trừ điểm tích luỹ
+                                            <span>{pointUse.toLocaleString('it-IT', {
+                                                style: 'currency',
+                                                currency: 'VND'
+                                            })}</span></li>}
+                                        <li>Tổng tiền
+                                            <span>{((isMember && selectedUser
+                                                ? usePoint && pointUse > 0
+                                                    ? (totalPrice + totalPrice / 10 - selectedUser?.ranking?.discount / 100 * totalPrice - pointUse / 1)
+                                                    : (totalPrice + totalPrice / 10 - selectedUser?.ranking?.discount / 100 * totalPrice)
+                                                : totalPrice + totalPrice / 10)
+                                            > 0
+                                                ? (isMember && selectedUser
+                                                    ? usePoint && pointUse > 0
+                                                        ? (totalPrice + totalPrice / 10 - selectedUser?.ranking?.discount / 100 * totalPrice - pointUse / 1)
+                                                        : (totalPrice + totalPrice / 10 - selectedUser?.ranking?.discount / 100 * totalPrice)
+                                                    : totalPrice + totalPrice / 10)
+                                                : 0).toLocaleString('it-IT', {
+                                                style: 'currency',
+                                                currency: 'VND'
+                                            })}</span>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -198,5 +278,5 @@ export default function AdminNewOrder() {
                     </div>
                 </section>
             </div>
-        </div> : 'loading...'
+        </div> : <div className='h1 text-center align-baseline'>'loading...'</div>
 }
