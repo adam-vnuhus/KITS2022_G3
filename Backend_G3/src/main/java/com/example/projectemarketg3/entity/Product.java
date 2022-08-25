@@ -31,8 +31,8 @@ public class Product implements Serializable {
     @Column(name = "buy_price")
     private Long buyPrice;
 
-    @Column(name = "sell_price")
-    private Long sellPrice;
+    @Column(name = "price")
+    private Long price;
 
     @Column(name = "image")
     private String image;

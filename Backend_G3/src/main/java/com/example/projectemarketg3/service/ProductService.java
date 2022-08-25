@@ -70,7 +70,7 @@ public class ProductService {
             case 3: //price
                 return getProduct()
                         .stream()
-                        .filter(s -> end >= s.getSellPrice() && s.getSellPrice() >= start)
+                        .filter(s -> end >= s.getPrice() && s.getPrice() >= start)
                         .collect(Collectors.toList());
 
             case 4: //name category
@@ -93,7 +93,7 @@ public class ProductService {
                         .toList();
                 List<Product> categoryProducts = nameProducts.stream().filter(s -> s.getCategory().getName().equals(category)).toList();
                 return categoryProducts.stream()
-                        .filter(s -> end >= s.getSellPrice() && s.getSellPrice() >= start)
+                        .filter(s -> end >= s.getPrice() && s.getPrice() >= start)
                         .collect(Collectors.toList());
 
             case 6: //name price
@@ -104,14 +104,14 @@ public class ProductService {
                                 || s.getDescription().toLowerCase().contains(name.toLowerCase()))
                         .toList();
                 return nameProduct.stream()
-                        .filter(s -> end >= s.getSellPrice() && s.getSellPrice() >= start)
+                        .filter(s -> end >= s.getPrice() && s.getPrice() >= start)
                         .collect(Collectors.toList());
 
             case 7: //category price
                 List<Product> categoryProduct2 = getProduct().stream()
                         .filter(s -> s.getCategory().getName().equals(category)).toList();
                 return categoryProduct2.stream()
-                        .filter(s -> end >= s.getSellPrice() && s.getSellPrice() >= start)
+                        .filter(s -> end >= s.getPrice() && s.getPrice() >= start)
                         .collect(Collectors.toList());
 
             default:

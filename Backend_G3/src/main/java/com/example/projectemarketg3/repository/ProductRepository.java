@@ -19,22 +19,22 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     List<Product> findByCategory_Name(String name);
 
-    List<Product> findBySellPriceBetweenOrderBySellPriceAsc(Long sellPriceStart, Long sellPriceEnd);
+    List<Product> findByPriceBetweenOrderByPriceAsc(Long sellPriceStart, Long sellPriceEnd);
 
     Product getProductById(Long id);
 
     List<Product> getByCategory_NameContainsIgnoreCase(String category);
 
-    List<Product> getByNameStartsWithIgnoreCaseAndSellPriceBetween(String name, Long sellPriceStart, Long sellPriceEnd);
+    List<Product> getByNameStartsWithIgnoreCaseAndPriceBetween(String name, Long sellPriceStart, Long sellPriceEnd);
 
-    List<Product> getByNameLikeAndCategory_NameLikeAndSellPriceBetween(String name, String category, Long sellPriceStart, Long sellPriceEnd);
+    List<Product> getByNameLikeAndCategory_NameLikeAndPriceBetween(String name, String category, Long sellPriceStart, Long sellPriceEnd);
 
     @Query(value = "SELECT * FROM product p\n" +
             "INNER JOIN category c ON c.id = p.category_id\n" +
             "INNER JOIN supplier s ON s.id = p.supplier_id\n" +
             "WHERE (p.category_id = ?2) \n" +
             "AND (p.description LIKE %?1% OR p.name LIKE %?1% OR p.origin LIKE %?1% OR s.name  LIKE %?1%)\n" +
-            "AND (p.sell_price BETWEEN ?3 AND ?4)"
+            "AND (p.price BETWEEN ?3 AND ?4)"
             , nativeQuery = true)
     List<Product> findProductByCategoryAndNameAndPrice(String name, Long categoryId, Long start, Long end);
 
@@ -52,8 +52,8 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
         "(p.name LIKE %:name% OR p.description LIKE %:name% OR s.name LIKE %:name%)\n" +
         "AND (c.name LIKE %:category%)\n" +
         "AND (p.origin LIKE %:origin%)\n" +
-        "AND (p.sell_price BETWEEN :start AND :end)\n" +
-        "ORDER BY p.sell_price")
+        "AND (p.price BETWEEN :start AND :end)\n" +
+        "ORDER BY p.price")
     List<Product> searchProductByKeyword(@Param("name") String name,
                                          @Param("origin") String origin,
                                          @Param("category") String category,

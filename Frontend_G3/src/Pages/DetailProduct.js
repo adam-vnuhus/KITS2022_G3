@@ -14,30 +14,7 @@ const DetailProduct = () => {
     const params = useParams('');
     const [product, setProduct] = useState([]);
 
-    // useEffect(() => {
-    //     console.log('check api : ', ProductService.getProductById(params.id))
-    //     ProductService.getProductById(params.id)
-    //         .then(response => response.data)
-    //         .then((data) => {
-    //             if (data.length > 0) {
-    //                 setProduct(data)
-    //             }
-    //         });
 
-    // }, []);
-
-    // useEffect(() => {
-    //     let country_url =
-    //         'http://localhost:8080/api/v1/products/' + params.id;
-
-    //     fetch(country_url)
-    //         .then((response) => response.json())
-    //         .then((data) => {
-    //             setProduct(data)
-
-    //         });
-
-    // }, [params.id]);
 
     async function fetchData() {
         let res = await ProductService.getProduct(params.name, '', '', '', '')
