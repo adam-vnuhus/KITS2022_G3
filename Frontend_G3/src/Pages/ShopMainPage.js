@@ -68,14 +68,8 @@ export default function ShopMainPage() {
                         <div className="d-flex">
                             <div className="pricing">
                                 <p className="price"><span
-                                    className="mr-2 price-dc">{(item.sellPrice + (item.sellPrice * 0.3)).toLocaleString('it-IT', {
-                                        style: 'currency',
-                                        currency: 'VND'
-                                    })}</span>
-                                    <span className="price-sale">{item.sellPrice.toLocaleString('it-IT', {
-                                        style: 'currency',
-                                        currency: 'VND'
-                                    })}</span></p>
+                                    className="mr-2 price-dc">{(item.price + (item.price * 0.3)).toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</span>
+                                    <span className="price-sale">{item.price.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</span></p>
                             </div>
                         </div>
                         <div className="bottom-area d-flex px-3">
@@ -166,7 +160,7 @@ export default function ShopMainPage() {
     }
 
     const maxPrice = product.map((item, index) => {
-        return item.sellPrice
+        return item.price
     })
 
 
@@ -179,6 +173,7 @@ export default function ShopMainPage() {
             setAddProduct("Việt Nam")
         }
     }
+    console.log(product)
     return <div>
         {/* Product Section Begin */}
         <section className="products spad">

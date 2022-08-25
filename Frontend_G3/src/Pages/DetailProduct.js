@@ -41,9 +41,7 @@ const DetailProduct = () => {
             })
     }, []);
 
-    const ratingChanged = (newRating) => {
-        console.log(newRating);
-    };
+
     useEffect(() => {
         let count_review_product = 'http://localhost:8080/api/v1/rating/count/' + params.name;
         fetch(count_review_product)
@@ -119,7 +117,7 @@ const DetailProduct = () => {
                                         />
                                         <span>({countReviewProduct} reviews)</span>
                                     </div>
-                                    <div className="product__details__price">{product[0].sellPrice} </div>
+                                    <div className="product__details__price">{product[0].price} </div>
                                     <p>Bí xanh (bí đao) L1 WinEco là loại thực phẩm quen thuộc và phổ biến với người Việt Nam.  Bí xanh có thể chế biến thành nhiều món ăn khác nhau như bí luộc, canh bí hầm xương</p>
                                     {/* data not ok */}
                                     <div className="input-group col-md-6 d-flex mb-3">
