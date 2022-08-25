@@ -3,10 +3,15 @@ import Categories from './HomeComponents/Categories';
 import { useEffect, useState } from 'react';
 import ProductService from '../services/ProductService';
 import { Link } from "react-router-dom";
+import { CartProvider, useCart } from 'react-use-cart';
+
 
 const Home = () => {
     const [product, setProduct] = useState([]);
 
+
+    // add cart
+    const { addItem } = useCart();
     useEffect(() => {
         ProductService.getProduct('', '', '', '', '')
             .then(response => response.data)
@@ -51,8 +56,8 @@ const Home = () => {
                                                 <h3><a href="/">{item.name}</a></h3>
                                                 <div className="d-flex">
                                                     <div className="pricing">
-                                                        <p className="price"><span className="mr-2 price-dc">{(item.sellPrice + (item.sellPrice * 0.3)).toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</span>
-                                                            <span className="price-sale">{item.sellPrice.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</span></p>
+                                                        <p className="price"><span className="mr-2 price-dc">{(item.price + (item.price * 0.3)).toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</span>
+                                                            <span className="price-sale">{item.price.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</span></p>
                                                     </div>
                                                 </div>
                                                 <div className="bottom-area d-flex px-3">
@@ -60,9 +65,12 @@ const Home = () => {
                                                         <Link to={"/detail/" + item.name} className="add-to-cart d-flex justify-content-center align-items-center text-center">
                                                             <span><i className="fa-solid fa-bars"></i></span>
                                                         </Link>
-                                                        <Link to="/cart" className="buy-now d-flex justify-content-center align-items-center mx-1">
-                                                            <span><i className="fa-solid fa-cart-shopping"></i></span>
-                                                        </Link>
+                                                        <div onClick={() => addItem(item)} >
+                                                            <Link to="" className="buy-now d-flex justify-content-center align-items-center mx-1">
+                                                                <span><i className="fa-solid fa-cart-shopping"></i></span>
+                                                            </Link>
+                                                        </div>
+
 
                                                     </div>
                                                 </div>

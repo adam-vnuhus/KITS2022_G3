@@ -61,7 +61,7 @@ public class ShoppingService {
             CartItem cartItem = CartItem.builder()
                     .product(product.get())
                     .quantity(detailDto.getQuantity())
-                    .total(detailDto.getQuantity() * product.get().getSellPrice())
+                    .total(detailDto.getQuantity() * product.get().getPrice())
                     .user(user)
                     .productImage(product.get().getImage())
                     .build();
@@ -71,7 +71,7 @@ public class ShoppingService {
             // neu da ton tai va so luong them vao gio phai be hon
         } else if ((detailDto.getQuantity() + optionalOrderDetail.get().getQuantity()) <= quantityProduct) {
             optionalOrderDetail.get().setQuantity(detailDto.getQuantity() + optionalOrderDetail.get().getQuantity());
-            optionalOrderDetail.get().setTotal((detailDto.getQuantity() + optionalOrderDetail.get().getQuantity()) * product.get().getSellPrice());
+            optionalOrderDetail.get().setTotal((detailDto.getQuantity() + optionalOrderDetail.get().getQuantity()) * product.get().getPrice());
             return cartItemRepository.save(optionalOrderDetail.get());
         } else {
             return null;
@@ -95,7 +95,7 @@ public class ShoppingService {
             OrderDetail orderDetail = OrderDetail.builder() //create orderDetail ( product + quantity + total )
                     .product(product.get())
                     .quantity(detailDto.getQuantity())
-                    .total(detailDto.getQuantity() * product.get().getSellPrice())
+                    .total(detailDto.getQuantity() * product.get().getPrice())
                     .user(user)
                     .build();
 
@@ -103,7 +103,7 @@ public class ShoppingService {
             // neu da ton tai va so luong them vao gio phai be hon
         } else if ((detailDto.getQuantity() + optionalOrderDetail.get().getQuantity()) <= quantityProduct) {
             optionalOrderDetail.get().setQuantity(detailDto.getQuantity() + optionalOrderDetail.get().getQuantity());
-            optionalOrderDetail.get().setTotal((detailDto.getQuantity() + optionalOrderDetail.get().getQuantity()) * product.get().getSellPrice());
+            optionalOrderDetail.get().setTotal((detailDto.getQuantity() + optionalOrderDetail.get().getQuantity()) * product.get().getPrice());
             return orderDetailRepository.save(optionalOrderDetail.get());
         } else {
             return null;

@@ -81,8 +81,8 @@ public class ProductController {
             end = 0L;
             for (Product p : products
                  ) {
-                if(end < p.getSellPrice()){
-                    end = p.getSellPrice();
+                if(end < p.getPrice()){
+                    end = p.getPrice();
                 }
             }
         }
@@ -137,7 +137,7 @@ public class ProductController {
 //    http://localhost:8080/api/v1/products/search-price?sellPriceStart=20&sellPriceEnd=50
     @GetMapping("/search-price")
     public List<Product> findByPrice(@RequestParam Long sellPriceStart, @RequestParam Long sellPriceEnd) {
-        return productRepository.findBySellPriceBetweenOrderBySellPriceAsc(sellPriceStart, sellPriceEnd);
+        return productRepository.findByPriceBetweenOrderByPriceAsc(sellPriceStart, sellPriceEnd);
     }
 
     @GetMapping("/category/{name}")

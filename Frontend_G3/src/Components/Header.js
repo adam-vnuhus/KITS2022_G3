@@ -2,7 +2,12 @@ import React from 'react';
 import { Link, useParams } from "react-router-dom";
 import { useState, useEffect } from 'react';
 import CategoriesService from '../services/CategoriesService';
+import { CartProvider, useCart } from 'react-use-cart';
 const Header = () => {
+
+    // library cart
+    const { isEmpty, totalUniqueItems, items, updateItemQuantity, removeItem } = useCart();
+
 
     let param = window.location.pathname;
     let params = useParams('')
@@ -106,7 +111,7 @@ const Header = () => {
                             <div className="header__cart">
                                 <ul>
 
-                                    <li><Link to="/cart"><i className="fa fa-shopping-bag" /> <span>3</span></Link></li>
+                                    <li><Link to="/cart"><i className="fa fa-shopping-bag" /> <span>{(isEmpty) ? 0 : totalUniqueItems}</span></Link></li>
                                 </ul>
                                 <div className="header__cart__price">item: <span>$150.00</span></div>
                             </div>

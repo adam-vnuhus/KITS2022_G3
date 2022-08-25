@@ -8,36 +8,15 @@ import Tab from 'react-bootstrap/Tab';
 import { useParams } from 'react-router-dom';
 
 import ProductService from '../services/ProductService';
-import ReactStars from 'react-rating-stars-component';
+import ReactStars from 'react-stars';
 
 const DetailProduct = () => {
     const params = useParams('');
     const [product, setProduct] = useState([]);
+    const [avgStarProduct, setAvgStarProduct] = useState(0);
+    const [countReviewProduct, setCountReviewProduct] = useState(0);
 
-    // useEffect(() => {
-    //     console.log('check api : ', ProductService.getProductById(params.id))
-    //     ProductService.getProductById(params.id)
-    //         .then(response => response.data)
-    //         .then((data) => {
-    //             if (data.length > 0) {
-    //                 setProduct(data)
-    //             }
-    //         });
 
-    // }, []);
-
-    // useEffect(() => {
-    //     let country_url =
-    //         'http://localhost:8080/api/v1/products/' + params.id;
-
-    //     fetch(country_url)
-    //         .then((response) => response.json())
-    //         .then((data) => {
-    //             setProduct(data)
-
-    //         });
-
-    // }, [params.id]);
 
     async function fetchData() {
         let res = await ProductService.getProduct(params.name, '', '', '', '')
@@ -53,25 +32,27 @@ const DetailProduct = () => {
     }, [])
 
     console.log('>> check product : ', product, 'name : ', params.name);
-    //
-    // const secondExample = {
-    //     size: 40,
-    //     count: 5,
-    //     color: "grey",
-    //     activeColor: "yellow",
-    //     value: 7.5,
-    //     a11y: true,
-    //     isHalf: true,
-    //     emptyIcon: <i className="far fa-star" />,
-    //     halfIcon: <i className="fa fa-star-half-alt" />,
-    //     onChange: (newValue) => {
-    //         console.log(`Example 2: new value is ${newValue}`);
-    //     }
-    // };
+    useEffect(() => {
+        let avg_product = 'http://localhost:8080/api/v1/rating/avg/' + params.name;
+        fetch(avg_product)
+            .then((response) => response.json())
+            .then((data) => {
+                setAvgStarProduct(data)
+            })
+    }, []);
 
     const ratingChanged = (newRating) => {
         console.log(newRating);
     };
+    useEffect(() => {
+        let count_review_product = 'http://localhost:8080/api/v1/rating/count/' + params.name;
+        fetch(count_review_product)
+            .then((response) => response.json())
+            .then((data) => {
+                setCountReviewProduct(data)
+            })
+    });
+
 
     if (product[0]) console.log('>> check name : ', product[0].name)
     return (
@@ -130,14 +111,13 @@ const DetailProduct = () => {
                                     <div className="product__details__rating">
                                         <ReactStars
                                             count={5}
-                                            onChange={ratingChanged}
                                             size={40}
-                                            // a11y={true}
-                                            isHalf={true}
-                                            value={3.7}
+                                            value={avgStarProduct}
+                                            edit={false}
+
                                             activeColor="#ffd700"
                                         />
-                                        <span>(18 reviews)</span>
+                                        <span>({countReviewProduct} reviews)</span>
                                     </div>
                                     <div className="product__details__price">{product[0].sellPrice} </div>
                                     <p>Bí xanh (bí đao) L1 WinEco là loại thực phẩm quen thuộc và phổ biến với người Việt Nam.  Bí xanh có thể chế biến thành nhiều món ăn khác nhau như bí luộc, canh bí hầm xương</p>
@@ -245,7 +225,7 @@ const DetailProduct = () => {
                 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" />
                 <div className="container">
                     <div className="be-comment-block">
-                        <h1 className="comments-title">Comments (3)</h1>
+                        <h1 className="comments-title">Comments ({countReviewProduct})</h1>
                         <div className="be-comment">
                             <div className="be-img-comment">
                                 <a href="blog-detail-2.html">
