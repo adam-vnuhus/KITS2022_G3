@@ -77,8 +77,8 @@ public class ShoppingService {
             return null;
         }
     }
-
-    public OrderDetail clickAddDetail(@RequestBody DetailDto detailDto) {
+// them san pham tu phuong thuc thanh toan off
+    public OrderDetail clickAddDetailOff(@RequestBody DetailDto detailDto) {
         //lay ra san pham tu id
         Optional<Product> product = productRepository.findById(detailDto.getProductId());
         int quantityProduct = product.get().getQuantity();
@@ -118,6 +118,10 @@ public class ShoppingService {
         //        lay ra user
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 //        User user = userRepository.getUserById(info.getUserId());
+
+        if(user.getRole().contains("ADMIN")){
+            status = statusRepository.findById(4L);
+        }
 
 
 //        lay ra danh sach san pham hien co trong gio hang theo id khach
