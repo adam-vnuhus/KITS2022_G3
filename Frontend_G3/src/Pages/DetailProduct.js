@@ -111,12 +111,6 @@ const DetailProduct = () => {
                                         </div>
 
                                     </div>
-<<<<<<< Updated upstream
-                                    <div className="product__details__price">{product[0].price} </div>
-                                    <p>Bí xanh (bí đao) L1 WinEco là loại thực phẩm quen thuộc và phổ biến với người Việt Nam.  Bí xanh có thể chế biến thành nhiều món ăn khác nhau như bí luộc, canh bí hầm xương</p>
-                                    {/* data not ok */}
-                                    <div className="input-group col-md-6 d-flex mb-3">
-=======
                                 </div>
                                 <div className="col-lg-6 col-md-6">
                                     <div className="product__details__text">
@@ -137,7 +131,6 @@ const DetailProduct = () => {
                                             canh bí hầm xương</p>
                                         {/* data not ok */}
                                         <div className="input-group col-md-6 d-flex mb-3">
->>>>>>> Stashed changes
                                         <span className="input-group-btn mr-2">
                                             <button type="button" className="fa-solid fa-chevron-left" data-type="minus"
                                                     data-field>
@@ -278,6 +271,7 @@ const DetailProduct = () => {
                     <div className="be-comment-block">
                         <h1 className="comments-title">Comments ({countReviewProduct})</h1>
                         {userInnerJoinRating.map((item, index) => <>
+
                             <div className="be-comment">
                                 <div className="be-img-comment">
                                     <a href="blog-detail-2.html">
@@ -285,27 +279,31 @@ const DetailProduct = () => {
                                              className="be-ava-comment"/>
                                     </a>
                                 </div>
-                                <div className="be-comment-content">
-                                <span className="be-comment-name">
-                                        {item.user.name}
-                                    (<ReactStars
-                                        count={5}
-                                        size={10}
-                                        value={item.star}
-                                        edit={false}
-                                        activeColor="#ffd700"
 
-                                    />)
+                                <div className="row">
+
+                                <span className="be-comment-name ms-2">
+                                        {item.user.name}<ReactStars
+                                    count={5}
+                                    size={10}
+                                    value={item.star}
+                                    edit={false}
+                                    activeColor="#ffd700"
+                                />
+
                                 </span>
 
-                                    <span className="be-comment-time">
+
+                                    <span className="be-comment-time float-end">
                                     <i className="fa fa-clock-o"/>
                                         {item.createAt}
                                 </span>
-                                    <p className="be-comment-text">
+
+                                    <p className="be-comment-text col-12">
                                         {item.note}
                                     </p>
                                 </div>
+
                             </div>
                         </>)}
                     </div>
