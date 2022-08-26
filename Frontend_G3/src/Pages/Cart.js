@@ -73,7 +73,7 @@ const Cart = () => {
                                                         onClick={() => removeItem(item.id)}
                                                         className="btn btn-danger ms-2"
                                                     >
-                                                        Remove Item
+                                                        Xóa sản phẩm
                                                     </button>
                                                 </td>
                                             </tr>
