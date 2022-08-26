@@ -87,7 +87,7 @@ export default function SignIn({ onLogin }) {
                         <input className={styles["form__input"]} type="password" placeholder="Mật khẩu"
                             onChange={e => setPassword(e.target.value)} />
                         <button className={`${styles["form__button"]} ${styles["button"]} ${styles["button"]}`}
-                            type="submit">SIGN UP
+                            type="submit">Đăng ký
                         </button>
                     </form>
                 </div>
@@ -122,7 +122,7 @@ export default function SignIn({ onLogin }) {
                         <h2 className={`${styles["switch__title"]} ${styles["title"]}`}>Chào mừng bạn đến với chúng tôi !</h2>
                         <p className={styles["switch__description description"]}>Vui lòng nhập thông tin cá nhân của bạn</p>
                         <button className={`${styles["switch__button"]} ${styles["button"]} ${styles["switch-btn"]}`}
-                            onClick={SwitchHandler}>SIGN IN
+                            onClick={SwitchHandler}>Đăng nhập
                         </button>
                     </div>
                     <div className={`${styles["switch__container"]} ${isNotHidden}`} id={styles["switch-c2"]}>
