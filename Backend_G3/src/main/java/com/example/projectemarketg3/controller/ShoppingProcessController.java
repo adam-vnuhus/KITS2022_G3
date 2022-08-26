@@ -63,6 +63,8 @@ public class ShoppingProcessController {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
 //        User user = userRepository.getUserById(id);
+        System.out.println(user.getId());
+        System.out.println(user.getEmail());
 
 
 //        lay ra danh sach san pham co trong gio hang o detail theo id khach

@@ -51,12 +51,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                    .antMatchers("/api/auth/**", "/", "/api/test/**","/api/v1/**").permitAll()
-                    .antMatchers("/api/admin/**","/api/v1/admin/**").hasRole("ADMIN")
-                    .antMatchers("/api/user/carts","/api/user/order-bill/**","/api/user/quantity-detail/**",
-                            "/api/user/detail-delete/**","/api/user/rating-product/**","/api/user/rating-user/**",
-                            "/api/user/update-pass").hasRole("USER")
-                    .anyRequest().authenticated()
+//                    .antMatchers("/api/auth/**", "/", "/api/test/**","/api/v1/**").permitAll()
+//                    .antMatchers("/api/admin/**","/api/v1/admin/**").hasRole("ADMIN")
+//                    .antMatchers("/api/user/carts","/api/user/order-bill/**","/api/user/quantity-detail/**",
+//                            "/api/user/detail-delete/**","/api/user/rating-product/**","/api/user/rating-user/**",
+//                            "/api/user/update-pass").hasRole("USER")
+//                    .anyRequest().authenticated()
+
+                .antMatchers("/*").permitAll()
                 .and()
                     .exceptionHandling()
                     .authenticationEntryPoint(authenticationEntryPointCustom)
@@ -67,8 +69,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .deleteCookies("MY_SESSION")
                     .logoutSuccessHandler((new HttpStatusReturningLogoutSuccessHandler(HttpStatus.OK)))
                     .permitAll()
-                .and()
-                    .addFilterBefore(authorizationFilterCustom, UsernamePasswordAuthenticationFilter.class)
+//                .and()
+//                    .addFilterBefore(authorizationFilterCustom, UsernamePasswordAuthenticationFilter.class)
         ;
     }
 
