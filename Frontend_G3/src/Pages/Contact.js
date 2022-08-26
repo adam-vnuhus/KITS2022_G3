@@ -20,7 +20,7 @@ export default function Contact() {
                     <div className="col-lg-3 col-md-3 col-sm-6 text-center">
                         <div className="contact__widget">
                             <span className="fa-solid fa-clock"></span>
-                            <h4>Thời giản mởi</h4>
+                            <h4>Thời giản mở</h4>
                             <p>8:00 am to 21:30 pm</p>
                         </div>
                     </div>
