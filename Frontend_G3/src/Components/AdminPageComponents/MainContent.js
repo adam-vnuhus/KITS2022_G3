@@ -69,12 +69,13 @@ function MainContent({table}) {
                     setContent(data)
                     setItems(data);
                 })
-                .then(function wait(param1) {
+                .then(async function wait(param1) {
                     if (content === null) {
                         setTimeout(wait, 100, param1)
                     } else {
-                        setPagination(calculateRange(content, 5));
-                        setItems(sliceData(content, page, 5));
+                        await setPagination(calculateRange(content, 5));
+                        await setItems(sliceData(content, page, 5));
+                        console.log('test')
                     }
                 })
                 .then(() => fetch(props.linkField)
@@ -82,7 +83,7 @@ function MainContent({table}) {
                     .then(data => {
                         setColumns(data)
                         setFields(data)
-                        setLoading(false);
+                        setTimeout(()=>setLoading(false),2500)
                     }))
 
         }
