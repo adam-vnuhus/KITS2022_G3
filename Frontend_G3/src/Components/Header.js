@@ -39,6 +39,7 @@ const Header = () => {
     }, [])
     // console.log('>>> check categories :', categories)
     // console.log(search)
+    console.log(cartTotal)
     return (
         <>
             {/* Header Section Begin */}
@@ -103,10 +104,9 @@ const Header = () => {
                         <div className="col-lg-3">
                             <div className="header__cart">
                                 <ul>
-
                                     <li><Link to="/cart"><i className="fa fa-shopping-bag" /> <span>{(isEmpty) ? 0 : totalUniqueItems}</span></Link></li>
                                 </ul>
-                                <div className="header__cart__price">item: <span>{cartTotal.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</span></div>
+                                <div className="header__cart__price">item: <span>{cartTotal?.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</span></div>
                             </div>
                         </div>
                     </div>
