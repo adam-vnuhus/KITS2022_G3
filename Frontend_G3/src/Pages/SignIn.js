@@ -33,11 +33,11 @@ export default function SignIn({onLogin}) {
             password
         })
             .then(() => {
+                window.alert('Đăng nhập thành công')
                 onLogin();
-            }, () => window.alert('Đăng nhập thất bại, vui lòng thử lại'))
-            .then(() => {
                 if (!state) Navigation('/'); else Navigation(`${state}`);
-            });
+            }, () => window.alert('Đăng nhập thất bại, vui lòng thử lại'))
+
     }
 
     const handleRegister = async e => {
