@@ -85,8 +85,8 @@ const Header = () => {
                         <div className="col-lg-3">
                             <div className="header__logo">
                                 <Link to="/">
-                                    {/* <img src={require(`../img/logo.png`)} alt="" /> */}
-                                    <h1>Logo</h1>
+                                    <img src={require(`../img/rsz_logo-bg-white.png`)} alt="" />
+
                                 </Link>
                             </div>
                         </div>
