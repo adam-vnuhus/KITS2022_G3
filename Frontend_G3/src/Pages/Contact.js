@@ -14,7 +14,7 @@ export default function Contact() {
                         <div className="contact__widget">
                             <span className="fas fa-map-marker-alt"></span>
                             <h4>Địa chỉ</h4>
-                            <p>60-49 Road 11378 New York</p>
+                            <p>Peakview Tower, Phố Hoàng Cầu, Ô Chợ Dừa, Đống Đa, Hà Nội, Việt Nam</p>
                         </div>
                     </div>
                     <div className="col-lg-3 col-md-3 col-sm-6 text-center">
@@ -28,7 +28,7 @@ export default function Contact() {
                         <div className="contact__widget">
                             <span className="fa-solid fa-envelope-circle-check"></span>
                             <h4>Email</h4>
-                            <p>hello@colorlib.com</p>
+                            <p>G3Mark@gmail.com</p>
                         </div>
                     </div>
                 </div>

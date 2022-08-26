@@ -46,7 +46,7 @@ const Header = ({ isUser, onLogout }) => {
                             <div className="col-lg-6 col-md-6">
                                 <div className="header__top__left">
                                     <ul>
-                                        <li><i className="fa fa-envelope" /> G3Mark@colorlib.com</li>
+                                        <li><i className="fa fa-envelope" /> G3Mark@gmail.com</li>
                                         <li>Ship tận nơi với mọi đơn hàng</li>
                                     </ul>
                                 </div>

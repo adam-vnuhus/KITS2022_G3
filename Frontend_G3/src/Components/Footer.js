@@ -15,7 +15,7 @@ const Footer = () => {
                                 <ul>
                                     <li>Địa chỉ: Peakview Tower, Phố Hoàng Cầu, Ô Chợ Dừa, Đống Đa, Hà Nội, Việt Nam</li>
                                     <li>Điện thoại: +65 11.188.888</li>
-                                    <li>Email: G3Mark@colorlib.com</li>
+                                    <li>Email: G3Mark@gmail.com</li>
                                 </ul>
                             </div>
                         </div>
