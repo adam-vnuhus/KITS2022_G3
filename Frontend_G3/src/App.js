@@ -25,6 +25,7 @@ import Error from "./Pages/ErrorPage";
 import AuthService from "./services/AuthService";
 import OrderOff from "./testOrderOff/OrderOff";
 import AdminNewOrder from "./Components/AdminPageComponents/AdminNewOrder";
+import ShopMarkets from './Pages/ShopMarkets';
 
 
 
@@ -81,12 +82,13 @@ function App() {
                     <Route path="/cart" element={!isUser ? <Navigate to={'/login'} replace={true} /> : <Cart />} />
                     <Route path="/contact" element={<Contact />} />
                     <Route path="/checkout" element={<Checkout />} />
-                    <Route path="/login" element={isUser ? <Navigate to={'/'} replace={true} /> :<SignIn onLogin={Login} />} />
+                    <Route path="/login" element={isUser ? <Navigate to={'/'} replace={true} /> : <SignIn onLogin={Login} />} />
                     <Route path="/detail/:name" element={<DetailProduct />} />
                     <Route path="/profile" element={!isUser ? <Navigate to={'/login'} state={"/profile"} replace={true} /> : <ProfileCustomer />} />
                     <Route path="/testdetail" element={<DetailOrder />} />
                     <Route path="/test" element={<DeleteConfirmModal />} />
                     <Route path="/test-order-off" element={<OrderOff />} />
+                    <Route path="/shops" element={<ShopMarkets />} />
 
 
 
