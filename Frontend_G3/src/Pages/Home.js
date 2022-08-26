@@ -54,8 +54,8 @@ const Home = () => {
                                 return (
                                     <div key={index + 1} className="col-md-6 col-lg-3 ">
                                         <Link to={"/detail/" + item.name} >
-                                            <div className="product">
-                                                <a href="/" className="img-prod"><img className="img-fluid" /*src={require(`../img/product-1.jpg`)}*/ src={item.image} alt="Colorlib Template" />
+                                            <div className="product" style={{height: '380px'}}>
+                                                <a href="/" className="img-prod"><img className="img-fluid" /*src={require(`../img/product-1.jpg`)}*/ src={item.image} alt="Colorlib Template" style={{height: '270px'}}/>
 
                                                     <div className="overlay" />
                                                 </a>
@@ -77,8 +77,6 @@ const Home = () => {
                                                                     <span><i className="fa-solid fa-cart-shopping"></i></span>
                                                                 </Link>
                                                             </div>
-
-
                                                         </div>
                                                     </div>
                                                 </div>
