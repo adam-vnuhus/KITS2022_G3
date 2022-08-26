@@ -50,8 +50,8 @@ const Header = () => {
                             <div className="col-lg-6 col-md-6">
                                 <div className="header__top__left">
                                     <ul>
-                                        <li><i className="fa fa-envelope" /> hello@colorlib.com</li>
-                                        <li>Free Shipping for all Order of $99</li>
+                                        <li><i className="fa fa-envelope" /> G3Mark@colorlib.com</li>
+                                        <li>Ship tận nơi với mọi đơn hàng</li>
                                     </ul>
                                 </div>
                             </div>
@@ -64,8 +64,8 @@ const Header = () => {
                                         <Link to="/"><i className="fa-brands fa-pinterest-p"></i></Link>
                                     </div>
                                     <div className="header__top__right__language">
-                                        <img src={require(`../img/language.png`)} alt="" />
-                                        <div>English</div>
+                                        <img src={require(`../img/rsz_1rsz_quoc-ky-viet-nam.jpg`)} alt="" />
+                                        <div>Việt Nam</div>
                                         <span className="arrow_carrot-down" />
                                         <ul>
                                             <li><Link to="/">Việt Nam</Link></li>
