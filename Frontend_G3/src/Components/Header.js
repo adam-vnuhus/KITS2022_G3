@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { useState, useEffect } from 'react';
 import CategoriesService from '../services/CategoriesService';
 import { CartProvider, useCart } from 'react-use-cart';
-const Header = ({isUser,onLogout}) => {
+const Header = ({ isUser, onLogout }) => {
     const [isLoggedIn, setLoggedIn] = useState(isUser)
     // library cart
     const { isEmpty, totalUniqueItems, items, updateItemQuantity, removeItem, cartTotal } = useCart();
@@ -69,13 +69,13 @@ const Header = ({isUser,onLogout}) => {
                                         </ul>
                                     </div>
                                     <div className="header__top__right__auth">
-                                        {!isLoggedIn&&<div className="header__top__right__auth">
-                                            <Link to="/login"><i className="fa fa-user"/> Login</Link>
+                                        {!isLoggedIn && <div className="header__top__right__auth">
+                                            <Link to="/login"><i className="fa fa-user" /> Login</Link>
                                         </div>}
-                                        {isLoggedIn&&<><div className="header__top__right__auth">
-                                            <Link to="/profile"><i className="fa fa-user"/> Profile</Link>
+                                        {isLoggedIn && <><div className="header__top__right__auth">
+                                            <Link to="/profile"><i className="fa fa-user" /> Profile</Link>
                                         </div>
-                                            <div className="header__top__right__auth ms-3" onClick={()=>{onLogout();setLoggedIn(false)}} style={{cursor: "pointer"}}>
+                                            <div className="header__top__right__auth ms-3" onClick={() => { onLogout(); setLoggedIn(false) }} style={{ cursor: "pointer" }}>
                                                 Log Out
                                             </div></>}
                                     </div>
@@ -178,7 +178,7 @@ const Header = ({isUser,onLogout}) => {
                                     </div>
                                     <div className="hero__search__phone__text">
                                         <h5>+65 11.188.888</h5>
-                                        <span>Hỗ chợ 8h - 21h30</span>
+                                        <span>Hỗ Trợ 8h - 21h30</span>
                                     </div>
                                 </div>
                             </div>
