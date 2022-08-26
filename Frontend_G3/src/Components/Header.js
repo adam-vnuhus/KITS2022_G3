@@ -177,7 +177,7 @@ const Header = ({ isUser, onLogout }) => {
                                         <i className="fa fa-phone" />
                                     </div>
                                     <div className="hero__search__phone__text">
-                                        <h5>+65 11.188.888</h5>
+                                        <h5>0966875132</h5>
                                         <span>Hỗ Trợ 8h - 21h30</span>
                                     </div>
                                 </div>
