@@ -238,13 +238,13 @@ export default function ShopMainPage() {
                         <div className="filter__item">
                             <div className="row">
                                 <div className="col-lg-4 col-md-5">
-                                    <div className="filter__sort">
+                                    {/* <div className="filter__sort">
                                         <span>Sort By</span>
                                         <select>
                                             <option value={0}>Default</option>
                                             <option value={0}>Default</option>
                                         </select>
-                                    </div>
+                                    </div> */}
                                 </div>
                                 <div className="col-lg-4 col-md-4">
                                     <div className="filter__found">

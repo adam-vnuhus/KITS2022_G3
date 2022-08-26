@@ -85,8 +85,8 @@ const Header = () => {
                         <div className="col-lg-3">
                             <div className="header__logo">
                                 <Link to="/">
-                                    {/* <img src={require(`../img/logo.png`)} alt="" /> */}
-                                    <h1>Logo</h1>
+                                    <img src={require(`../img/rsz_logo-bg-white.png`)} alt="" />
+
                                 </Link>
                             </div>
                         </div>
@@ -94,7 +94,7 @@ const Header = () => {
                             <nav className="header__menu">
                                 <ul>
                                     <li className="active"><Link to="/">Home</Link></li>
-                                    <li><Link to="/shop/product">Shop</Link></li>
+                                    {/* <li><Link to="/shop/product">Shop</Link></li> */}
 
                                     <li><Link to="/shop/product">Product</Link></li>
                                     <li><Link to="/contact">Contact</Link></li>
