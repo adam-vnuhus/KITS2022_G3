@@ -3,20 +3,16 @@ import { Link, useParams } from "react-router-dom";
 import { useState, useEffect } from 'react';
 import CategoriesService from '../services/CategoriesService';
 import { CartProvider, useCart } from 'react-use-cart';
-const Header = () => {
-
+const Header = ({isUser,onLogout}) => {
+    const [isLoggedIn, setLoggedIn] = useState(isUser)
     // library cart
     const { isEmpty, totalUniqueItems, items, updateItemQuantity, removeItem, cartTotal } = useCart();
-
-
     let param = window.location.pathname;
     let params = useParams('')
     const defaultDisplay = (param === "/" || params === "/" ? 'block' : 'none')
     const defaultHeader = (param !== "/login" || params !== "/login" ? 'block' : 'none')
-
     const [displays, setDisplay] = useState(defaultDisplay);
     const [onlyNav, setOnlyNav] = useState(defaultHeader);
-
     // Search
     const [search, setSearch] = useState('')
     useEffect(() => setDisplay(defaultDisplay), [param, params])
@@ -73,7 +69,15 @@ const Header = () => {
                                         </ul>
                                     </div>
                                     <div className="header__top__right__auth">
-                                        <Link to="/login"><i className="fa fa-user" /> Login</Link>
+                                        {!isLoggedIn&&<div className="header__top__right__auth">
+                                            <Link to="/login"><i className="fa fa-user"/> Login</Link>
+                                        </div>}
+                                        {isLoggedIn&&<><div className="header__top__right__auth">
+                                            <Link to="/profile"><i className="fa fa-user"/> Profile</Link>
+                                        </div>
+                                            <div className="header__top__right__auth ms-3" onClick={()=>{onLogout();setLoggedIn(false)}} style={{cursor: "pointer"}}>
+                                                Log Out
+                                            </div></>}
                                     </div>
                                 </div>
                             </div>
@@ -127,7 +131,7 @@ const Header = () => {
                             <div className="hero__categories" onClick={haldeAllDe}>
                                 <div className="hero__categories__all">
                                     <i className="fa fa-bars" />
-                                    <span>All departments</span>
+                                    <span>Các Loại Sản phẩm</span>
                                 </div>
 
                                 <ul className={param === "/" ? 'd-block' : `d-${displays}`}  >

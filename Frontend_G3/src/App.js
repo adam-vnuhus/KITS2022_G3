@@ -75,7 +75,7 @@ function App() {
                 <Route path="/404" element={<Error errorCode={404} message={"WE CAN'T FIND THAT PAGE!"} />} />
                 <Route path="/500" element={<Error errorCode={500} message={"SOMETHING WENT WRONG !"} />} />
 
-                <Route path="/" element={<Layout />}>
+                <Route path="/" element={<Layout isUser={isUser} onLogout={Logout}/>}>
                     <Route index element={<Home />} />
                     <Route path="/shop/:name" element={<ShopMainPage />} />
                     <Route path="/shop" element={<ShopMainPage />} />
@@ -89,13 +89,6 @@ function App() {
                     <Route path="/test" element={<DeleteConfirmModal />} />
                     <Route path="/test-order-off" element={<OrderOff />} />
                     <Route path="/shops" element={<ShopMarkets />} />
-
-
-
-
-                    {/* <Route path="blogs" element={<Blogs />} />
-          <Route path="contact" element={<Contact />} />
-          <Route path="*" element={<NoPage />} /> */}
                 </Route>
             </Routes>
         </BrowserRouter>

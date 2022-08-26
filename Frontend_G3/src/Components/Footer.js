@@ -13,9 +13,9 @@ const Footer = () => {
                                     <a href="./index.html"><img src="img/logo.png" alt="" /></a>
                                 </div>
                                 <ul>
-                                    <li>Address: 60-49 Road 11378 New York</li>
-                                    <li>Phone: +65 11.188.888</li>
-                                    <li>Email: hello@colorlib.com</li>
+                                    <li>Địa chỉ: Peakview Tower, Phố Hoàng Cầu, Ô Chợ Dừa, Đống Đa, Hà Nội, Việt Nam</li>
+                                    <li>Điện thoại: +65 11.188.888</li>
+                                    <li>Email: G3Mark@colorlib.com</li>
                                 </ul>
                             </div>
                         </div>

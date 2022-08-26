@@ -6,22 +6,22 @@ export default function Contact() {
                     <div className="col-lg-3 col-md-3 col-sm-6 text-center">
                         <div className="contact__widget">
                             <span className="fa-solid fa-phone"></span>
-                            <h4>Phone</h4>
+                            <h4>Điện thoại</h4>
                             <p>+01-3-8888-6868</p>
                         </div>
                     </div>
                     <div className="col-lg-3 col-md-3 col-sm-6 text-center">
                         <div className="contact__widget">
                             <span className="fas fa-map-marker-alt"></span>
-                            <h4>Address</h4>
+                            <h4>Địa chỉ</h4>
                             <p>60-49 Road 11378 New York</p>
                         </div>
                     </div>
                     <div className="col-lg-3 col-md-3 col-sm-6 text-center">
                         <div className="contact__widget">
                             <span className="fa-solid fa-clock"></span>
-                            <h4>Open time</h4>
-                            <p>10:00 am to 23:00 pm</p>
+                            <h4>Thời giản mởi</h4>
+                            <p>8:00 am to 21:30 pm</p>
                         </div>
                     </div>
                     <div className="col-lg-3 col-md-3 col-sm-6 text-center">
@@ -60,21 +60,21 @@ export default function Contact() {
                 <div className="row">
                     <div className="col-lg-12">
                         <div className="contact__form__title">
-                            <h2>Leave Message</h2>
+                            <h2>Tin nhắn để lại</h2>
                         </div>
                     </div>
                 </div>
                 <form action="#">
                     <div className="row">
                         <div className="col-lg-6 col-md-6">
-                            <input type="text" placeholder="Your name" />
+                            <input type="text" placeholder="Tên " />
                         </div>
                         <div className="col-lg-6 col-md-6">
-                            <input type="text" placeholder="Your Email" />
+                            <input type="text" placeholder=" Email" />
                         </div>
                         <div className="col-lg-12 text-center">
-                            <textarea placeholder="Your message"></textarea>
-                            <button type="submit" className="site-btn">SEND MESSAGE</button>
+                            <textarea placeholder="Bạn muốn nhắn lại"></textarea>
+                            <button type="submit" className="site-btn">Gửi Tin nhắn</button>
                         </div>
                     </div>
                 </form>
