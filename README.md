@@ -11,4 +11,5 @@ https://wireframe.cc/pro/pp/9ddde99b3572926
 https://docs.google.com/spreadsheets/d/1fLxOztTLWghJ04YDTFoTdcMi65mphkpH32EMM7Ifji8/edit?usp=sharing  
 
 # Databse 
-![image](https://raw.githubusercontent.com/ThuHang14/KITS2022_G3/main/ERD_G3.JPG)
+![image](https://user-images.githubusercontent.com/96046778/186842371-4849765e-de40-4a2c-a0f0-9a6d627253de.png)
+
