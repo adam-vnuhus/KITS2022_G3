@@ -26,6 +26,11 @@ class AdminService {
                 data = axios.get('http://localhost:8080/api/v1/rank')
                 havingAddNew = true;
                 break;
+            case 'rating':
+                columns = axios.get('http://localhost:8080/api/v1/metadata/Ranking/variables');
+                data = axios.get('http://localhost:8080/api/v1/rating')
+                havingAddNew = true;
+                break;
             default:
                 return null;
         }

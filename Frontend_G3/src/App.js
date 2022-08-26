@@ -38,7 +38,7 @@ function App() {
 
     const Login = () => {
         setAdminRole(localStorage.getItem('user')?.includes('ADMIN'));
-        setUserRole(true);
+        setUserRole(localStorage.getItem('user')?.includes('USER'));
     }
 
     const Logout = () => {
@@ -63,6 +63,12 @@ function App() {
                         element={<MainContent table={"order"} />} />
                     <Route path="/admin/products"
                         element={<MainContent table={"product"} />} />
+                    <Route path="/admin/supplier"
+                        element={<MainContent table={"supplier"} />} />
+                    <Route path="/admin/ranking"
+                        element={<MainContent table={"ranking"} />} />
+                    <Route path="/admin/rating"
+                        element={<MainContent table={"rating"} />} />
                 </Route>
                 <Route path="/404" element={<Error errorCode={404} message={"WE CAN'T FIND THAT PAGE!"} />} />
                 <Route path="/500" element={<Error errorCode={500} message={"SOMETHING WENT WRONG !"} />} />

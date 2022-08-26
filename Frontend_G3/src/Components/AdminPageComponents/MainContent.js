@@ -185,7 +185,7 @@ function MainContent({table}) {
                                 </td>
                     )
                     }
-                    <td>
+                    <td className="text-center">
                         <button type="button" className="btn btn-primary rounded-circle mx-2"
                                 onClick={() => editButtonHandler(item)}><i className={"fa fa-pen-to-square"}></i>
                         </button>

@@ -14,9 +14,9 @@ const menu = [
     },
     {
         id: 2,
-        icon: <i className="fa-solid fa-file"/>,
-        path: '/admin/orders',
-        title: 'Orders',
+        icon: <i className="fa-solid fa-file-circle-plus"/>,
+        path: '/admin/orders/new',
+        title: 'New Order',
     },
     {
         id: 3,
@@ -25,17 +25,31 @@ const menu = [
         title: 'Products',
     },
     {
+
         id: 4,
-        icon: <i className="fa-solid fa-file-circle-plus"/>,
-        path: '/admin/orders/new',
-        title: 'New Order',
+        icon: <i className="fa-solid fa-file"/>,
+        path: '/admin/orders',
+        title: 'Orders',
     },
     {
-        id: 10,
-        icon: <i className="fa-solid fa-user"/>,
-        path: '/admin/profile',
-        title: 'My account',
-    }
+        id: 5,
+        icon: <i className="fa-solid fa-ranking-star"/>,
+        path: '/admin/ranking',
+        title: 'Ranking',
+    },
+    {
+        id: 6,
+        icon: <i className="fa-solid fa-star"/>,
+        path: '/admin/rating',
+        title: 'Rating',
+    },
+    {
+        id: 7,
+        icon: <i className="fa-solid fa-parachute-box"/>,
+        path: '/admin/supplier',
+        title: 'Supplier',
+    },
+
 ]
 
 
