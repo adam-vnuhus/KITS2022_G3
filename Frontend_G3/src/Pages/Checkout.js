@@ -33,8 +33,12 @@ export default function Checkout() {
                                         )
                                     })}
 
-                                    <div className="checkout__order__subtotal">Subtotal <span>{cartTotal.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</span></div>
-                                    <div className="checkout__order__total">Total <span>{cartTotal.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</span></div>
+                                    <div className="checkout__order__subtotal">Thuế <span>{((cartTotal * 10) / 100).toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</span></div>
+                                    <div className="checkout__order__total">Phí Vận chuyến <span>{(20000).toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</span></div>
+                                    <div className="checkout__order__total">Tổng Tiền <span>{(cartTotal + cartTotal / 10 + 20000)?.toLocaleString('it-IT', {
+                                        style: 'currency',
+                                        currency: 'VND'
+                                    })}</span></div>
 
 
                                     {/* <div className="checkout__input__checkbox">
