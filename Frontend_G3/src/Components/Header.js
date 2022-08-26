@@ -93,10 +93,10 @@ const Header = () => {
                         <div className="col-lg-6">
                             <nav className="header__menu">
                                 <ul>
-                                    <li className="active"><Link to="/">Home</Link></li>
+                                    <li className="active"><Link to="/">Trang chủ</Link></li>
                                     {/* <li><Link to="/shop/product">Shop</Link></li> */}
 
-                                    <li><Link to="/shop/product">Product</Link></li>
+                                    <li><Link to="/shop/product">Sản phẩm</Link></li>
                                     <li><Link to="/contact">Contact</Link></li>
                                 </ul>
                             </nav>
