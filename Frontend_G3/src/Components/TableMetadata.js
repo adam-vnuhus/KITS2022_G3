@@ -23,7 +23,7 @@ export default function TableMetadata({table, setProps}) {
             break;
         case "user":
             setProps({
-                entity: 'product',
+                entity: 'User',
                 linkField: 'http://localhost:8080/api/v1/metadata/User/variables',
                 linkAPI: 'http://localhost:8080/api/admin/user',
                 searchLink: 'http://localhost:8080/api/admin/user',
