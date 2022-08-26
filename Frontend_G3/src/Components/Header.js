@@ -106,7 +106,7 @@ const Header = () => {
                                 <ul>
                                     <li><Link to="/cart"><i className="fa fa-shopping-bag" /> <span>{(isEmpty) ? 0 : totalUniqueItems}</span></Link></li>
                                 </ul>
-                                <div className="header__cart__price">item: <span>{cartTotal?.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</span></div>
+                                <div className="header__cart__price">Giá: <span>{cartTotal?.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</span></div>
                             </div>
                         </div>
                     </div>
@@ -160,11 +160,11 @@ const Header = () => {
                                     {/* Search */}
                                     <form action="/">
                                         <div className="hero__search__categories">
-                                            All Categories
+                                            Tên sản Phẩm
                                             <span className="arrow_carrot-down" />
                                         </div>
-                                        <input type="text" value={search} onChange={(event) => setSearch(event.target.value)} placeholder="What do you need?" />
-                                        <Link to={'/shop/search=' + search}><button className="site-btn">SEARCH</button></Link>
+                                        <input type="text" value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Nhập tên sản phẩm" />
+                                        <Link to={'/shop/search=' + search}><button className="site-btn">Tìm Kiếm</button></Link>
                                     </form>
                                     {/* end search */}
                                 </div>
@@ -174,7 +174,7 @@ const Header = () => {
                                     </div>
                                     <div className="hero__search__phone__text">
                                         <h5>+65 11.188.888</h5>
-                                        <span>support 24/7 time</span>
+                                        <span>Hỗ chợ 8h - 21h30</span>
                                     </div>
                                 </div>
                             </div>
@@ -184,10 +184,10 @@ const Header = () => {
                                     <div className="carousel-item active">
                                         <img className="d-block w-100" src={require(`../img/hero/banner.jpg`)} alt="First slide" />
                                         <div id="banner-hero" className="carousel-caption d-none d-md-block">
-                                            <span>FRUIT FRESH</span>
-                                            <h2>Vegetable <br />100% Organic</h2>
-                                            <p>Free Pickup and Delivery Available</p>
-                                            <Link to="/" className="primary-btn">SHOP NOW</Link>
+                                            <span>Trái cây tươi</span>
+                                            <h2>Rau Quả <br />100% Hữu cơ</h2>
+                                            <p>Nhận và giao hàng</p>
+                                            <Link to="/" className="primary-btn">Mua Ngay</Link>
                                         </div>
                                     </div>
                                 </div>
