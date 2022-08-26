@@ -4,10 +4,7 @@ import com.example.projectemarketg3.dto.RatingDto;
 import com.example.projectemarketg3.entity.*;
 import com.example.projectemarketg3.exception.NotFoundException;
 import com.example.projectemarketg3.repository.*;
-import com.example.projectemarketg3.request.OrderOffRequest;
-import com.example.projectemarketg3.request.PurchasesRequest;
-import com.example.projectemarketg3.request.StatusOrderRequest;
-import com.example.projectemarketg3.request.UserRequest;
+import com.example.projectemarketg3.request.*;
 import com.example.projectemarketg3.service.ShoppingService;
 import com.example.projectemarketg3.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -140,8 +137,26 @@ public class AdminController {
 //    ============================== PRODUCT ===============================
 
     // create a new product rest api
-    @PostMapping("/api/admin/products")
-    public Product createProduct(@RequestBody Product product) {
+    @PostMapping("/api/admin/product")
+    public Product createProduct(@RequestBody ProductRequest request) {
+        Optional<Category> category = categoryRepository.findById(request.getCategoryId());
+        Optional<Supplier> supplier = supplierRepository.findById(request.getSupplierId());
+
+        Product product = Product.builder()
+                .name(request.getName())
+                .quantity(request.getQuantity())
+                .buyPrice(request.getBuyPrice())
+                .price(request.getPrice())
+                .image(request.getImage())
+                .sold(request.getSold())
+                .origin(request.getOrigin())
+                .description(request.getDescription())
+                .slug(request.getSlug())
+                .avgRating(0.0)
+                .category(category.get())
+                .supplier(supplier.get())
+                .available(true)
+                .build();
         return productRepository.save(product);
     }
 

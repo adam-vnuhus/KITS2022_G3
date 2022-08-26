@@ -103,6 +103,8 @@ const ProfileCustomer = () => {
                                                         </div>
                                                     </div>
                                                     <hr />
+
+
                                                     <div className="row">
                                                         <div className="col-sm-3">
                                                             <p className="mb-0">Địa chỉ</p>
@@ -140,7 +142,7 @@ const ProfileCustomer = () => {
                                             <span class="text-muted small">by DHFL on 21 Jan, 2020</span>
                                         </div>
                                         <div className="text-end align-items-center col-md-7    ">
-                                            <button onClick={toggleModal} class="btn btn-outline-primary" type="button">Track order details</button>
+                                            <button onClick={toggleModal} class="btn btn-outline-primary" type="button">Chi tiết đơn hàng</button>
                                         </div>
 
                                     </div>
