@@ -58,9 +58,9 @@ export default function ShopMainPage() {
 
             <div key={item.id} className="col-lg-3 col-md-6 col-sm-8">
                 <Link to={"/detail/" + item.name}>
-                    <div className="product">
+                    <div className="product" style={{height: '350px'}}>
                         <a href="/" className="img-prod"><img className="img-fluid" src={item.image}
-                            alt="Colorlib Template" />
+                            alt="Colorlib Template" style={{height: '220px'}}/>
 
                             <div className="overlay" />
                         </a>
