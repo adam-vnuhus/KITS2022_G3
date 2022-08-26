@@ -40,9 +40,9 @@ const Home = () => {
                 <div className="container">
                     <div className="row justify-content-center mb-3 pb-3">
                         <div className="col-md-12 heading-section text-center ">
-                            <span className="subheading">Featured Products</span>
-                            <h2 className="mb-4">Our Products</h2>
-                            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia</p>
+                            <span className="subheading">Sản phẩm Nổi bật</span>
+                            <h2 className="mb-4">Sản phẩm</h2>
+
                         </div>
                     </div>
                 </div>
@@ -54,8 +54,8 @@ const Home = () => {
                                 return (
                                     <div key={index + 1} className="col-md-6 col-lg-3 ">
                                         <Link to={"/detail/" + item.name} >
-                                            <div className="product" style={{height: '380px'}}>
-                                                <a href="/" className="img-prod"><img className="img-fluid" /*src={require(`../img/product-1.jpg`)}*/ src={item.image} alt="Colorlib Template" style={{height: '270px'}}/>
+                                            <div className="product" style={{ height: '380px' }}>
+                                                <a href="/" className="img-prod"><img className="img-fluid" /*src={require(`../img/product-1.jpg`)}*/ src={item.image} alt="Colorlib Template" style={{ height: '270px' }} />
 
                                                     <div className="overlay" />
                                                 </a>

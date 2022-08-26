@@ -32,7 +32,7 @@ const Categories = () => {
     };
     return (
         <div className="Categories-top">
-            <h4>Top Product</h4>
+            <h4>Các loại sản phẩm</h4>
             <Slider {...settings} >
                 {categories != null ?
                     categories.map((item, index) => {

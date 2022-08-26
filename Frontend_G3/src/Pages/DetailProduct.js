@@ -1,12 +1,12 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import Categories from './HomeComponents/Categories';
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import Carousel from 'react-bootstrap/Carousel'
 import 'bootstrap/dist/css/bootstrap.css';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
-import {useParams} from 'react-router-dom';
-import {useCart} from 'react-use-cart';
+import { useParams } from 'react-router-dom';
+import { useCart } from 'react-use-cart';
 import ProductService from '../services/ProductService';
 import ReactStars from 'react-stars';
 
@@ -132,39 +132,40 @@ const DetailProduct = () => {
                                             canh bí hầm xương</p>
                                         {/* data not ok */}
                                         <div className="input-group col-md-6 d-flex mb-3">
-                                        <span className="input-group-btn mr-2">
-                                            <button type="button" className="fa-solid fa-chevron-left"
+                                            <span className="input-group-btn mr-2">
+                                                <button type="button" className="fa-solid fa-chevron-left"
                                                     data-type="minus"
                                                     data-field
-                                                    onClick={() => quantity>1?setQuantity(quantity-1):setQuantity(1)}>
-                                                <i className="ion-ios-remove"/>
-                                            </button>
-                                        </span>
+                                                    onClick={() => quantity > 1 ? setQuantity(quantity - 1) : setQuantity(1)}>
+                                                    <i className="ion-ios-remove" />
+                                                </button>
+                                            </span>
                                             <input type="text" id="quantity" name="quantity"
-                                                   className="form-control input-number col-md-5" defaultValue={1} value={quantity}
-                                                   onChange={(e) =>
-                                                       setQuantity(eval(e.target.value)<product[0].quantity&&eval(e.target.value)>1
-                                                           ?eval(e.target.value)
-                                                           :eval(e.target.value)>product[0].quantity
-                                                               ?product[0].quantity:1)}/>
+                                                className="form-control input-number col-md-5" defaultValue={1} value={quantity}
+                                                onChange={(e) =>
+                                                    setQuantity(eval(e.target.value) < product[0].quantity && eval(e.target.value) > 1
+                                                        ? eval(e.target.value)
+                                                        : eval(e.target.value) > product[0].quantity
+                                                            ? product[0].quantity : 1)} />
                                             <span className="input-group-btn ml-2">
-                                            <button type="button" className="fa-solid fa-angle-right"
+                                                <button type="button" className="fa-solid fa-angle-right"
                                                     data-type="plus"
                                                     data-fiel
-                                                    onClick={() => setQuantity(quantity<product[0].quantity?quantity+1:product[0].quantity)}>
-                                                <i className="ion-ios-add"/>
-                                            </button>
-                                        </span>
+                                                    onClick={() => setQuantity(quantity < product[0].quantity ? quantity + 1 : product[0].quantity)}>
+                                                    <i className="ion-ios-add" />
+                                                </button>
+                                            </span>
                                         </div>
-                                            <button
-                                                style={{fontSize:'20px',
-                                                    border: '1px solid blue',
-                                                    borderRadius: '5px',
-                                                    padding: '5px'
-                                                }}
-                                                onClick={() => addItem(product[0], quantity)}>
-                                                ADD TO CARD
-                                            </button>
+                                        <button id='button-add-new'
+                                            style={{
+                                                fontSize: '20px',
+                                                border: '1px solid blue',
+                                                borderRadius: '5px',
+                                                padding: '5px'
+                                            }}
+                                            onClick={() => addItem(product[0], quantity)}>
+                                            Thêm sản phẩm
+                                        </button>
 
 
 
@@ -264,7 +265,7 @@ const DetailProduct = () => {
 
                 {/* top product */}
 
-                <Categories/>
+                <Categories />
 
                 {/* end top product */}
 
@@ -272,7 +273,7 @@ const DetailProduct = () => {
             </div>
             <div>
                 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
-                      rel="stylesheet"/>
+                    rel="stylesheet" />
                 <div className="container">
                     <div className="be-comment-block">
                         <h1 className="comments-title">Comments ({countReviewProduct})</h1>
@@ -282,28 +283,28 @@ const DetailProduct = () => {
                                 <div className="be-img-comment">
                                     <a href="blog-detail-2.html">
                                         <img src={item.user.image} alt=""
-                                             className="be-ava-comment"/>
+                                            className="be-ava-comment" />
                                     </a>
                                 </div>
 
                                 <div className="row">
 
-                                <span className="be-comment-name ms-2">
+                                    <span className="be-comment-name ms-2">
                                         {item.user.name}<ReactStars
-                                    count={5}
-                                    size={10}
-                                    value={item.star}
-                                    edit={false}
-                                    activeColor="#ffd700"
-                                />
+                                            count={5}
+                                            size={10}
+                                            value={item.star}
+                                            edit={false}
+                                            activeColor="#ffd700"
+                                        />
 
-                                </span>
+                                    </span>
 
 
                                     <span className="be-comment-time float-end">
-                                    <i className="fa fa-clock-o"/>
+                                        <i className="fa fa-clock-o" />
                                         {item.createAt}
-                                </span>
+                                    </span>
 
                                     <p className="be-comment-text col-12">
                                         {item.note}

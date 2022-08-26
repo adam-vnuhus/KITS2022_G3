@@ -152,3 +152,9 @@ button.btn.btn-primary.pull-right {
 .ProfileCustomer {
   margin-bottom: 50px px;
 }
+
+button#button-add-new {
+  background: #5ea4d3 !important;
+  color: white;
+  margin-left: 19px;
+}
