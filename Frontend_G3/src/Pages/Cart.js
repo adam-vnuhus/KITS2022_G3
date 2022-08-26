@@ -100,22 +100,22 @@ const Cart = () => {
                         <div className="shoping__checkout">
                             <h5>Cart Total</h5>
                             <ul>
-                                <li>Subtotal <span>{cartTotal.toLocaleString('it-IT', {
+                                <li>Tạm tính <span>{cartTotal.toLocaleString('it-IT', {
                                     style: 'currency',
                                     currency: 'VND'
                                 })}</span></li>
 
-                                <li>Shipping Fee<span>{(20000).toLocaleString('it-IT', {
+                                <li>Phí vận chuyển<span>{(20000).toLocaleString('it-IT', {
                                     style: 'currency',
                                     currency: 'VND'
                                 })}</span></li>
 
-                                <li>Tax 10%<span>{(cartTotal/10).toLocaleString('it-IT', {
+                                <li>Thuế 10%<span>{(cartTotal/10).toLocaleString('it-IT', {
                                     style: 'currency',
                                     currency: 'VND'
                                 })}</span></li>
 
-                                <li>Total <span>{(cartTotal+cartTotal/10+20000).toLocaleString('it-IT', {
+                                <li>Tổng tiền <span>{(cartTotal+cartTotal/10+20000).toLocaleString('it-IT', {
                                     style: 'currency',
                                     currency: 'VND'
                                 })}</span></li>
