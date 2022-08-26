@@ -4,7 +4,7 @@ import AdminSideBar from "./AdminSideBar";
 
 
 
-const AdminLayout = ({onSignOut}) => {
+const AdminLayout = ({onSignOut,user}) => {
     return(<>
             <div className="row bg-light bg-gradient">
             <AdminSideBar onSignOut={onSignOut}/>

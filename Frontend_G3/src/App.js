@@ -34,7 +34,6 @@ import AdminNewOrder from "./Components/AdminPageComponents/AdminNewOrder";
 function App() {
     const [isAdmin, setAdminRole] = useState(localStorage.getItem('user')?.includes('ADMIN'));
     const [isUser, setUserRole] = useState(localStorage.getItem('user')?.includes('USER'))
-    const [user, setUser] = useState(null);
 
     const Login = () => {
         setAdminRole(localStorage.getItem('user')?.includes('ADMIN'));
@@ -82,7 +81,7 @@ function App() {
                     <Route path="/cart" element={!isUser ? <Navigate to={'/login'} replace={true} /> : <Cart />} />
                     <Route path="/contact" element={<Contact />} />
                     <Route path="/checkout" element={<Checkout />} />
-                    <Route path="/login" element={!isUser ? <Navigate to={'/login'} state={"/"} replace={true} /> :<SignIn onLogin={Login} />} />
+                    <Route path="/login" element={isUser ? <Navigate to={'/'} replace={true} /> :<SignIn onLogin={Login} />} />
                     <Route path="/detail/:name" element={<DetailProduct />} />
                     <Route path="/profile" element={!isUser ? <Navigate to={'/login'} state={"/profile"} replace={true} /> : <ProfileCustomer />} />
                     <Route path="/testdetail" element={<DetailOrder />} />

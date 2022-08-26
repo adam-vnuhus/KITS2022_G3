@@ -9,6 +9,7 @@ class AuthService {
                 if (response.data) {
                     localStorage.setItem('user', JSON.stringify(response.data))
                     localStorage.setItem('id', JSON.stringify(response.data.id))
+                    localStorage.setItem('email', JSON.stringify(response.data.email))
                 }
                 return response.data
             })

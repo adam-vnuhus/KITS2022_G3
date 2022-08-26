@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import styles from "../Css/signIn.module.css"
 import AuthService from '../services/AuthService';
 import {useLocation, useNavigate} from "react-router-dom";
+import AdminService from "../services/AdminService";
 
 async function loginUser(credentials) {
     await AuthService.login(credentials)
@@ -10,6 +11,7 @@ async function loginUser(credentials) {
 async function registerUser(credentials) {
     await AuthService.register(credentials)
 }
+
 
 export default function SignIn({onLogin}) {
     const {state} = useLocation();

@@ -50,6 +50,10 @@ class AdminService {
                 return data;
         }
     }
+
+    getUserByEmail(email){
+        return axios.get('http://localhost:8080/api/admin/user/'+email);
+    }
 }
 
 export default new AdminService();

@@ -29,7 +29,7 @@ public class UserController {
     @PutMapping("/update-info")
     public InfoAddressUser updateUser(@RequestBody InfoAddressUser infoUser) {
 //        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-User user = userRepository.getUserById(infoUser.getIdUser());
+        User user = userRepository.getUserById(infoUser.getIdUser());
         user.setName(infoUser.getName() == null ? user.getName() : infoUser.getName());
         user.setDob(infoUser.getDob() == null ? user.getDob() : infoUser.getDob());
         user.setGender(infoUser.getGender() == null ? user.getGender() : infoUser.getGender());

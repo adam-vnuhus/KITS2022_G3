@@ -92,7 +92,7 @@ export default function AdminSideBar({onSignOut}){
         return    <nav className='admin_sidebar'>
                 <div className='admin_sidebar-container'>
                     <div className="text-center">
-                        <img src="https://img.freepik.com/premium-vector/colorful-market-logo-with-gradient_23-2148472540.jpg?w=2000" className="w-75 mt-3 rounded-circle"/>
+                        <img src={require(`../../img/rsz_logo-bg-white.png`)} className="w-75 mt-3 rounded-circle"/>
                         <hr/>
                     </div>
                     <div className='admin_sidebar-container'>
