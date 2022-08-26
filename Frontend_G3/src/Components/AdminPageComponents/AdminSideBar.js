@@ -49,6 +49,12 @@ const menu = [
         path: '/admin/supplier',
         title: 'Supplier',
     },
+    {
+        id: 8,
+        icon: <i className="fa-solid fa-users"/>,
+        path: '/admin/user',
+        title: 'Users',
+    },
 
 ]
 
