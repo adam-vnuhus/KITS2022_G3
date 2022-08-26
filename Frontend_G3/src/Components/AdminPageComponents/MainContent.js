@@ -34,6 +34,8 @@ function MainContent({table}) {
     const [content, setContent] = useState(null);
     const [entity, setEntity] = useState(null);
     const [addNew, setAddNew] = useState(null);
+    const [haveEdit, setEdit] = useState(null);
+    const [haveDelete, setDelete] = useState(null);
     const [columns, setColumns] = useState(null);
     const [fields, setFields] = useState(null);
     const [linkAPI, setLinkAPI] = useState('');
@@ -61,6 +63,8 @@ function MainContent({table}) {
 
             setEntity(props.entity);
             setAddNew(props.havingAddNew);
+            setEdit(props.havingEdit);
+            setDelete(props.havingDelete);
             setLinkAPI(props.linkAPI);
             setLinkSearchAPI(props.searchLink);
             fetch(props.linkAPI)
@@ -187,12 +191,11 @@ function MainContent({table}) {
                     )
                     }
                     <td className="text-center">
-                        <button type="button" className="btn btn-primary rounded-circle mx-2"
-                                onClick={() => editButtonHandler(item)}><i className={"fa fa-pen-to-square"}></i>
-                        </button>
-                        <button type="button" className="btn btn-danger rounded-circle mx-2"
-                                onClick={() => deleteButtonHandler(item)}><i className={"fa fa-trash"}></i></button>
-
+                        {haveEdit?<button type="button" className="btn btn-primary rounded-circle mx-2"
+                                 onClick={() => editButtonHandler(item)}><i className={"fa fa-pen-to-square"}></i>
+                        </button>:null}
+                        {haveDelete?<button type="button" className="btn btn-danger rounded-circle mx-2"
+                                 onClick={() => deleteButtonHandler(item)}><i className={"fa fa-trash"}></i></button>:null}
                     </td>
                 </tr>
             </>
@@ -233,7 +236,7 @@ function MainContent({table}) {
                         <table>
                             <thead>
                             <tr>{columnsData}
-                                <th className={"text-center"}>ACTIONS</th>
+                                {haveDelete||haveEdit&&<th className={"text-center"}>ACTIONS</th>}
                             </tr>
                             </thead>
                             {body}

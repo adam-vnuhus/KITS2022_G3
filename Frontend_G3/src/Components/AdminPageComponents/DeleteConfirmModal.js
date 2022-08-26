@@ -19,7 +19,10 @@ export default function DeleteConfirmModal({onCancel,reset,selectedID,linkToAPI,
             linkToAPI + id,
             requestOptions
         )
-            .then((response) => response.json())
+            .then((response) => {
+                console.log(response)
+                response.json()
+            })
             .then((data) => {
                 console.log(data);
                 navigate(-1);

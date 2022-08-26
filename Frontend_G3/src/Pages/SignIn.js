@@ -34,10 +34,10 @@ export default function SignIn({onLogin}) {
             email,
             password
         })
-            .then(() => {
-                window.alert('Đăng nhập thành công')
-                onLogin();
-                if (!state) Navigation('/'); else Navigation(`${state}`);
+            .then(async () => {
+                await window.alert('Đăng nhập thành công')
+                await onLogin()
+                if (!state) window.location.replace('/'); else window.location.replace(`${state}`);
             }, () => window.alert('Đăng nhập thất bại, vui lòng thử lại'))
 
     }

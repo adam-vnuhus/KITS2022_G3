@@ -5,11 +5,11 @@ import Header from './Header';
 import { CartProvider } from 'react-use-cart';
 
 
-const Layout = () => {
+const Layout = ({isUser,onLogout}) => {
     return (
 
         <CartProvider >
-            <Header />
+            <Header isUser={isUser} onLogout={onLogout} />
             <Outlet />
             <Footer />
         </CartProvider>
