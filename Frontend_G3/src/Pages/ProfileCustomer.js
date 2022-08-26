@@ -5,15 +5,15 @@ import { Stepper, Step } from 'react-form-stepper';
 
 import DetailOrder from './ProfileComponent/DetailOrder';
 import AuthService from "../services/AuthService";
+import AdminService from "../services/AdminService";
 
 
 
 const ProfileCustomer = () => {
-
+    const [data,setData] = useState(null)
     const fetchUserInfo = async () => {
-        const res = await AuthService.getUserDetails()
-        const data = res.data;
-        console.log(data);
+        const res = await AdminService.getUserByEmail(eval(localStorage.getItem('email')));
+        setData(res.data)
     }
 
     useEffect(() => {
@@ -32,19 +32,17 @@ const ProfileCustomer = () => {
                 <header>
                     <div className="header-wrap">
                         <div className="profile-pic">
-                            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="profile-logo" />
+                            <img src={data?.image} alt="profile-logo" />
                         </div>
                         <div className="profile-info">
                             <div className="title row">
-                                <h2>Nguyễn văn Hậu</h2>
+                                <h2>{data?.name}</h2>
 
                             </div>
                             <div className="desktop-only">
                                 <div className="details row">
                                     <ul>
-                                        <li><button type="button" class="btn btn-light btn-rounded">Thành viên bạc</button></li>
-                                        <li ><span className="align-middle">Người theo dõi 0</span> </li>
-                                        <li><span className="align-middle">Đang theo dõi 0</span> </li>
+                                        <li><button type="button" class="btn btn-light btn-rounded">{data?.ranking?.name}</button></li>
                                     </ul>
                                 </div>
 
@@ -63,12 +61,10 @@ const ProfileCustomer = () => {
                                         <div className="col-lg-4">
                                             <div className="card mb-4">
                                                 <div className="card-body text-center">
-                                                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar" className="rounded-circle img-fluid" style={{ width: '150px' }} />
-                                                    <h5 className="my-3">Nguyễn Văn Hậu</h5>
-                                                    <p className="text-muted mb-1">Full Stack Developer</p>
-                                                    <p className="text-muted mb-4">Bay Area, San Francisco, CA</p>
+                                                    <img src={data?.image} alt="avatar" className="rounded-circle img-fluid" style={{ width: '150px' }} />
+                                                    <h5 className="my-3">{data?.name}</h5>
                                                     <div className="d-flex justify-content-center mb-2">
-                                                        <button type="button" className="btn btn-primary">Avata</button>
+                                                        <button type="button" className="btn btn-primary">Avatar</button>
 
                                                     </div>
                                                 </div>
@@ -80,10 +76,10 @@ const ProfileCustomer = () => {
                                                 <div className="card-body">
                                                     <div className="row">
                                                         <div className="col-sm-3">
-                                                            <p className="mb-0">Full Name</p>
+                                                            <p className="mb-0">Họ tên</p>
                                                         </div>
                                                         <div className="col-sm-9">
-                                                            <input className="text-muted mb-0 form-control" type="text" placeholder="Nguyễn Văn Hậu" />
+                                                            <input className="text-muted mb-0 form-control" type="text" placeholder={data?.name} />
                                                         </div>
                                                     </div>
                                                     <hr />
@@ -92,39 +88,27 @@ const ProfileCustomer = () => {
                                                             <p className="mb-0">Email</p>
                                                         </div>
                                                         <div className="col-sm-9">
-                                                            <input className="text-muted mb-0 form-control" type="email" placeholder="example@example.com" />
+                                                            <input className="text-muted mb-0 form-control" type="email" placeholder={data?.email} />
                                                         </div>
                                                     </div>
                                                     <hr />
                                                     <div className="row">
                                                         <div className="col-sm-3">
-                                                            <p className="mb-0">Phone</p>
+                                                            <p className="mb-0">Số điện thoại</p>
 
                                                         </div>
                                                         <div className="col-sm-9">
 
-                                                            <input className="mb-0 form-control" type="email" placeholder="(097) 234-5678" />
+                                                            <input className="mb-0 form-control" type="email" placeholder={data?.phone} />
                                                         </div>
                                                     </div>
                                                     <hr />
                                                     <div className="row">
                                                         <div className="col-sm-3">
-                                                            <p className="mb-0">Mobile</p>
-
+                                                            <p className="mb-0">Địa chỉ</p>
                                                         </div>
                                                         <div className="col-sm-9">
-
-                                                            <input className="text-muted mb-0 form-control" type="email" placeholder="(098) 765-4321" />
-                                                        </div>
-                                                    </div>
-                                                    <hr />
-                                                    <div className="row">
-                                                        <div className="col-sm-3">
-                                                            <p className="mb-0">Address</p>
-                                                        </div>
-                                                        <div className="col-sm-9">
-
-                                                            <input className="text-muted mb-0 form-control" type="email" placeholder="Bay Area, San Francisco, CA" />
+                                                            <input className="text-muted mb-0 form-control" type="email" placeholder={data?.address} />
                                                         </div>
                                                     </div>
                                                 </div>
