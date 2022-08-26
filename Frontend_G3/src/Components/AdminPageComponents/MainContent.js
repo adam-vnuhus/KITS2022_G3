@@ -236,7 +236,7 @@ function MainContent({table}) {
                         <table>
                             <thead>
                             <tr>{columnsData}
-                                {haveDelete||haveEdit&&<th className={"text-center"}>ACTIONS</th>}
+                                {(haveDelete||haveEdit)&&<th className={"text-center"}>ACTIONS</th>}
                             </tr>
                             </thead>
                             {body}

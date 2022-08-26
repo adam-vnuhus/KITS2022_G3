@@ -26,16 +26,12 @@ import AuthService from "./services/AuthService";
 import OrderOff from "./testOrderOff/OrderOff";
 import AdminNewOrder from "./Components/AdminPageComponents/AdminNewOrder";
 import ShopMarkets from './Pages/ShopMarkets';
-
-
-
-
-
+import {useCart} from "react-use-cart";
 
 function App() {
+    const { emptyCart,clearCartMetadata } = useCart();
     const [isAdmin, setAdminRole] = useState(localStorage.getItem('user')?.includes('ADMIN'));
     const [isUser, setUserRole] = useState(localStorage.getItem('user')?.includes('USER'))
-
     const Login = () => {
         setAdminRole(localStorage.getItem('user')?.includes('ADMIN'));
         setUserRole(localStorage.getItem('user')?.includes('USER'));
@@ -44,8 +40,9 @@ function App() {
     const Logout = () => {
         setAdminRole(false);
         setUserRole(false);
-        localStorage.removeItem('user')
-        localStorage.removeItem('id')
+        localStorage.clear()
+        window.localStorage.clear()
+        localStorage.removeItem('react-use-cart')
         AuthService.logout().then(() => {
             console.log('You have been logged out !!');
         });
@@ -79,7 +76,7 @@ function App() {
                     <Route index element={<Home />} />
                     <Route path="/shop/:name" element={<ShopMainPage />} />
                     <Route path="/shop" element={<ShopMainPage />} />
-                    <Route path="/cart" element={!isUser ? <Navigate to={'/login'} replace={true} /> : <Cart />} />
+                    <Route path="/cart" element={!isUser ? <Navigate to={'/login'} state={"/cart"} replace={true} /> : <Cart />} />
                     <Route path="/contact" element={<Contact />} />
                     <Route path="/checkout" element={<Checkout />} />
                     <Route path="/login" element={isUser ? <Navigate to={'/'} replace={true} /> : <SignIn onLogin={Login} />} />
