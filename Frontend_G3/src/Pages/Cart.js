@@ -98,9 +98,9 @@ const Cart = () => {
                     </div>
                     <div className="col-lg-6">
                         <div className="shoping__checkout">
-                            <h5>Cart Total</h5>
+                            <h5>Giỏ hàng</h5>
                             <ul>
-                                <li>Tạm tính <span>{cartTotal.toLocaleString('it-IT', {
+                                <li>Tạm tính <span>{cartTotal?.toLocaleString('it-IT', {
                                     style: 'currency',
                                     currency: 'VND'
                                 })}</span></li>
@@ -110,12 +110,12 @@ const Cart = () => {
                                     currency: 'VND'
                                 })}</span></li>
 
-                                <li>Thuế 10%<span>{(cartTotal/10).toLocaleString('it-IT', {
+                                <li>Thuế 10%<span>{(cartTotal/10)?.toLocaleString('it-IT', {
                                     style: 'currency',
                                     currency: 'VND'
                                 })}</span></li>
 
-                                <li>Tổng tiền <span>{(cartTotal+cartTotal/10+20000).toLocaleString('it-IT', {
+                                <li>Tổng tiền <span>{(cartTotal+cartTotal/10+20000)?.toLocaleString('it-IT', {
                                     style: 'currency',
                                     currency: 'VND'
                                 })}</span></li>

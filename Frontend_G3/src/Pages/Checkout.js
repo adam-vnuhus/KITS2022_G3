@@ -1,4 +1,5 @@
 import { useCart } from "react-use-cart";
+import React from "react";
 export default function Checkout() {
     const { isEmpty, totalUniqueItems, items, cartTotal, updateItemQuantity, removeItem } = useCart();
 
@@ -33,17 +34,11 @@ export default function Checkout() {
                                         )
                                     })}
 
-                                    <div className="checkout__order__subtotal">Subtotal <span>{cartTotal.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</span></div>
-                                    <div className="checkout__order__total">Total <span>{cartTotal.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</span></div>
-
-
-                                    {/* <div className="checkout__input__checkbox">
-                                        <label htmlFor="paypal">
-                                            Paypal
-                                            <input type="checkbox" id="paypal" />
-                                            <span className="checkmark"></span>
-                                        </label>
-                                    </div> */}
+                                    <div className="checkout__order__subtotal">Tạm tính <span>{cartTotal.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</span></div>
+                                    <div className="checkout__order__subtotal">Phí vận chuyển <span>{(20000).toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</span></div>
+                                    <div className="checkout__order__subtotal">Thuế 10%<span>{(cartTotal/10)?.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</span></div>
+                                    <div className="checkout__order__subtotal">Tổng tiền <span>{(cartTotal+cartTotal/10+20000)?.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</span></div>
+                                    
                                     <button type="submit" className="site-btn">Đăt hàng tận nơi</button>
                                 </div>
                             </div>
