@@ -58,9 +58,9 @@ export default function ShopMainPage() {
 
             <div key={item.id} className="col-lg-3 col-md-6 col-sm-8">
                 <Link to={"/detail/" + item.name}>
-                    <div className="product" style={{height: '350px'}}>
+                    <div className="product" style={{ height: '350px' }}>
                         <a href="/" className="img-prod"><img className="img-fluid" src={item.image}
-                            alt="Colorlib Template" style={{height: '220px'}}/>
+                            alt="Colorlib Template" style={{ height: '220px' }} />
 
                             <div className="overlay" />
                         </a>
@@ -187,7 +187,7 @@ export default function ShopMainPage() {
 
                             </div>
                             <div className="sidebar__item">
-                                <h4>Price</h4>
+                                <h4>Giá</h4>
                                 <RangeSlider max={maxIncome(maxPrice)} defaultValue={[29000, 75000]}
                                     onChange={handlePrice} />
                                 <br />
@@ -248,7 +248,7 @@ export default function ShopMainPage() {
                                 </div>
                                 <div className="col-lg-4 col-md-4">
                                     <div className="filter__found">
-                                        <h6><span>{data.length}</span> Products found</h6>
+                                        <h6><span>{data.length}</span> Sản phẩm</h6>
                                     </div>
                                 </div>
                                 <div className="col-lg-4 col-md-3">

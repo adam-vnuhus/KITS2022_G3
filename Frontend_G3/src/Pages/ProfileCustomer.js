@@ -80,7 +80,7 @@ const ProfileCustomer = () => {
                                                 <div className="card-body">
                                                     <div className="row">
                                                         <div className="col-sm-3">
-                                                            <p className="mb-0">Full Name</p>
+                                                            <p className="mb-0">Tên</p>
                                                         </div>
                                                         <div className="col-sm-9">
                                                             <input className="text-muted mb-0 form-control" type="text" placeholder="Nguyễn Văn Hậu" />
@@ -98,7 +98,7 @@ const ProfileCustomer = () => {
                                                     <hr />
                                                     <div className="row">
                                                         <div className="col-sm-3">
-                                                            <p className="mb-0">Phone</p>
+                                                            <p className="mb-0">Số điện thoại</p>
 
                                                         </div>
                                                         <div className="col-sm-9">
@@ -107,20 +107,11 @@ const ProfileCustomer = () => {
                                                         </div>
                                                     </div>
                                                     <hr />
+
+
                                                     <div className="row">
                                                         <div className="col-sm-3">
-                                                            <p className="mb-0">Mobile</p>
-
-                                                        </div>
-                                                        <div className="col-sm-9">
-
-                                                            <input className="text-muted mb-0 form-control" type="email" placeholder="(098) 765-4321" />
-                                                        </div>
-                                                    </div>
-                                                    <hr />
-                                                    <div className="row">
-                                                        <div className="col-sm-3">
-                                                            <p className="mb-0">Address</p>
+                                                            <p className="mb-0">Địa chỉ</p>
                                                         </div>
                                                         <div className="col-sm-9">
 
@@ -156,7 +147,7 @@ const ProfileCustomer = () => {
                                             <span class="text-muted small">by DHFL on 21 Jan, 2020</span>
                                         </div>
                                         <div className="text-end align-items-center col-md-7    ">
-                                            <button onClick={toggleModal} class="btn btn-outline-primary" type="button">Track order details</button>
+                                            <button onClick={toggleModal} class="btn btn-outline-primary" type="button">Chi tiết đơn hàng</button>
                                         </div>
 
                                     </div>

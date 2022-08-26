@@ -131,7 +131,7 @@ const Header = ({isUser,onLogout}) => {
                             <div className="hero__categories" onClick={haldeAllDe}>
                                 <div className="hero__categories__all">
                                     <i className="fa fa-bars" />
-                                    <span>All departments</span>
+                                    <span>Các Loại Sản phẩm</span>
                                 </div>
 
                                 <ul className={param === "/" ? 'd-block' : `d-${displays}`}  >
