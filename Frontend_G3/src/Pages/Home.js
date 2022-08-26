@@ -22,6 +22,12 @@ const Home = () => {
             });
 
     }, [])
+
+    const [itemsToShow, setItemToShow] = useState(16);
+    const showMore = () => {
+        setItemToShow(itemsToShow + 16);
+
+    }
     // console.log('>>> check dataProduct : ', product);
     return (
         <>
@@ -44,7 +50,7 @@ const Home = () => {
                     <div className="row">
 
                         {product && product.length > 0 ?
-                            product.slice(0, 12).map((item, index) => {
+                            product.slice(0, itemsToShow).map((item, index) => {
                                 return (
                                     <div key={index + 1} className="col-md-6 col-lg-3 ">
                                         <Link to={"/detail/" + item.name} >
@@ -81,12 +87,15 @@ const Home = () => {
 
 
                                     </div>
+
                                 )
                             })
 
                             : 'loading'
                         }
-
+                        <div className='text-center mt-2 mb-5'>
+                            <button type='button' className='btn' onClick={() => showMore()}>Xem thêm</button>
+                        </div>
                     </div>
                 </div>
             </section>
