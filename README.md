@@ -13,3 +13,5 @@ https://docs.google.com/spreadsheets/d/1fLxOztTLWghJ04YDTFoTdcMi65mphkpH32EMM7If
 # Databse 
 ![image](https://user-images.githubusercontent.com/96046778/186842371-4849765e-de40-4a2c-a0f0-9a6d627253de.png)
 
+# Slider G3Mart
+https://docs.google.com/presentation/d/1MlzeXx_xokMACABm_eQYRRRV1g311H54yvMPJcwYj-g/edit#slide=id.p
