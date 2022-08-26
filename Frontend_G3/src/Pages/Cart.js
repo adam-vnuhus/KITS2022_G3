@@ -105,7 +105,7 @@ const Cart = () => {
                                     currency: 'VND'
                                 })}</span></li>
 
-                                <li>Phí vận chuyển<span>{(20000).toLocaleString('it-IT', {
+                                <li>Phí vận chuyển<span>{cartTotal>0?(20000):(0).toLocaleString('it-IT', {
                                     style: 'currency',
                                     currency: 'VND'
                                 })}</span></li>
@@ -115,12 +115,14 @@ const Cart = () => {
                                     currency: 'VND'
                                 })}</span></li>
 
-                                <li>Tổng tiền <span>{(cartTotal+cartTotal/10+20000)?.toLocaleString('it-IT', {
+                                <li>Tổng tiền <span>{cartTotal>0?(cartTotal+cartTotal/10+20000):(0).toLocaleString('it-IT', {
                                     style: 'currency',
                                     currency: 'VND'
                                 })}</span></li>
                             </ul>
-                            <Link to="/checkout" className="primary-btn">PROCEED TO CHECKOUT</Link>
+                            {!isEmpty
+                                ?<Link to="/checkout" className="primary-btn">PROCEED TO CHECKOUT</Link>
+                                :<button className={'primary-btn w-100'} onClick={()=>window.alert('Vui lòng mua hàng để tiếp tục thanh toán')}>PROCEED TO CHECKOUT</button>}
                         </div>
                     </div>
                 </div>
