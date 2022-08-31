@@ -23,7 +23,6 @@ const DetailProduct = () => {
         let res = await ProductService.getProduct(params.name, '', '', '', '')
         let data = res.data;
         setProduct(data)
-
     }
     const { addItem } = useCart();
 

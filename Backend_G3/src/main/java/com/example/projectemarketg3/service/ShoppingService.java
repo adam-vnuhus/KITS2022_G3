@@ -49,8 +49,8 @@ public class ShoppingService {
         Optional<Product> product = productRepository.findById(detailDto.getProductId());
         int quantityProduct = product.get().getQuantity();
 //        lay ra user
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        User user = userRepository.getUserById(detailDto.getUserId());
+//        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userRepository.getUserById(detailDto.getUserId());
 
 
 //        kiem tra xem trong gio hang da co san pham vua click add cart chua

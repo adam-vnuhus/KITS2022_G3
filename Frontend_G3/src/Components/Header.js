@@ -46,7 +46,7 @@ const Header = ({ isUser, onLogout }) => {
                             <div className="col-lg-6 col-md-6">
                                 <div className="header__top__left">
                                     <ul>
-                                        <li><i className="fa fa-envelope" /> G3Mark@gmail.com</li>
+                                        <li><i className="fa fa-envelope" /> G3Mart@gmail.com</li>
                                         <li>Ship tận nơi với mọi đơn hàng</li>
                                     </ul>
                                 </div>
@@ -60,7 +60,7 @@ const Header = ({ isUser, onLogout }) => {
                                         <Link to="/"><i className="fa-brands fa-pinterest-p"></i></Link>
                                     </div>
                                     <div className="header__top__right__language">
-                                        <img src={require(`../img/rsz_1rsz_quoc-ky-viet-nam.jpg`)} alt="" />
+                                        <img id="logo-size" src={require(`../img/rsz_1rsz_quoc-ky-viet-nam.jpg`)} alt="G3Mart"/>
                                         <div>Việt Nam</div>
                                         <span className="arrow_carrot-down" />
                                         <ul>

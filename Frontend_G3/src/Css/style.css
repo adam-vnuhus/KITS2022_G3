@@ -83,6 +83,10 @@ p {
 	margin: 0 0 15px 0;
 }
 
+#logo-size{
+	max-width: 55% !important;
+}
+
 img {
 	max-width: 100%;
 }
@@ -2689,7 +2693,7 @@ ol {
 }
 
 .footer__widget form input::placeholder {
-	color: #1c1c1c;
+	color: rgba(51, 51, 51, 0.65);
 }
 
 .footer__widget form button {
@@ -2724,7 +2728,7 @@ ol {
 }
 
 .footer__widget .footer__widget__social a:hover {
-	background: #7fad39;
+	background: #4b70e2;
 	color: #ffffff;
 	border-color: #ffffff;
 }
