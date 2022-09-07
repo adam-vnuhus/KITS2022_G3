@@ -41,10 +41,10 @@ public class UserController {
         return infoUser;
     }
 
-    @GetMapping("/order-history")
-    public List<Orders> historyOrderUser() {
-        UserRequest user = (UserRequest) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        User user = userRepository.getUserById(id);
+    @GetMapping("/order-history/{id}")
+    public List<Orders> historyOrderUser(@PathVariable Long id) {
+//        UserRequest user = (UserRequest) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userRepository.getUserById(id);
 
         return ordersRepository.getByUser_IdOrderByCreateAtDesc(user.getId());
     }
@@ -53,6 +53,11 @@ public class UserController {
     public UserRequest myInfo(){
         UserRequest user = (UserRequest) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return user;
+    }
+
+    @GetMapping("/{id}")
+    public User getUserById(@PathVariable Long id){
+        return userRepository.getUserById(id);
     }
 
 }

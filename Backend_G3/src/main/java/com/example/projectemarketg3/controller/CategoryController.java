@@ -2,9 +2,11 @@ package com.example.projectemarketg3.controller;
 
 import com.example.projectemarketg3.entity.Category;
 import com.example.projectemarketg3.entity.Product;
+import com.example.projectemarketg3.entity.Status;
 import com.example.projectemarketg3.exception.NotFoundException;
 import com.example.projectemarketg3.repository.CategoryRepository;
 import com.example.projectemarketg3.repository.ProductRepository;
+import com.example.projectemarketg3.repository.StatusRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +22,9 @@ public class CategoryController {
     private CategoryRepository categoryRepository;
     @Autowired
     private ProductRepository productRepository;
+    @Autowired
+    private StatusRepository statusRepository;
+
 
     @GetMapping
     public List<Category> getAllCategory(){
@@ -31,6 +36,11 @@ public class CategoryController {
 //    public Category createCategory(@RequestBody Category category) {
 //        return categoryRepository.save(category);
 //    }
+
+    @GetMapping("/status")
+    public List<Status> getAllStatus(){
+        return statusRepository.findAll();
+    }
 
     // get category by ID rest api
     @GetMapping("/{id}")

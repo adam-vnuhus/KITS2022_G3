@@ -27,6 +27,8 @@ public class OrderService {
                 .userId(orderDetail.getUser().getId())
                 .productImage(orderDetail.getProductImage())
                 .cartId(orderDetail.getId())
+                .productName(orderDetail.getProduct().getName())
+                .productPrice(orderDetail.getProduct().getPrice())
                 .build();
     }
 }

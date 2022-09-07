@@ -27,6 +27,10 @@ import OrderOff from "./testOrderOff/OrderOff";
 import AdminNewOrder from "./Components/AdminPageComponents/AdminNewOrder";
 import ShopMarkets from './Pages/ShopMarkets';
 import {useCart} from "react-use-cart";
+import ProductTable from "./Components/AdminPageComponents/product/ProductTable";
+import OrderTable from "./Components/AdminPageComponents/order/OrderTable";
+import RatingTable from "./Components/AdminPageComponents/rating/RatingTable";
+import UserTable from "./Components/AdminPageComponents/user/UserTable";
 
 function App() {
     const { emptyCart,clearCartMetadata } = useCart();
@@ -57,17 +61,17 @@ function App() {
                     <Route path="/admin/orders/new"
                         element={<AdminNewOrder />} />
                     <Route path="/admin/orders"
-                        element={<MainContent table={"order"} />} />
+                        element={<OrderTable/>} />
                     <Route path="/admin/products"
-                        element={<MainContent table={"product"} />} />
+                        element={<ProductTable/>} />
                     <Route path="/admin/supplier"
                         element={<MainContent table={"supplier"} />} />
                     <Route path="/admin/ranking"
                         element={<MainContent table={"ranking"} />} />
                     <Route path="/admin/rating"
-                        element={<MainContent table={"rating"} />} />
+                        element={<RatingTable/>} />
                     <Route path="/admin/user"
-                        element={<MainContent table={"user"} />} />
+                        element={<UserTable/>} />
                 </Route>
                 <Route path="/404" element={<Error errorCode={404} message={"WE CAN'T FIND THAT PAGE!"} />} />
                 <Route path="/500" element={<Error errorCode={500} message={"SOMETHING WENT WRONG !"} />} />

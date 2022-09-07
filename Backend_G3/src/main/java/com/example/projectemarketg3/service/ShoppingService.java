@@ -116,8 +116,8 @@ public class ShoppingService {
         Optional<Status> status = statusRepository.findById(1L);
 
         //        lay ra user
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        User user = userRepository.getUserById(info.getUserId());
+//        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userRepository.getUserById(info.getUserId());
 
         if(user.getRole().contains("ADMIN")){
             status = statusRepository.findById(4L);
@@ -157,7 +157,7 @@ public class ShoppingService {
         Orders order = Orders.builder()
                 .createAt(new Date(System.currentTimeMillis()))
                 .note(info.getNote())
-                .totalPrice(total[0])
+                .totalPrice(total[0]+(20000+(total[0]*10/100)))
                 .orderDetails(orderDetails) //
                 .status(status.get())
                 .user(user) //
@@ -263,8 +263,8 @@ public class ShoppingService {
         Product product = productRepository.getProductById(ratingDto.getProductId());
 
 //        lay ra user
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        User user = userRepository.getUserById(ratingDto.getUserId());
+//        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userRepository.getUserById(ratingDto.getUserId());
 
         Rating rating = Rating.builder()
                 .createAt(new Date(System.currentTimeMillis()))

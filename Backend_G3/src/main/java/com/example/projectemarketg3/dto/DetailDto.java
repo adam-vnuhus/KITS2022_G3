@@ -14,4 +14,7 @@ public class DetailDto {
     private Long productId;
     private Long cartId;
     private String productImage;
+    private String productName;
+    private Long productPrice;
+
 }

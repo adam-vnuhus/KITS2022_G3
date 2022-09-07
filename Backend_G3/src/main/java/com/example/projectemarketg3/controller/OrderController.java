@@ -32,7 +32,7 @@ public class OrderController {
 
     @GetMapping
     public List<Orders> getAllOrder() {
-        return ordersRepository.findAll();
+        return ordersRepository.findByOrderByCreateAtDesc();
     }
 
 //    // get order by ID rest api
@@ -46,6 +46,7 @@ public class OrderController {
 
 
     //----------------------------------------------- DETAILS-----------------------------------------------------------
+
 
     @GetMapping("/details")
     public List<OrderDetail> getAllDetail() {

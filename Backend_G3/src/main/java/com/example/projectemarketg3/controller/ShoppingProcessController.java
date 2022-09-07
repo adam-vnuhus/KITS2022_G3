@@ -3,11 +3,8 @@ package com.example.projectemarketg3.controller;
 import com.example.projectemarketg3.dto.DetailDto;
 import com.example.projectemarketg3.dto.InfoUserShoppingDto;
 import com.example.projectemarketg3.dto.RatingDto;
-import com.example.projectemarketg3.dto.UserIdDto;
 import com.example.projectemarketg3.entity.*;
 import com.example.projectemarketg3.repository.*;
-import com.example.projectemarketg3.request.StatusOrderRequest;
-import com.example.projectemarketg3.request.UserRequest;
 import com.example.projectemarketg3.security.UpdatePassRequest;
 import com.example.projectemarketg3.service.AuthService;
 import com.example.projectemarketg3.service.OrderService;
@@ -57,15 +54,11 @@ public class ShoppingProcessController {
     }
 
     //    XEM GIO HANG theo id khach
-    @GetMapping("/carts")
-    public List<DetailDto> cartByUserId() {
+    @GetMapping("/cart/{id}")
+    public List<DetailDto> cartByUserId(@PathVariable Long id) {
 //        lay ra user
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-//        User user = userRepository.getUserById(id);
-        System.out.println(user.getId());
-        System.out.println(user.getEmail());
-
+//        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userRepository.getUserById(id);
 
 //        lay ra danh sach san pham co trong gio hang o detail theo id khach
 //        Set<OrderDetail> orderDetails = orderDetailRepository.findByUser_Id(id.getId());
@@ -99,16 +92,20 @@ public class ShoppingProcessController {
 
     //    CLICK TANG/GIAM SO LUONG SAN PHAM (-a -> a)
     @PutMapping("/quantity-detail")
-    public CartItem clickUpdateQuantity( @RequestBody DetailDto detailDto) {
+    public CartItem clickUpdateQuantity(@RequestBody DetailDto detailDto) {
         Optional<CartItem> orderDetail = cartItemRepository.findById(detailDto.getCartId());
         Product product = orderDetail.get().getProduct();
+//        set lai so luong san pham
         int num = 0;
-        if(detailDto.getQuantity()<0){
-         num = Math.max(orderDetail.get().getQuantity() + detailDto.getQuantity(), 0);}
-        else {
+        if (detailDto.getQuantity() < 0) {
+            num = Math.max(orderDetail.get().getQuantity() + detailDto.getQuantity(), 0);
+        } else {
             num = orderDetail.get().getQuantity() + detailDto.getQuantity() > product.getQuantity() ? product.getQuantity() : orderDetail.get().getQuantity() + detailDto.getQuantity();
         }
         orderDetail.get().setQuantity(num);
+        //        set lai total
+        Long total = detailDto.getQuantity() * orderDetail.get().getProduct().getPrice();
+        orderDetail.get().setTotal(orderDetail.get().getTotal() + total);
         return cartItemRepository.save(orderDetail.get());
     }
 
@@ -122,7 +119,6 @@ public class ShoppingProcessController {
     }
 
 
-
     //  NEW DATA RATING ->  DANH GIA DON HANG CHECKING = 0;
     @PostMapping("/rating-product")
     public Rating ratingProduct(@RequestBody RatingDto ratingDto) {
@@ -130,21 +126,20 @@ public class ShoppingProcessController {
     }
 
 
-
-
     //    LAY RA DANH GIA CUA SAN PHAM THEO USER
-    @GetMapping("/rating-user")
-    public List<Rating> getAllRatingUser() {
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    @GetMapping("/rating-user/{id}")
+    public List<Rating> getAllRatingUser(@PathVariable Long id) {
+//        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userRepository.getUserById(id);
         return ratingRepository.findByUser_IdOrderByCreateAtDesc(user.getId());
     }
 
 //    RESET RANK 6 THANG 1 LAN
 
-//DOI PASS
-@PostMapping("/update-pass")
-public String updatePass(@RequestBody UpdatePassRequest request){
-    User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    return authService.updatePassword(user, request);
-}
+    //DOI PASS
+    @PostMapping("/update-pass")
+    public String updatePass(@RequestBody UpdatePassRequest request) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return authService.updatePassword(user, request);
+    }
 }

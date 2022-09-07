@@ -339,7 +339,8 @@ public class AdminController {
         Optional<Orders> orders = ordersRepository.findById(request.getOrderId());
         Optional<Status> status = statusRepository.findById(request.getStatusId());
 
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            User user = userRepository.getUserById(request.getUserId());
 
         if (orders.get().getUserSucceed() == null || orders.get().getUserSucceed().getId().equals(user.getId())) {
 
