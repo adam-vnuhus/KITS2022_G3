@@ -1,12 +1,15 @@
 package com.example.projectemarketg3.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.Hibernate;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.LinkedHashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Builder
 @ToString
@@ -66,6 +69,10 @@ public class Product implements Serializable {
     @Column(name = "available")
     private Boolean available;
 
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private Set<Image> images = new LinkedHashSet<>();
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -77,5 +84,11 @@ public class Product implements Serializable {
     @Override
     public int hashCode() {
         return getClass().hashCode();
+    }
+
+    @PreRemove
+    public void preRemove() {
+        images.forEach(i -> i.setProduct(null));
+        images.clear();
     }
 }

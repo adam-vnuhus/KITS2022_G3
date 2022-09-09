@@ -31,6 +31,7 @@ public class ProductRequest {
     private Long categoryId;
 
     private Long supplierId;
+    private Long productId;
 
     private Boolean available;
 }

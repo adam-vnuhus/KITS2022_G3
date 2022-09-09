@@ -24,7 +24,10 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-
+    @GetMapping("/getAll")
+public List<Product> getAllProduct (){
+        return productRepository.findByOrderByIdDesc();
+    }
     // Get all products rest api
     @GetMapping("/search")
     public List<Product> getAllProduct(@RequestParam Optional<String> name,

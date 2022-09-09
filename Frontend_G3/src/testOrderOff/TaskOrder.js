@@ -23,7 +23,8 @@ const TaskOrder = () => {
     fetch("http://localhost:8080/api/user/detail-delete/" + id, {
       method: "DELETE",
     }).then(() => {
-      console.log("delete successful!!");
+      // console.log("delete successful!!");
+      alert("xoa thanh cong");
       let result = [...data];
       result = result.filter((item) => {
         return item.id !== id;

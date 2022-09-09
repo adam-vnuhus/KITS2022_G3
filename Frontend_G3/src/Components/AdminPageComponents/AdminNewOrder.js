@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from "react";
 import ComboBox from "./ComboBox";
 import AdminService from "../../services/AdminService";
-import RangeSlider from "rsuite/RangeSlider";
+import axios from "axios";
+import {useNavigate} from "react-router-dom";
 
 export default function AdminNewOrder() {
     const [items, setItems] = useState(null)
@@ -17,6 +18,8 @@ export default function AdminNewOrder() {
     const [isNewMember, setIsNewMember] = useState(false);
     const [usePoint, setUsePoint] = useState(false);
     const [pointUse, setPointUse] = useState(0);
+
+    const navi = useNavigate()
 
     async function setData() {
         const productData = (await AdminService.fetchOnlyData("product")).data;
@@ -34,11 +37,13 @@ export default function AdminNewOrder() {
     async function onSelectProduct(e, item) {
         e.preventDefault();
         await setSelectedItem(item)
+
     }
 
     async function onSelectUser(e, item) {
         e.preventDefault();
         await setSelectedUser(item)
+
     }
 
     async function onAdjust(item, sign, quantity) {
@@ -77,6 +82,37 @@ export default function AdminNewOrder() {
         await e.preventDefault();
         await setQuantity(eval(e.target.parentElement.children[1].value))
         await onAdjust(selectedItem, '+', quantity)
+    }
+
+    const clickOrder = async () => {
+        // console.log("totalPrice", totalPrice)
+        // console.log("selectedUser", selectedUser)
+        // console.log("items", items)
+
+        let productIdItem =""
+           items.forEach(s => {
+                productIdItem = productIdItem + "id : " + s.id + " Số Lượng : " +s.quantity + " | "
+            })
+        // console.log(productIdItem)
+        if(!selectedUser.id){
+            setSelectedItem(0)
+        }
+
+        try {
+            await axios.post("http://localhost:8080/api/admin/order-off",{
+                totalPrice:totalPrice,
+                userId:selectedUser.id ,
+                adminId:localStorage.getItem('id'),
+                productId:productIdItem
+            })
+
+            alert('thanh cong')
+            navi("/admin/orderOff")
+
+        }catch (e) {
+            alert('that bai')
+            console.log(e)
+        }
     }
 
     return listProduct !== null
@@ -211,9 +247,9 @@ export default function AdminNewOrder() {
                                         </th>
                                         <td>{selectedUser?.point || 0}
                                             {selectedUser?.point > 100000 ? <><input className='ms-3' type="checkbox"
-                                                                                   id="member" name="member"
-                                                                                   value="member"
-                                                                                   onChange={() => setUsePoint(!usePoint)}/>
+                                                                                     id="member" name="member"
+                                                                                     value="member"
+                                                                                     onChange={() => setUsePoint(!usePoint)}/>
                                                 <label className={'mx-1'} htmlFor="member">Dùng điểm ?</label></> : ''}
                                         </td>
                                     </tr>
@@ -277,6 +313,8 @@ export default function AdminNewOrder() {
                         </div>
                     </div>
                 </section>
+
+                <button type="button" onClick={clickOrder} className="btn btn-outline-info">Xuất Đơn</button>
             </div>
         </div> : <div className='h1 text-center align-baseline'>'loading...'</div>
 }

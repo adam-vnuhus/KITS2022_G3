@@ -40,6 +40,8 @@ public class AdminController {
     private RatingRepository ratingRepository;
     @Autowired
     private SupplierRepository supplierRepository;
+    @Autowired
+    private OffRepository offRepository;
 
     //=========================== CATEGORY ===============================================
     // create a new category rest api
@@ -110,16 +112,36 @@ public class AdminController {
 
 //    ORDER OFF LINE
     @PostMapping("/api/admin/order-off")
-    public Orders orderOffLine(@RequestBody OrderOffRequest request){
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    public Off orderOffLine(@RequestBody OrderOffRequest request){
 
-        Orders orders = Orders.builder()
+        Optional<Status> status = statusRepository.findById(10L);
 
+//        lay ra user co the la user hoac la khach le
+        if(request.getUserId() == null){
+            request.setUserId(0L);
+        }
+
+        User user = userRepository.getUserById(request.getUserId());
+        User admin = userRepository.getUserById(request.getAdminId());
+
+        Off orders = Off.builder()
+                .createAt(new Date(System.currentTimeMillis()))
+                .note("Đơn hàng tại siêu thị")
+                .totalPrice(request.getTotalPrice())
+                .status(status.get())
+                .user(user)
+                .userSucceed(admin)
+                .orderOff(request.getProductId())
                 .build();
 
-        return orders;
+        return offRepository.save(orders);
     }
 
+//    GET ORDEROFF
+@GetMapping("/api/admin/order-off")
+public List<Off> getAllOff(){
+        return offRepository.findAll();
+}
 //======================= DETAILS ORDER ============================
 
     // delete order detail rest api
@@ -180,6 +202,25 @@ public class AdminController {
         product.setAvailable(true);
         return productRepository.save(product);
     }
+
+//    sua san pham
+@PutMapping("/api/admin/product/{id}")
+public Product updateInfoProduct(@PathVariable Long id,@RequestBody ProductRequest request) {
+    Product product = productRepository.getProductById(id);
+Optional<Category> category = categoryRepository.findById(request.getCategoryId());
+    Optional<Supplier> supplier = supplierRepository.findById(request.getSupplierId());
+
+    product.setName(request.getName());
+    product.setQuantity(request.getQuantity());
+    product.setBuyPrice(request.getBuyPrice());
+    product.setPrice(request.getPrice());
+    product.setOrigin(request.getOrigin());
+    product.setCategory(category.get());
+    product.setSupplier(supplier.get());
+    product.setDescription(request.getDescription());
+
+    return productRepository.save(product);
+}
 
     //====================================== RANK =========================================
     @PostMapping("/api/admin/rank")

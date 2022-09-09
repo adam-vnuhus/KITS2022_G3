@@ -1,31 +1,29 @@
 import React, {useEffect, useState} from 'react';
 import {Avatar, Rating} from "@mui/material";
 
-const UserTable = () => {
-    const [rating,setRating] = useState([])
+const SupplierTable = () => {
+    const [supplier,setSupplier] = useState([])
 
     useEffect(() => {
-        let url = "http://localhost:8080/api/admin/user";
+        let url = "http://localhost:8080/api/v1/supplier";
         fetch(url)
             .then((response) => response.json())
             .then((data) => {
-                setRating(data);
+                setSupplier(data);
             });
     }, []);
 
     let list = []
-    if(rating != null){
-        rating.map((value) =>{
+    if(supplier != null){
+        supplier.map((value,index) =>{
                 list.push(
                     <tr key={value.id}>
-                        <td>{value.id}</td>
-                        <td>
-                            <Avatar alt="Remy Sharp" src={value.image} /></td>
-                        <td>{value.ranking ? value.ranking.name : "Khách hàng hiện chưa có thứ hạng"}</td>
-                        {/**/}
+                        <td>{index}</td>
                         <td>{value.name}</td>
-                        <td>{value.phone}</td>
-                        <td>{value.address}</td>
+                        <td>
+                            <button type="button" className="btn btn-outline-danger me-3 ">Xóa</button>
+                            <button type="button" className="btn btn-outline-warning">Sửa</button>
+                        </td>
                         {/**/}
                     </tr>
                 )
@@ -38,10 +36,9 @@ const UserTable = () => {
             <table className="table table-striped">
                 <thead>
                 <tr>
-                    <th>id</th>
-                    <th>Ảnh</th>
-                    <th>Thứ hạng</th>
-                    <th colSpan="3">Thông tin khách hàng</th>
+                    <th>stt</th>
+                    <th>Tên nhà cung cấp </th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -52,4 +49,4 @@ const UserTable = () => {
     );
 };
 
-export default UserTable;
+export default SupplierTable;

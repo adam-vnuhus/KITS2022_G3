@@ -1,6 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import axios from "axios";
 import OrderItem from "./OrderItem";
+import {Link} from "react-router-dom";
 
 
 const OrderTable = () => {
@@ -55,17 +56,24 @@ const OrderTable = () => {
 
     return (
         <div style={{flex: "1 1"}} className="m-5">
+
+
+                <Link to="/admin/orderOff">
+                    <button type="button" className="btn btn-outline-info">Đơn hàng tại quầy</button>
+
+                </Link>
+
             <table className="table table-striped">
                 <thead>
                 <tr>
                     <th>id</th>
-                    <th>Ngay mua</th>
-                    <th>Note</th>
-                    <th>Tong tien</th>
-                    <th colSpan="3">Dia chi, ten khach , so dien thoai</th>
-                    <th>San pham</th>
-                    <th>Tinh trang</th>
-                    <th>Nguoi nhan don</th>
+                    <th>Ngày mua hàng</th>
+                    <th>Ghi chú đơn hàng</th>
+                    <th>Tổng tiền</th>
+                    <th colSpan="3">Thông tin khách hàng</th>
+                    <th>Sản phẩm</th>
+                    <th>Tình trạng đơn hàng</th>
+                    <th>Người nhận đơn</th>
                     <th></th>
                 </tr>
                 </thead>

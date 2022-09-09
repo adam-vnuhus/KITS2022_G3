@@ -31,6 +31,9 @@ import ProductTable from "./Components/AdminPageComponents/product/ProductTable"
 import OrderTable from "./Components/AdminPageComponents/order/OrderTable";
 import RatingTable from "./Components/AdminPageComponents/rating/RatingTable";
 import UserTable from "./Components/AdminPageComponents/user/UserTable";
+import PutProduct from "./Components/AdminPageComponents/product/PutProduct";
+import OrderOffByAdmin from "./Components/AdminPageComponents/order/OrderOff";
+import SupplierTable from "./Components/AdminPageComponents/supplier/SupplierTable";
 
 function App() {
     const { emptyCart,clearCartMetadata } = useCart();
@@ -59,15 +62,17 @@ function App() {
                     <Route path="/admin/" element={<Dashboard />} />
                     <Route path="/admin/dashboard" element={<Dashboard />} />
                     <Route path="/admin/orders/new"
-                        element={<AdminNewOrder />} />
+                           element={<AdminNewOrder />} />
                     <Route path="/admin/orders"
                         element={<OrderTable/>} />
+                    <Route path="/admin/orderOff"
+                           element={<OrderOffByAdmin/>} />
                     <Route path="/admin/products"
                         element={<ProductTable/>} />
                     <Route path="/admin/supplier"
-                        element={<MainContent table={"supplier"} />} />
-                    <Route path="/admin/ranking"
-                        element={<MainContent table={"ranking"} />} />
+                        element={<SupplierTable/>} />
+                    <Route path="/admin/product/:id"
+                        element={<PutProduct/>} />
                     <Route path="/admin/rating"
                         element={<RatingTable/>} />
                     <Route path="/admin/user"

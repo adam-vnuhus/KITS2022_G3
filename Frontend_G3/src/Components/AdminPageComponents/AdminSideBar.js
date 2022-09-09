@@ -93,7 +93,7 @@ export default function AdminSideBar({ onSignOut }) {
           <img
             src={require(`../../img/rsz_logo-bg-white.png`)}
             className="w-75 mt-3 rounded-circle"
-          />
+           alt=""/>
           <hr />
         </div>
         <div className="admin_sidebar-container">

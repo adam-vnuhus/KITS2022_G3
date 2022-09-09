@@ -10,6 +10,7 @@ import { useCart } from "react-use-cart";
 import ProductService from "../services/ProductService";
 import ReactStars from "react-stars";
 import axios from "axios";
+import RatingProduct from "../Components/UserComponents/RatingProduct";
 
 const DetailProduct = () => {
   const params = useParams("");
@@ -134,11 +135,11 @@ const DetailProduct = () => {
                         <ReactStars
                           count={5}
                           size={40}
-                          value={avgStarProduct}
+                          value={product[0].avgRating}
                           edit={false}
                           activeColor="#ffd700"
                         />
-                        <span>({countReviewProduct} reviews)</span>
+                        <span>({countReviewProduct} Đánh giá)</span>
                       </div>
                       <div className="product__details__price">
                         {product[0].price.toLocaleString("it-IT", {
@@ -147,10 +148,7 @@ const DetailProduct = () => {
                         })}{" "}
                       </div>
                       <p>
-                        Bí xanh (bí đao) L1 WinEco là loại thực phẩm quen thuộc
-                        và phổ biến với người Việt Nam. Bí xanh có thể chế biến
-                        thành nhiều món ăn khác nhau như bí luộc, canh bí hầm
-                        xương
+                        {product[0].origin}
                       </p>
                       {/* data not ok */}
                       <div className="input-group col-md-6 d-flex mb-3">
@@ -225,54 +223,7 @@ const DetailProduct = () => {
 
           {/* end top product */}
         </div>
-        <div>
-          <link
-            href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
-            rel="stylesheet"
-          />
-          <div className="container">
-            <div className="be-comment-block">
-              <h1 className="comments-title">
-                Comments ({countReviewProduct})
-              </h1>
-              {userRating.map((item, index) => (
-                <>
-                  <div className="be-comment">
-                    <div className="be-img-comment">
-                      <a href="blog-detail-2.html">
-                        <img
-                          src={item.user.image}
-                          alt=""
-                          className="be-ava-comment"
-                        />
-                      </a>
-                    </div>
-
-                    <div className="row">
-                      <span className="be-comment-name ms-2">
-                        {item.user.name}
-                        <ReactStars
-                          count={5}
-                          size={10}
-                          value={item.star}
-                          edit={false}
-                          activeColor="#ffd700"
-                        />
-                      </span>
-
-                      <span className="be-comment-time float-end">
-                        <i className="fa fa-clock-o" />
-                        {item.createAt}
-                      </span>
-
-                      <p className="be-comment-text col-12">{item.note}</p>
-                    </div>
-                  </div>
-                </>
-              ))}
-            </div>
-          </div>
-        </div>
+        <RatingProduct id={product[0].id}/>
       </>
     );
 };

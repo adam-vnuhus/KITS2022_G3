@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import axios from "axios";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {Avatar} from "@mui/material";
 
 
@@ -14,12 +14,16 @@ const ProductTable = () => {
     const [suppliers, setSuppliers] = useState([]);
 
     useEffect(() => {
-        let url = "http://localhost:8080/api/v1/products?name=&origin=&category=&start=&end=";
+        let url = "http://localhost:8080/api/v1/products/getAll";
         fetch(url)
             .then((response) => response.json())
             .then((data) => {
                 setProducts(data);
             });
+
+    }, []);
+
+    useEffect(() => {
 
         let urlCategory = "http://localhost:8080/api/v1/categories";
         fetch(urlCategory)
@@ -28,19 +32,22 @@ const ProductTable = () => {
                 setCategories(data);
             });
 
+    }, [])
+
+    useEffect(() => {
         let urlSupplier = "http://localhost:8080/api/v1/supplier";
         fetch(urlSupplier)
             .then((response) => response.json())
             .then((data) => {
                 setSuppliers(data);
             });
-
-    }, []);
+    }, [])
 
     //LIST MODAL
     const listButtonModal = (idProduct, nameProduct) => {
         const id = idProduct
         const modal = "#" + nameProduct
+        const path = "/admin/product/" + idProduct
 
         const modalNhap = "#" + idProduct
         const inputNhap = "nhap" + idProduct
@@ -48,14 +55,35 @@ const ProductTable = () => {
         return (
             <React.Fragment>
                 {/*button xoa*/}
-                <div id="accordion">
-                    <div className="card">
-                        <div className="card-header" id="headingTwo">
+                <div id="accordion" className="card">
+
+                    {/*button Nhap hang */}
+                    <div className="card-header">
+                        <button type="button" className="btn btn-outline-info" data-toggle="modal"
+                                data-target={modalNhap}>
+                            Nhập thêm hàng
+                        </button>
+                    </div>
+                    {/*Modal Sua San Pham*/}
+                    <div className="card-header">
+
+                        <Link to={path}>
+                            <button type="button" className="btn btn-outline-warning"
+                            >
+                                Sửa sản phẩm
+                            </button>
+
+                        </Link>
+                    </div>
+
+                    {/*btn xóa*/}
+                    <div className="card-header">
+                        <div id="headingTwo">
                             <h5 className="mb-0">
                                 <button className="btn btn-outline-danger collapsed" data-toggle="collapse"
                                         data-target={modal} aria-expanded="false"
                                         aria-controls="collapseTwo">
-                                    Xoa
+                                    Xóa
                                 </button>
                             </h5>
                         </div>
@@ -75,12 +103,9 @@ const ProductTable = () => {
                             </div>
                         </div>
                     </div>
+
                 </div>
-                {/*button Nhap hang */}
-                <button type="button" className="btn btn-outline-warning" data-toggle="modal"
-                        data-target={modalNhap}>
-                    Nhap Hang
-                </button>
+
                 {/*MODAL BUTTON NHAP HANG*/}
                 <div className="modal fade" id={id} tabindex="-1" role="dialog" aria-labelledby={id} aria-hidden="true">
                     <div className="modal-dialog" role="document">
@@ -95,16 +120,17 @@ const ProductTable = () => {
                                 <input type="number" id={inputNhap}/>
                             </div>
                             <div className="modal-footer">
-                                <button type="button" className="btn btn-outline-secondary" data-dismiss="modal">Dong
+                                <button type="button" className="btn btn-outline-secondary" data-dismiss="modal">Đóng
                                 </button>
                                 <button type="button"
                                         onClick={() => clickUpdateQuantity(id)}
-                                        className="btn btn-outline-info">Dong y
+                                        className="btn btn-outline-info">Đông ý
                                 </button>
                             </div>
                         </div>
                     </div>
                 </div>
+
 
             </React.Fragment>
         )
@@ -234,8 +260,6 @@ const ProductTable = () => {
             let newProducts = [res.data, ...products];
             setProducts(newProducts);
 
-
-
         } catch (e) {
             console.log(e)
             alert('them that bai')
@@ -259,7 +283,7 @@ const ProductTable = () => {
                     <th>
                         <button type="button" className="btn btn-primary" data-toggle="modal"
                                 data-target="#modal-create-product">
-                            Them Moi San Pham
+                            Thêm mới sản phẩm
                         </button>
 
                         {/*MODAL THEM MOI */}
@@ -268,8 +292,10 @@ const ProductTable = () => {
                             <div className="modal-dialog modal-dialog-centered" role="document">
                                 <div className="modal-content">
                                     <div className="modal-header">
-                                        <h5 className="modal-title" id="exampleModalLongTitle" >Them Moi San Pham</h5>
-                                        <button type="button" className="close" data-dismiss="modal" aria-label="Close" ref={closeRef}>
+                                        <h5 className="modal-title" id="exampleModalLongTitle">Thông tin sản phẩm
+                                            mới</h5>
+                                        <button type="button" className="close" data-dismiss="modal" aria-label="Close"
+                                                ref={closeRef}>
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
@@ -277,9 +303,9 @@ const ProductTable = () => {
                                         {/*name*/}
                                         <div className="input-group mb-3">
                                             <div className="input-group-prepend">
-                                                <span className="input-group-text" id="basic-addon1">ten</span>
+                                                <span className="input-group-text" id="basic-addon1">Tên sản phẩm</span>
                                             </div>
-                                            <input type="text" className="form-control" placeholder="ten san pham"
+                                            <input type="text" className="form-control" placeholder="Tên sản phẩm"
                                                    ref={name}
                                                    aria-label="ten san pham" aria-describedby="basic-addon1"/>
                                         </div>
@@ -287,19 +313,19 @@ const ProductTable = () => {
                                         {/* const quantityNew */}
                                         <div className="input-group mb-3">
                                             <div className="input-group-prepend">
-                                                <span className="input-group-text" id="basic-addon1">so luong</span>
+                                                <span className="input-group-text" id="basic-addon1">Số lượng</span>
                                             </div>
                                             <input type="number" className="form-control" placeholder="ten san pham"
                                                    ref={quantityNew}
-                                                   aria-label="ten san pham" aria-describedby="basic-addon1"/>
+                                                   aria-label="Số lượng" aria-describedby="basic-addon1"/>
                                         </div>
 
                                         {/*     const buyPrice */}
                                         <div className="input-group mb-3">
                                             <div className="input-group-prepend">
-                                                <span className="input-group-text" id="basic-addon1">Gia Nhap</span>
+                                                <span className="input-group-text" id="basic-addon1">Giá nhập</span>
                                             </div>
-                                            <input type="number" className="form-control" placeholder="ten san pham"
+                                            <input type="number" className="form-control" placeholder="Giá nhập"
                                                    ref={buyPrice}
                                                    aria-label="ten san pham" aria-describedby="basic-addon1"/>
                                         </div>
@@ -307,9 +333,9 @@ const ProductTable = () => {
                                         {/*   price */}
                                         <div className="input-group mb-3">
                                             <div className="input-group-prepend">
-                                                <span className="input-group-text" id="basic-addon1">Gia Ban</span>
+                                                <span className="input-group-text" id="basic-addon1">Giá bán</span>
                                             </div>
-                                            <input type="number" className="form-control" placeholder="ten san pham"
+                                            <input type="number" className="form-control" placeholder="Giá bán"
                                                    ref={price}
                                                    aria-label="ten san pham" aria-describedby="basic-addon1"/>
                                         </div>
@@ -317,19 +343,20 @@ const ProductTable = () => {
                                         {/*  const origin   */}
                                         <div className="input-group mb-3">
                                             <div className="input-group-prepend">
-                                                <span className="input-group-text" id="basic-addon1">Xuat Su</span>
+                                                <span className="input-group-text" id="basic-addon1">Xuất sứ</span>
                                             </div>
-                                            <input type="text" className="form-control" placeholder="ten san pham"
+                                            <input type="text" className="form-control" placeholder="Xuất sứ"
                                                    ref={origin}
-                                                   aria-label="ten san pham" aria-describedby="basic-addon1"/>
+                                                   aria-label="Xuất sứ" aria-describedby="basic-addon1"/>
                                         </div>
 
                                         {/*  description */}
                                         <div className="input-group mb-3">
                                             <div className="input-group-prepend">
-                                                <span className="input-group-text" id="basic-addon1">Mo ta </span>
+                                                <span className="input-group-text" id="basic-addon1">Mô tả </span>
                                             </div>
-                                            <textarea className="form-control" rows="10" aria-label="With textarea"
+                                            <textarea placeholder="Mô tả" className="form-control" rows="10"
+                                                      aria-label="With textarea"
                                                       ref={description}></textarea>
                                         </div>
 
@@ -337,7 +364,7 @@ const ProductTable = () => {
                                         <div className="input-group mb-3">
                                             <div className="input-group-prepend">
                                                 <label className="input-group-text"
-                                                       htmlFor="inputGroupSelect01">The Loai</label>
+                                                       htmlFor="inputGroupSelect01">Thể loại</label>
                                             </div>
                                             <select className="custom-select selectCategory" id="inputGroupSelect01"
                                                     ref={category}>
@@ -348,13 +375,13 @@ const ProductTable = () => {
                                         {/*    IMAGE*/}
                                         <div className="input-group mb-3">
                                             <div className="input-group-prepend">
-                                                <span className="input-group-text">Anh </span>
+                                                <span className="input-group-text">Ảnh sản phẩm </span>
                                             </div>
                                             <div className="custom-file">
                                                 <input ref={img} type="file" className="custom-file-input selectImg"
                                                        id="inputGroupFile01"/>
-                                                <label className="custom-file-label" htmlFor="inputGroupFile01">Choose
-                                                    file</label>
+                                                <label className="custom-file-label" htmlFor="inputGroupFile01">Chọn
+                                                    ảnh</label>
                                             </div>
                                         </div>
 
@@ -362,7 +389,7 @@ const ProductTable = () => {
                                         <div className="input-group mb-3">
                                             <div className="input-group-prepend">
                                                 <label className="input-group-text"
-                                                       htmlFor="inputGroupSelect01">Nha cung cap</label>
+                                                       htmlFor="inputGroupSelect01">Nhà cung cấp</label>
                                             </div>
                                             <select className="custom-select selectSupplier" id="inputGroupSelect01"
                                                     ref={supplier}>
@@ -373,10 +400,10 @@ const ProductTable = () => {
                                     </div>
                                     <div className="modal-footer">
                                         <button type="button" className="btn btn-outline-secondary"
-                                                data-dismiss="modal">Dong
+                                                data-dismiss="modal">Đóng
                                         </button>
-                                        <button onClick={clickAddNewProduct} className="btn btn-outline-info">Them san
-                                            pham
+                                        <button onClick={clickAddNewProduct} className="btn btn-outline-info">
+                                            Thêm mới
                                         </button>
                                     </div>
                                 </div>

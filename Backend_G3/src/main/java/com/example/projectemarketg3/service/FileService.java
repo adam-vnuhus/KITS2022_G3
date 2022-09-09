@@ -79,7 +79,7 @@ public class FileService {
             stream.close();
 
 //            String link = "/api/v1/users/" + id + "/files/" + generateFileId;
-            String link = "/api/v1/product/" + id + "/files/" + generateFileId;
+            String link = "/api/admin/product/" + id + "/files/" + generateFileId;
 
 //            User user = userRepository.getUserById(id);
             Product product = productRepository.getProductById(id);

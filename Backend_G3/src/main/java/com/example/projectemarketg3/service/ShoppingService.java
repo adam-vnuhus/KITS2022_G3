@@ -120,7 +120,7 @@ public class ShoppingService {
         User user = userRepository.getUserById(info.getUserId());
 
         if(user.getRole().contains("ADMIN")){
-            status = statusRepository.findById(4L);
+            status = statusRepository.findById(10L);
         }
 
 

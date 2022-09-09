@@ -53,7 +53,7 @@ function MainContent({table}) {
     useEffect(() => {
         TableMetadata({table, setProps})
         setLoading(true);
-    }, [location.pathname])
+    }, [])
 
     useEffect(() => {
         setContent(null);

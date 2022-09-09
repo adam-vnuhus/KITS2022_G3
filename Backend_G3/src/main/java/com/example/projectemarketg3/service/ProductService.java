@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -21,10 +22,15 @@ public class ProductService {
 
     //    Upload file
     public String uploadFile(Long id, MultipartFile file) {
-        if (productRepository.findById(id).isEmpty()) {
+        Optional<Product> product = productRepository.findById(id);
+        if (product.isEmpty()) {
             throw new NotFoundException("khong ton tai san pham co id = " + id);
         }
-        return fileService.uploadFile(id, file);
+        String path = fileService.uploadFile(id, file);
+        product.get().setImage("http://localhost:8080"+path);
+        productRepository.save(product.get());
+
+        return path;
     }
 
     //    xem file
