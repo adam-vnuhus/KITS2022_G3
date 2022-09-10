@@ -3,10 +3,8 @@ package com.example.projectemarketg3.service;
 import com.example.projectemarketg3.dto.DetailDto;
 import com.example.projectemarketg3.dto.InfoUserShoppingDto;
 import com.example.projectemarketg3.dto.RatingDto;
-import com.example.projectemarketg3.dto.UserIdDto;
 import com.example.projectemarketg3.entity.*;
 import com.example.projectemarketg3.repository.*;
-import com.example.projectemarketg3.request.UserRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -77,7 +75,8 @@ public class ShoppingService {
             return null;
         }
     }
-// them san pham tu phuong thuc thanh toan off
+
+    // them san pham tu phuong thuc thanh toan off
     public OrderDetail clickAddDetailOff(@RequestBody DetailDto detailDto) {
         //lay ra san pham tu id
         Optional<Product> product = productRepository.findById(detailDto.getProductId());
@@ -119,7 +118,7 @@ public class ShoppingService {
 //        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userRepository.getUserById(info.getUserId());
 
-        if(user.getRole().contains("ADMIN")){
+        if (user.getRole().contains("ADMIN")) {
             status = statusRepository.findById(10L);
         }
 
@@ -157,7 +156,7 @@ public class ShoppingService {
         Orders order = Orders.builder()
                 .createAt(new Date(System.currentTimeMillis()))
                 .note(info.getNote())
-                .totalPrice(total[0]+(20000+(total[0]*10/100)))
+                .totalPrice(total[0] + (20000 + (total[0] * 10 / 100)))
                 .orderDetails(orderDetails) //
                 .status(status.get())
                 .user(user) //
@@ -204,7 +203,7 @@ public class ShoppingService {
             product.setQuantity(Math.max(product.getQuantity() - s.getQuantity(), 0));
             product.setSold(product.getSold() + s.getQuantity());
 
-            if(product.getQuantity() - s.getQuantity() <=0){
+            if (product.getQuantity() - s.getQuantity() <= 0) {
                 product.setAvailable(false);
             }
 
@@ -238,7 +237,7 @@ public class ShoppingService {
         }
 //        Tru diem khach hang
         User user = orders.get().getUser();
-        Double point = user.getPoint() -(orders.get().getTotalPrice()/100);
+        Double point = user.getPoint() - (orders.get().getTotalPrice() / 100);
         user.setPoint(point);
         userRepository.save(user);
 

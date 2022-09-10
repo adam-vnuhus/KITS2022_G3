@@ -9,7 +9,6 @@ import com.example.projectemarketg3.service.ShoppingService;
 import com.example.projectemarketg3.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
