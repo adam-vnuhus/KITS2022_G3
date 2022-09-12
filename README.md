@@ -1,5 +1,7 @@
 # Link 
-http://103.237.147.34:3000
+http://103.237.147.34:3000  
+- admin : user4@gmail.com / pass : 123  
+- customer : user1@gmail.com / pass 123
 
 # Sơ đồ
 https://drive.google.com/file/d/1Yki64n6TMSo8okWkGDuSFVgBloIOi-tk/view?usp=sharing  
