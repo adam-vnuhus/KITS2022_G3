@@ -2,10 +2,13 @@
 # Slider G3Mart
 https://docs.google.com/presentation/d/1ma5dERY9MIWQXdC5Gz_fOwDwqzyflwSdOmtxdxojzz4/edit?usp=sharing  
 
-# Link 
+# Web 
 http://103.237.147.34:3000  
 - admin : user4@gmail.com / pass : 123  
 - customer : user1@gmail.com / pass 123
+
+# Swagger api 
+/openapi/swagger-ui.html
 
 # API
 https://docs.google.com/spreadsheets/d/1fLxOztTLWghJ04YDTFoTdcMi65mphkpH32EMM7Ifji8/edit?usp=sharing  
