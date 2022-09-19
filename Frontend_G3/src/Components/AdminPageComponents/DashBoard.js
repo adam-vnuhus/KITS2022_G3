@@ -25,6 +25,7 @@ export default function Dashboard(){
     if(purchases!= null){
             list.push(
                 <div className="row mt-5">
+                    <h1>Tháng {month}</h1>
                     <div className="col-xl-4 col-md-4 mb-4">
                         <div className="card border-left-primary shadow h-100 py-2">
                             <div className="card-body">
